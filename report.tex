@@ -1,0 +1,171 @@
+\documentclass[12pt]{article}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{float}
+\begin{document}
+\tableofcontents
+\newpage
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+\section{Requirements Specification and Preliminary Planning}
+\subsection{Requirements Specification}
+\subsection{Preliminary Planning of Tasks}
+\section{Project Presentation}
+\subsection{Company Context}
+\subsubsection{Epidemiology and Clinical Context}
+Breast cancer is the most common disease among women worldwide \cite{iarc2025}. One in 20 women will develop breast cancer in their lifetime, and among them, 30\% will die from the disease. These numbers vary significantly between regions: in the United States, the incidence is higher, with 1 in 10 women developing breast cancer, but with a mortality-to-survival ratio of approximately 16\%. 
+More concerning is the rapid increase in incidence among young women, with an annual growth of 2.1\% from 1990 to 2018 in Europe, for reasons that remain unclear to this day. The good news is that early detection makes a major difference. Stage I breast cancer has a 5-year survival rate above 98\% \cite{nbc_mammo}, whereas this rate drops below 70\% for stage III disease. Tumor progression is highly heterogeneous, but the most aggressive forms can reach stage III in less than one year.
+
+The American College of Radiology (ACR) recommends annual breast cancer screening for all women over the age of 40. Depending on individual risk factors, high-risk patients may be advised to undergo more frequent imaging even before this age.
+\subsubsection{Breast Cancer Screening Pipeline with their Limitations}
+
+The standard technique used for breast cancer screening is mammography. It is an established imaging modality that entered widespread clinical use in the 1960s \cite{komen_stats}. Since then, it has evolved considerably, from a basic 2D X-ray technique to digital breast tomosynthesis, which enables high-resolution 3D imaging of the breast.
+
+Despite being relatively inexpensive, high-throughput, and highly sensitive in non-dense breast tissue, modern mammography has important limitations:
+
+\begin{itemize}
+    \item It is uncomfortable for patients, as it requires breast compression to obtain standardized image quality.
+    \item It involves ionizing radiation, and cumulative exposure can be harmful.
+    \item Most importantly, it is not sufficiently reliable. Sensitivity varies significantly depending on the technique, ranging from as low as 55\% to up to 90\% for more advanced methods. This leads to a non-negligible number of false negatives, which is critical for small aggressive tumors. Specificity is generally higher, around 85\% to 95\%, which is less problematic in a screening context where minimizing false negatives is the priority.
+\end{itemize}
+
+The main reason behind the lack of sensitivity of mammography is the variability of breast anatomy between patients. In the United States, it is estimated \cite{org_breast} that more than 40\% of women over 40 years old have heterogeneous or extremely dense breast tissue. These patients are at higher risk of developing breast cancer, and mammography becomes more difficult to interpret because dense tissue can mask tumours, leading to an increased rate of false negatives. Despite its reduced performance in dense breast populations, mammography remains the standard method for population-wide breast cancer screening.
+
+After a mammography examination, if a suspicious finding is detected or if breast density makes the exam inconclusive, the patient is typically referred to a second-line imaging modality. Depending on the clinical context, this may involve direct biopsy or additional imaging. Ultrasound is the most commonly used second-line technique due to its low cost and accessibility. When performed correctly, it can be highly effective. However, its performance remains strongly operator-dependent, resulting in variable sensitivity and specificity.
+
+The last option in the diagnostic pathway is breast MRI, which is considered the most sensitive imaging modality. However, due to its high cost and operational constraints, it is still not widely accessible. The American College of Radiology (ACR) recommends MRI primarily for high-risk patients, representing approximately 10 to 15\% of the population. These patients typically have a lifetime breast cancer risk of around 20\% and often begin MRI screening before the age of 30.
+
+\subsubsection{Chipiron Low-Field MRI Solution}
+
+Chipiron chose to focus on Magnetic resonance imaging (MRI) for breast imaging applications because as explain eralier it's the most advanced medical imaging modality. It provides a wide variety of soft tissue contrasts at millimetric resolution within a few minutes of acquisition. Depending on the sequence used, MRI enables visualization of anatomical structures, vessels, tumors, lesions, and even subtle differences in temperature or chemical composition within muscles and internal organs. Some MRI sequences also allow monitoring of metabolic or functional activity. For these reasons, MRI is an essential tool for diagnosing many life-threatening diseases, monitoring treatment effectiveness, and enabling image-guided therapy and surgery.
+
+In the context of breast cancer imaging, MRI can accurately detect tumours of only a few millimeters in size, with a sensitivity higher than mammography, which remains the current gold standard for screening. Using contrast agent injection, MRI can also discriminate between benign and malignant lesions, significantly reducing the number of false positives and unnecessary biopsies. 
+
+Despite these advantages, MRI remains largely inaccessible worldwide. MRI systems typically weigh around five tons and require a magnetically shielded room, costly maintenance, and highly trained staff. They operate using strong magnetic fields generated by large superconducting electromagnets. Higher magnetic field strength leads to higher image quality for a given scan time.
+
+For decades, MRI manufacturers have focused on increasing magnetic field strength as the main driver of image quality. Most clinical MRI systems operate at 1.5~T or 3~T, while research systems can reach up to 7~T, with fewer than 150 units deployed worldwide.
+
+However, increasing field strength directly leads to larger, more expensive, and less accessible systems. Therefore, democratizing MRI requires achieving clinically relevant image quality at lower magnetic fields. This idea is not new: since the early days of MRI, engineers have attempted to build low-field clinical systems. However, none of these efforts have yet achieved large-scale clinical adoption due to multiple technical and physical constraints.
+
+In fact,it is very challenging to perform MRI at lower fields, for the reasons stated above: there is less signal and the detection is less sensitive. Consequently, the signal-to-noise ratio (SNR) is low. SNR is the key determinant of image quality: a high SNR yields a high-quality image with fine resolution in a short time.
+
+Moreover, magnetic field strength is by no means the only driver of image quality. Images produced on 1.5 T scanners have improved tremendously since the 1990s, primarily thanks to advances in software and image reconstruction. This is why for Chipiron it's very important to converge the best possible hardware to perform MRI at low fields and make the best use of AI for image enhancement.
+
+At Chipiron, it is believed that within the next decade, low-field MRI could become as routine as standard blood tests, enabling new opportunities in health monitoring and personalized medicine. Since its creation in 2020, the start-up has been working to overcome current limitations and position itself among the first companies to develop and manufacture low-field MRI systems (around 10 mT) dedicated to breast imaging.
+\subsubsection{Chipiron Current Position in Low-Field MRI Development}
+% Chipiron position
+
+\subsubsection{Industry Sector}
+% Over companies working on MRI (hyperfine)
+% Type of technologies
+There are several major companies in the MRI market, such as Siemens Healthineers, GE HealthCare, Philips Healthcare, and Canon Medical Systems. However, these companies mainly focus on high-field MRI systems, typically operating at 1.5~T or 3~T. These high-field MRI manufacturers are not really considered direct competitors to Chipiron.
+
+Indeed, a 10~mT MRI scanner will never replace a 3~T MRI scanner. High-field MRI will still be necessary, especially for the most complex clinical cases. Low-field MRI is instead intended for situations where it can provide enough information to support a clinical decision.
+
+For this reason, it is more relevant to look at companies developing low-field MRI systems, although there are currently only a few of them. The main pioneer in this field is Hyperfine, an American company that received FDA clearance in 2021 for its portable MRI device called \textit{Swoop}. The system operates at 64~mT and was designed mainly for intensive care units and acute stroke diagnosis. Thanks to advanced AI-based reconstruction methods, the image quality has improved significantly.
+
+Despite these impressive improvements, Hyperfine is still searching for a strong product-market fit. One difficulty is that many patients using their MRI are elderly or have limited mobility, making positioning inside the scanner more complicated.
+
+In any case, Hyperfine and Chipiron target very different applications. Hyperfine mainly focuses on brain imaging, while Chipiron is focused on breast imaging.
+% Industrials actors
+The goal of Chipiron is to establish a strong and clearly defined use case, supported by sufficiently reliable technology, in order to attract major industrial partners who could potentially acquire or collaborate with the company. Once Chipiron obtains FDA clearance, it will not have the manufacturing capacity or infrastructure to produce MRI systems at scale. As a result, it will need to partner with large established manufacturers such as Siemens or GE HealthCare to enable large-scale production and distribution.
+
+
+\subsubsection{Markets and Clients}
+
+% United state market (Ask question)
+The market targeted by Chipiron is currently the United States. Obtaining FDA clearance is generally considered more straightforward than achieving CE marking in Europe. In addition, the prevalence of dense breast tissue is higher in the U.S. population than in Europe, which increases the risk of undetected malignant cancers and therefore strengthens the clinical need for improved breast imaging solutions.
+% Who will use the mri (hospital, clinic, ...)
+The goal of Chipiron MRI is to be used in clinic.
+
+\subsubsection{Products and Services}
+
+% What will the companies sell
+% what is the companies selling
+
+\subsubsection{Strategic Objectives}
+
+% Companies strategies
+\subsection{Hosting Department or Service}
+% organigramme (Presentation of the differente teams)
+\subsection{Purpose of the Mission for the Company}
+
+In MRI, contrast agents such as gadolinium are used to help determine whether a lesion is benign or malignant. Radiologists analyze the temporal evolution of the contrast enhancement, known as the dynamic contrast enhancement (DCE).
+The objective is to observe how the signal intensity evolves over time after the injection of the contrast agent. A malignant lesion typically presents a rapid increase in signal intensity followed by a rapid decrease. This behavior is referred to as the \textit{wash-in wash-out} phenomenon and is associated with a high probability of malignancy. 
+In contrast, a benign lesion generally shows a slower enhancement and tends to maintain a high signal intensity over a longer period of time, indicating a lower risk of malignancy.
+For example, in Figure~\ref{fig:dynamic_curve}, the lesion is likely benign because the signal intensity decreases slowly over time after the initial contrast enhancement.
+% Show an example of benign lesion and malign lesion
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{example_curve.png}
+    \caption{Dynamic contrast enhancement curves illustrating benign and malignant lesion behaviors}
+    \label{fig:dynamic_curve}
+    \vspace{0.5cm}
+\end{figure}
+
+The more aggressive the lesion is, the faster the acquisition must be in order to correctly capture the wash-in wash-out dynamics. Consequently, MRI acquisitions need to be accelerated. However, accelerating the acquisition process generally leads to a degradation in image quality.
+Therefore, the objective of this internship is to evaluate different Deep Learning models capable of enhancing image quality after accelerated MRI acquisition, while preserving sufficient temporal and spatial information to accurately analyze the contrast enhancement dynamics over time.
+
+
+\section{Corporate Social Responsibility (CSR) Policy}
+
+\section{Description of the Work Performed}
+\subsection{Methodology}
+% How I am working
+At the beginning of my internship, I had a Notion page listing all the objectives as well as a timeline to track progress and get an idea of how quickly I was expected to advance. I worked mostly on-site, with one or two days of remote work.
+
+I was part of the AI team at Chipiron and supervised by two mentors. We held weekly check-ins to review my progress. During these meetings, I presented the results of the tests I had carried out during the week. They provided feedback on my results and also suggested additional experiments for me to run. I also attended regular meetings with both the software team and the AI team. 
+% What tool I am using
+To accomplish my internship mission, I used several tools that were essential for my work organization and execution.
+
+First of all, I was provided with a work computer. I mainly used Slack to communicate with everyone in the company. It was very useful, as it could be connected to my Google account, especially Google Calendar so I could have acces to my planning and to video calls. Moreover, whenever I had a question, I could ask my supervisor directly on Slack, and I also used it to schedule and organize my weekly tasks.
+
+To run my experiments and models, I worked with two different datasets:
+
+\begin{itemize}
+    \item FastMRI Breast: This dataset consists of MRI data from 300 different patients. The 3D breast volumes have a shape of 192 × 320 × 320 pixels, with a spatial resolution of 1.1 × 1.0 × 1.0 mm. Each sample in the dataset includes four different time-point acquisitions. In the training pipeline, the dataset was split into two parts: 240 samples for training and 60 samples for validation, which were also used for testing.
+    % Check the number o f sample in 
+    \item Mamamia: This dataset contains MRI data from 500 different patients. The 3D volume shapes vary across samples, as does the spatial resolution. Each sample includes between 4 and 6 time-point acquisitions. The main difference compared to the other dataset is that it provides segmentation masks, highlighting the regions where the contrast agent is visible. This allows us to analyze the dynamic behavior of the contrast agent in the breast over time.
+\end{itemize}
+
+Moreover, to be able to train my model without taking to much time I was using different GPU. The first GPU that I was using is called Leviathan it has 16 GB memory, my code was constantly running on this GPU, and I was using the disk of the gpu to store the FastMRI Breast and Mamamia Dataset. I used an other GPU which was called Cthulhu, it was a bigger one with 49 GB memory, I used it to train bigger models. Having access to this GPU was essential for all the code, training and testing otherwise I could have never work on my internship without it.
+I had to connect in ssh with my computer to the machine Leviathan and Cthulhu so all my code was on the machine and I had basically nothing on my computer. After that I could connect remotely in Visual Studio Code to the machine.
+
+Finaly, I was using github. At the beginning of the internship I had my own repository created. The goal was to push my code to save it as much as possible without being scared of doing some wrong manipulation that could impact the code of important repository. In fact, I had a lot to learn with github specialy the most important thing how an Merge request work how to do some good review how to work with copilot, how to work with different branch, how to do some rebase and how to create different issues. All this skills I learnt it step by step during the six month by first doing simply in my repository.
+After that when I started to be a bit more confident on all the important tool that I can used on github. The goal was to do some Merge request on other repository and to add my models and my training pipeline with the other repository that are being used by the company.
+
+\subsection{Design and Development}
+
+\subsubsection{Preprocessing}
+
+Before working on my training pipeline and the different architecture models. I had to prepare the data
+
+\subsubsection{Training pipeline}
+\subsubsection{Architecture models}
+\subsubsection{Testing and Measurements}
+\subsection{Difficulties Encountered}
+\subsection{Problem-Solving Approach}
+%Add noise on the before_contrast
+\subsection{Implementations and Achievements}
+\subsection{Testing and Measurements}
+
+\section{Conclusion and Final Assessment}
+\subsection{Project Status}
+\subsection{Future Work and Continuation}
+\subsection{Contribution to the Company}
+\subsection{Quality Assessment of the Work}
+
+\section{Appendices}
+\subsection{CV Before the Internship}
+\subsection{CV After the Internship (Final Year Engineering)}
+\subsection{Career Prospects}
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
