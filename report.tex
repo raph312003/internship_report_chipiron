@@ -132,17 +132,37 @@ To run my experiments and models, I worked with two different datasets:
     \item Mamamia: This dataset contains MRI data from 500 different patients. The 3D volume shapes vary across samples, as does the spatial resolution. Each sample includes between 4 and 6 time-point acquisitions. The main difference compared to the other dataset is that it provides segmentation masks, highlighting the regions where the contrast agent is visible. This allows us to analyze the dynamic behavior of the contrast agent in the breast over time.
 \end{itemize}
 
-Moreover, to be able to train my model without taking to much time I was using different GPU. The first GPU that I was using is called Leviathan it has 16 GB memory, my code was constantly running on this GPU, and I was using the disk of the gpu to store the FastMRI Breast and Mamamia Dataset. I used an other GPU which was called Cthulhu, it was a bigger one with 49 GB memory, I used it to train bigger models. Having access to this GPU was essential for all the code, training and testing otherwise I could have never work on my internship without it.
-I had to connect in ssh with my computer to the machine Leviathan and Cthulhu so all my code was on the machine and I had basically nothing on my computer. After that I could connect remotely in Visual Studio Code to the machine.
+To train my models within reasonable time constraints, I relied on several GPUs with different computational capacities. The first one, named *Leviathan*, had 16 GB of memory. I mainly ran my code on this machine and used its disk storage to host the FastMRI Breast and Mamamia datasets. I also had access to a second GPU, *Cthulhu*, which was significantly more powerful with 49 GB of memory. It was used for training larger and more computationally demanding models. Without access to these resources, it would have been impossible to complete my internship work.
 
-Finaly, I was using github. At the beginning of the internship I had my own repository created. The goal was to push my code to save it as much as possible without being scared of doing some wrong manipulation that could impact the code of important repository. In fact, I had a lot to learn with github specialy the most important thing how an Merge request work how to do some good review how to work with copilot, how to work with different branch, how to do some rebase and how to create different issues. All this skills I learnt it step by step during the six month by first doing simply in my repository.
-After that when I started to be a bit more confident on all the important tool that I can used on github. The goal was to do some Merge request on other repository and to add my models and my training pipeline with the other repository that are being used by the company.
+Access to these machines was done remotely via SSH. As a result, my entire development environment was hosted on the servers, and my personal computer was only used as an interface. I then connected to the machines using Visual Studio Code through remote development tools, which allowed me to code and execute experiments directly on the GPUs.
+
+In addition, I made extensive use of GitHub throughout the internship. At the beginning, I created a personal repository in order to regularly back up my work and safely experiment without affecting the main company repositories. This helped me progressively learn best practices in version control, including branch management, merge requests, code reviews, rebasing, issue tracking, and the use of Copilot in the development workflow.
+
+Initially, I worked exclusively within my own repository to become familiar with these tools. Once I gained confidence, I started contributing directly to the company’s repositories by submitting merge requests, particularly to integrate my models and training pipelines into the production codebase.
 
 \subsection{Design and Development}
 
 \subsubsection{Preprocessing}
 
-Before working on my training pipeline and the different architecture models. I had to prepare the data
+Before developing my training pipeline and experimenting with different model architectures, I first focused on data preprocessing. This step involved all the necessary procedures to clean, structure, and prepare the dataset before feeding it into the training pipeline and the neural network models.
+
+% Reshaping
+\paragraph{Reshaping}
+
+First, it was necessary to standardize the dataset by resizing all samples to a common shape. For example, in the FastMRI breast dataset, each sample originally has a fixed size of 192 × 320 × 320 pixels. Since each pixel corresponds to an input value for the model, this represents a total of 19,660,800 values per sample. Such a high dimensionality significantly increases both training time and GPU memory requirements.
+
+To address this issue, I reduced the size of all samples from 192 × 320 × 320 to 64 × 80 × 80. The spatial dimensions (height and width) were reduced by a factor of 4, while the depth was reduced by a factor of 3. These reduction factors were chosen empirically with the main objective of decreasing computational cost rather than preserving strict physical consistency. The downsampling was performed using a simple subsampling strategy, where, for example, a factor of 2 consists in retaining one slice out of two, without introducing interpolation noise.
+
+This resizing inevitably changes the spatial resolution of the data, increasing it from approximately 1.1 × 1.0 × 1.0 mm to 3.3 × 4.0 × 4.0 mm. In the context of Chipiron, the target is to achieve a final resolution of 2 mm, so the goal at the end of the internship is to present results for contrast enhancement at this resolution.
+
+To implement this preprocessing, I developed an initial script that takes as input samples of size 192 × 320 × 320 and applies configurable downsampling along each dimension. The processed dataset is then saved in a separate directory.
+
+The Mamaia dataset presents a different challenge, as the samples do not all share the same dimensions. In this case, I reused the same script but without fixed per-axis configuration. Instead, the output shape can be directly specified, allowing flexible resizing for each sample.
+
+% Normalization
+An other important part in the preprocessing stage is the Normalization. In fact it's important to apply the same normalization on each sampled. This stage is very important because it puts all the samples in the same scales. Most of the time it's good to have a normalization between 0 and 1. We use this scale because in deep leraning model we used activation function and for example if you take the the sigmoid function 
+% undersampling
+
 
 \subsubsection{Training pipeline}
 \subsubsection{Architecture models}

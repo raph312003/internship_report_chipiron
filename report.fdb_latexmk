@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex report"] 1779023365.78795 "report.aux" "report.bbl" "report" 1779023367.46708 0
+["bibtex report"] 1779034128.63591 "report.aux" "report.bbl" "report" 1779037565.04141 0
   "./references.bib" 1778853504.20416 1355 20a2df822ee797e5b727bc8b3f7c8d32 ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "report.aux" 1779023367.03337 4943 85558281632aa9119f33d746331c839b "pdflatex"
+  "report.aux" 1779037564.67432 5028 cc432cb24f2063520f95455a7d8eb876 "pdflatex"
   (generated)
   "report.bbl"
   "report.blg"
   (rewritten before read)
-["pdflatex"] 1779023365.99586 "/home/rapha/report/report.tex" "report.pdf" "report" 1779023367.46733 0
+["pdflatex"] 1779037563.55373 "/home/rapha/report/report.tex" "report.pdf" "report" 1779037565.04189 0
   "/etc/texmf/web2c/texmf.cnf" 1777970792.54324 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/rapha/report/report.tex" 1779023363.78138 17838 b7852be4193257b09d847a1d400011b3 ""
+  "/home/rapha/report/report.tex" 1779037563.19032 20361 70f1320cf79f8c6b11c4c54bd53fd699 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -50,10 +50,10 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777970825 5541477 3118940318599480888143717dd32d64 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777970974 3640779 69ad9a6b186cf83896471feb61a8ddb4 ""
   "example_curve.png" 1777989622.65691 427525 6a99e8d26449e1857af6f35785cf3138 ""
-  "report.aux" 1779023367.03337 4943 85558281632aa9119f33d746331c839b "pdflatex"
-  "report.bbl" 1779023365.98537 945 990b87709216254d9ae46de1f1096c7e "bibtex report"
-  "report.tex" 1779023363.78138 17838 b7852be4193257b09d847a1d400011b3 ""
-  "report.toc" 1779023367.03737 2935 d9aec99f7b831b3de4829a6bf2107a13 "pdflatex"
+  "report.aux" 1779037564.67432 5028 cc432cb24f2063520f95455a7d8eb876 "pdflatex"
+  "report.bbl" 1779034128.78341 945 990b87709216254d9ae46de1f1096c7e "bibtex report"
+  "report.tex" 1779037563.19032 20361 70f1320cf79f8c6b11c4c54bd53fd699 ""
+  "report.toc" 1779037564.67432 2979 324c23d58c205dfe7c81ea3fa29e30c6 "pdflatex"
   (generated)
   "report.aux"
   "report.log"
