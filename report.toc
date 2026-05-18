@@ -17,22 +17,28 @@
 \contentsline {section}{\numberline {3}Corporate Social Responsibility (CSR) Policy}{9}{}%
 \contentsline {section}{\numberline {4}Description of the Work Performed}{9}{}%
 \contentsline {subsection}{\numberline {4.1}Methodology}{9}{}%
-\contentsline {subsection}{\numberline {4.2}Design and Development}{10}{}%
-\contentsline {subsubsection}{\numberline {4.2.1}Preprocessing}{10}{}%
-\contentsline {paragraph}{Reshaping}{10}{}%
-\contentsline {subsubsection}{\numberline {4.2.2}Training pipeline}{12}{}%
-\contentsline {subsubsection}{\numberline {4.2.3}Architecture models}{12}{}%
-\contentsline {subsubsection}{\numberline {4.2.4}Testing and Measurements}{12}{}%
-\contentsline {subsection}{\numberline {4.3}Difficulties Encountered}{12}{}%
-\contentsline {subsection}{\numberline {4.4}Problem-Solving Approach}{12}{}%
-\contentsline {subsection}{\numberline {4.5}Implementations and Achievements}{12}{}%
-\contentsline {subsection}{\numberline {4.6}Testing and Measurements}{12}{}%
-\contentsline {section}{\numberline {5}Conclusion and Final Assessment}{12}{}%
-\contentsline {subsection}{\numberline {5.1}Project Status}{12}{}%
-\contentsline {subsection}{\numberline {5.2}Future Work and Continuation}{12}{}%
-\contentsline {subsection}{\numberline {5.3}Contribution to the Company}{12}{}%
-\contentsline {subsection}{\numberline {5.4}Quality Assessment of the Work}{12}{}%
-\contentsline {section}{\numberline {6}Appendices}{12}{}%
-\contentsline {subsection}{\numberline {6.1}CV Before the Internship}{12}{}%
-\contentsline {subsection}{\numberline {6.2}CV After the Internship (Final Year Engineering)}{12}{}%
-\contentsline {subsection}{\numberline {6.3}Career Prospects}{12}{}%
+\contentsline {paragraph}{Datasets}{9}{}%
+\contentsline {paragraph}{GPU}{10}{}%
+\contentsline {paragraph}{Github}{10}{}%
+\contentsline {paragraph}{Weights \& Biases}{10}{}%
+\contentsline {subsection}{\numberline {4.2}Design and Development}{11}{}%
+\contentsline {subsubsection}{\numberline {4.2.1}Preprocessing}{11}{}%
+\contentsline {paragraph}{Reshaping}{11}{}%
+\contentsline {paragraph}{Normalization}{12}{}%
+\contentsline {paragraph}{Downsampling vs Undersampling}{13}{}%
+\contentsline {subsubsection}{\numberline {4.2.2}Training pipeline}{14}{}%
+\contentsline {subsubsection}{\numberline {4.2.3}Architecture models}{14}{}%
+\contentsline {subsubsection}{\numberline {4.2.4}Testing and Measurements}{14}{}%
+\contentsline {subsection}{\numberline {4.3}Difficulties Encountered}{14}{}%
+\contentsline {subsection}{\numberline {4.4}Problem-Solving Approach}{14}{}%
+\contentsline {subsection}{\numberline {4.5}Implementations and Achievements}{14}{}%
+\contentsline {subsection}{\numberline {4.6}Testing and Measurements}{14}{}%
+\contentsline {section}{\numberline {5}Conclusion and Final Assessment}{14}{}%
+\contentsline {subsection}{\numberline {5.1}Project Status}{14}{}%
+\contentsline {subsection}{\numberline {5.2}Future Work and Continuation}{14}{}%
+\contentsline {subsection}{\numberline {5.3}Contribution to the Company}{14}{}%
+\contentsline {subsection}{\numberline {5.4}Quality Assessment of the Work}{14}{}%
+\contentsline {section}{\numberline {6}Appendices}{14}{}%
+\contentsline {subsection}{\numberline {6.1}CV Before the Internship}{14}{}%
+\contentsline {subsection}{\numberline {6.2}CV After the Internship (Final Year Engineering)}{14}{}%
+\contentsline {subsection}{\numberline {6.3}Career Prospects}{14}{}%

@@ -2,6 +2,7 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{amsmath}
 \begin{document}
 \tableofcontents
 \newpage
@@ -123,7 +124,9 @@ I was part of the AI team at Chipiron and supervised by two mentors. We held wee
 To accomplish my internship mission, I used several tools that were essential for my work organization and execution.
 
 First of all, I was provided with a work computer. I mainly used Slack to communicate with everyone in the company. It was very useful, as it could be connected to my Google account, especially Google Calendar so I could have acces to my planning and to video calls. Moreover, whenever I had a question, I could ask my supervisor directly on Slack, and I also used it to schedule and organize my weekly tasks.
-
+%Datasets
+\paragraph{Datasets}
+\mbox{}\\
 To run my experiments and models, I worked with two different datasets:
 
 \begin{itemize}
@@ -132,14 +135,27 @@ To run my experiments and models, I worked with two different datasets:
     \item Mamamia: This dataset contains MRI data from 500 different patients. The 3D volume shapes vary across samples, as does the spatial resolution. Each sample includes between 4 and 6 time-point acquisitions. The main difference compared to the other dataset is that it provides segmentation masks, highlighting the regions where the contrast agent is visible. This allows us to analyze the dynamic behavior of the contrast agent in the breast over time.
 \end{itemize}
 
+% GPU
+\paragraph{GPU}
+\mbox{}\\
 To train my models within reasonable time constraints, I relied on several GPUs with different computational capacities. The first one, named *Leviathan*, had 16 GB of memory. I mainly ran my code on this machine and used its disk storage to host the FastMRI Breast and Mamamia datasets. I also had access to a second GPU, *Cthulhu*, which was significantly more powerful with 49 GB of memory. It was used for training larger and more computationally demanding models. Without access to these resources, it would have been impossible to complete my internship work.
 
 Access to these machines was done remotely via SSH. As a result, my entire development environment was hosted on the servers, and my personal computer was only used as an interface. I then connected to the machines using Visual Studio Code through remote development tools, which allowed me to code and execute experiments directly on the GPUs.
-
+% Github
+\paragraph{Github}
+\mbox{}\\
 In addition, I made extensive use of GitHub throughout the internship. At the beginning, I created a personal repository in order to regularly back up my work and safely experiment without affecting the main company repositories. This helped me progressively learn best practices in version control, including branch management, merge requests, code reviews, rebasing, issue tracking, and the use of Copilot in the development workflow.
 
 Initially, I worked exclusively within my own repository to become familiar with these tools. Once I gained confidence, I started contributing directly to the company’s repositories by submitting merge requests, particularly to integrate my models and training pipelines into the production codebase.
 
+% W&B
+\paragraph{Weights \& Biases}
+\mbox{}\\
+I use a software which is called Weights \& Biases (wandb) to track my model training and to store both training results and model weights.
+
+The main goal is to keep a complete history of each training run by logging metrics such as the training loss and validation loss. This allows me to visualize how both losses evolve over time and to ensure that the model is not overfitting. Moreover, I plot the results on the test dataset using wandb, including different metrics and the various states of the samples.
+
+The most important use of wandb in my workflow is the storage of model weights. This is particularly useful because the trained models can be saved directly on the platform and later retrieved via the API for evaluation or testing. Consequently, a model only needs to be trained once for a given configuration, after which it can be reused without retraining.
 \subsection{Design and Development}
 
 \subsubsection{Preprocessing}
@@ -148,6 +164,7 @@ Before developing my training pipeline and experimenting with different model ar
 
 % Reshaping
 \paragraph{Reshaping}
+\mbox{}\\
 
 First, it was necessary to standardize the dataset by resizing all samples to a common shape. For example, in the FastMRI breast dataset, each sample originally has a fixed size of 192 × 320 × 320 pixels. Since each pixel corresponds to an input value for the model, this represents a total of 19,660,800 values per sample. Such a high dimensionality significantly increases both training time and GPU memory requirements.
 
@@ -160,8 +177,39 @@ To implement this preprocessing, I developed an initial script that takes as inp
 The Mamaia dataset presents a different challenge, as the samples do not all share the same dimensions. In this case, I reused the same script but without fixed per-axis configuration. Instead, the output shape can be directly specified, allowing flexible resizing for each sample.
 
 % Normalization
-An other important part in the preprocessing stage is the Normalization. In fact it's important to apply the same normalization on each sampled. This stage is very important because it puts all the samples in the same scales. Most of the time it's good to have a normalization between 0 and 1. We use this scale because in deep leraning model we used activation function and for example if you take the the sigmoid function 
+\paragraph{Normalization}
+\mbox{}\\
+
+Normalization is an important step in the preprocessing pipeline. It is essential to apply the same normalization method to every sample so that all inputs are represented on a comparable scale. This improves the stability of the training process and helps the deep learning model learn more effectively.
+
+In most cases, it is preferable to normalize the data to a range between 0 and 1. This is particularly important because neural networks rely on activation functions whose behavior strongly depends on the scale of the input values. For instance, the sigmoid activation function produces outputs between 0 and 1. If very large input values are used, such as 100 and 200 within an intensity range of 0--255, both outputs will be extremely close to 1. Consequently, the network will struggle to distinguish between these inputs. On the other hand, when the data are normalized within the interval $[0,1]$, the sigmoid function generates more distinct outputs, enabling the model to better capture variations in the data.
+
+The most commonly used normalization method is the min--max normalization:
+\[
+x_{\mathrm{norm}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}}
+\]
+
+However, this approach can become problematic in the presence of extreme outlier values. For example, if a sample contains a value of 1000 while most values lie between 0 and 100, the majority of the normalized values will be compressed close to 0. As a result, the contrast between typical values is significantly reduced.
+
+To overcome this limitation, I used percentile-based normalization:
+\[
+x_{\mathrm{norm}} = \frac{x - P_1(x)}{P_{99}(x) - P_1(x)}
+\]
+
+where $P_1(x)$ and $P_{99}(x)$ denote the 1st and 99th percentiles of the data distribution, respectively.
+
+The main advantage of this method is that it reduces the influence of extreme values by ignoring the lowest 1\% and highest 1\% of the data during normalization. This allows the majority of the dataset to be normalized more effectively while preventing outliers from dominating the scaling process.
+
 % undersampling
+\paragraph{Downsampling vs Undersampling}
+\mbox{}\\
+
+
+% Imgspace
+
+% kspace
+
+
 
 
 \subsubsection{Training pipeline}
