@@ -204,8 +204,16 @@ The main advantage of this method is that it reduces the influence of extreme va
 \paragraph{Downsampling vs Undersampling}
 \mbox{}\\
 
+As explained earlier, in order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition. The two datasets used in this work contain clean data; therefore, all samples must be artificially degraded to simulate data acquired from a low-field MRI system with accelerated acquisition.
+
+Two main methods can be used for this purpose:
 
 % Imgspace
+The first method consists of downsampling. Downsampling is the process of reducing the number of data points in each sample of a dataset. It is commonly used to reduce storage requirements, computational cost, or transmission load. However, it is also used as a degradation strategy to simulate low-field MRI data. This is achieved by increasing the downsampling factor and adding Gaussian noise.
+
+In our case, after reshaping, the data have dimensions $64 \times 80 \times 80$, and a downsampling factor of 2 is applied, effectively reducing the spatial resolution by a factor of two.
+
+However, in order to preserve the original sample size, a resizing operation is applied within the degradation function. This allows the downsampling effect to be simulated while keeping the input shape unchanged. In addition, Gaussian noise is added to each voxel. The noise is modeled as a zero-mean Gaussian distribution with a standard deviation of 0.01. This value was selected empirically by visual comparison with real low-field MRI images, and $\sigma = 0.01$ was found to produce realistic noise levels.
 
 % kspace
 
