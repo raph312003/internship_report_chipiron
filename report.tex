@@ -40,7 +40,7 @@ The last option in the diagnostic pathway is breast MRI, which is considered the
 
 \subsubsection{Chipiron Low-Field MRI Solution}
 
-Chipiron chose to focus on Magnetic resonance imaging (MRI) for breast imaging applications because as explain eralier it's the most advanced medical imaging modality. It provides a wide variety of soft tissue contrasts at millimetric resolution within a few minutes of acquisition. Depending on the sequence used, MRI enables visualization of anatomical structures, vessels, tumors, lesions, and even subtle differences in temperature or chemical composition within muscles and internal organs. Some MRI sequences also allow monitoring of metabolic or functional activity. For these reasons, MRI is an essential tool for diagnosing many life-threatening diseases, monitoring treatment effectiveness, and enabling image-guided therapy and surgery.
+Chipiron chose to focus on magnetic resonance imaging (MRI) for breast imaging applications because, as explained earlier, it is the most advanced medical imaging modality. It provides a wide variety of soft tissue contrasts at millimetric resolution within a few minutes of acquisition. Depending on the sequence used, MRI enables visualization of anatomical structures, vessels, tumors, lesions, and even subtle differences in temperature or chemical composition within muscles and internal organs. Some MRI sequences also allow monitoring of metabolic or functional activity. For these reasons, MRI is an essential tool for diagnosing many life-threatening diseases, monitoring treatment effectiveness, and enabling image-guided therapy and surgery.
 
 In the context of breast cancer imaging, MRI can accurately detect tumours of only a few millimeters in size, with a sensitivity higher than mammography, which remains the current gold standard for screening. Using contrast agent injection, MRI can also discriminate between benign and malignant lesions, significantly reducing the number of false positives and unnecessary biopsies. 
 
@@ -50,9 +50,9 @@ For decades, MRI manufacturers have focused on increasing magnetic field strengt
 
 However, increasing field strength directly leads to larger, more expensive, and less accessible systems. Therefore, democratizing MRI requires achieving clinically relevant image quality at lower magnetic fields. This idea is not new: since the early days of MRI, engineers have attempted to build low-field clinical systems. However, none of these efforts have yet achieved large-scale clinical adoption due to multiple technical and physical constraints.
 
-In fact,it is very challenging to perform MRI at lower fields, for the reasons stated above: there is less signal and the detection is less sensitive. Consequently, the signal-to-noise ratio (SNR) is low. SNR is the key determinant of image quality: a high SNR yields a high-quality image with fine resolution in a short time.
+In fact, it is very challenging to perform MRI at lower fields, for the reasons stated above: there is less signal and the detection is less sensitive. Consequently, the signal-to-noise ratio (SNR) is low. SNR is the key determinant of image quality: a high SNR yields a high-quality image with fine resolution in a short time.
 
-Moreover, magnetic field strength is by no means the only driver of image quality. Images produced on 1.5 T scanners have improved tremendously since the 1990s, primarily thanks to advances in software and image reconstruction. This is why for Chipiron it's very important to converge the best possible hardware to perform MRI at low fields and make the best use of AI for image enhancement.
+Moreover, magnetic field strength is by no means the only driver of image quality. Images produced on 1.5~T scanners have improved tremendously since the 1990s, primarily thanks to advances in software and image reconstruction. This is why, for Chipiron, it is very important to combine the best possible hardware to perform MRI at low fields and make the best use of AI for image enhancement.
 
 At Chipiron, it is believed that within the next decade, low-field MRI could become as routine as standard blood tests, enabling new opportunities in health monitoring and personalized medicine. Since its creation in 2020, the start-up has been working to overcome current limitations and position itself among the first companies to develop and manufacture low-field MRI systems (around 10 mT) dedicated to breast imaging.
 \subsubsection{Chipiron Current Position in Low-Field MRI Development}
@@ -123,7 +123,7 @@ I was part of the AI team at Chipiron and supervised by two mentors. We held wee
 % What tool I am using
 To accomplish my internship mission, I used several tools that were essential for my work organization and execution.
 
-First of all, I was provided with a work computer. I mainly used Slack to communicate with everyone in the company. It was very useful, as it could be connected to my Google account, especially Google Calendar so I could have acces to my planning and to video calls. Moreover, whenever I had a question, I could ask my supervisor directly on Slack, and I also used it to schedule and organize my weekly tasks.
+First of all, I was provided with a work computer. I mainly used Slack to communicate with everyone in the company. It was very useful, as it could be connected to my Google account, especially Google Calendar so I could have access to my planning and to video calls. Moreover, whenever I had a question, I could ask my supervisor directly on Slack, and I also used it to schedule and organize my weekly tasks.
 %Datasets
 \paragraph{Datasets}
 \mbox{}\\
@@ -138,11 +138,11 @@ To run my experiments and models, I worked with two different datasets:
 % GPU
 \paragraph{GPU}
 \mbox{}\\
-To train my models within reasonable time constraints, I relied on several GPUs with different computational capacities. The first one, named *Leviathan*, had 16 GB of memory. I mainly ran my code on this machine and used its disk storage to host the FastMRI Breast and Mamamia datasets. I also had access to a second GPU, *Cthulhu*, which was significantly more powerful with 49 GB of memory. It was used for training larger and more computationally demanding models. Without access to these resources, it would have been impossible to complete my internship work.
+To train my models within reasonable time constraints, I relied on several GPUs with different computational capacities. The first one, named \textit{Leviathan}, had 16~GB of memory. I mainly ran my code on this machine and used its disk storage to host the FastMRI Breast and Mamamia datasets. I also had access to a second GPU, \textit{Cthulhu}, which was significantly more powerful with 49~GB of memory. It was used for training larger and more computationally demanding models. Without access to these resources, it would have been impossible to complete my internship work.
 
 Access to these machines was done remotely via SSH. As a result, my entire development environment was hosted on the servers, and my personal computer was only used as an interface. I then connected to the machines using Visual Studio Code through remote development tools, which allowed me to code and execute experiments directly on the GPUs.
-% Github
-\paragraph{Github}
+% GitHub
+\paragraph{GitHub}
 \mbox{}\\
 In addition, I made extensive use of GitHub throughout the internship. At the beginning, I created a personal repository in order to regularly back up my work and safely experiment without affecting the main company repositories. This helped me progressively learn best practices in version control, including branch management, merge requests, code reviews, rebasing, issue tracking, and the use of Copilot in the development workflow.
 
@@ -216,17 +216,17 @@ In our case, after reshaping, the data have dimensions $64 \times 80 \times 80$,
 However, in order to preserve the original sample size, a resizing operation is applied within the degradation function. This allows the downsampling effect to be simulated while keeping the input shape unchanged. In addition, Gaussian noise is added to each voxel. The noise is modeled as a zero-mean Gaussian distribution with a standard deviation of 0.01. This value was selected empirically by visual comparison with real low-field MRI images, and $\sigma = 0.01$ was found to produce realistic noise levels.
 
 % kspace
-The second methods is to used undersampling. The undersampling methods is happening in the frequency domain not in the spatial domain. Indeed undersampling is a way of removing information in the kspace by applying some mask. 
-% what is kspace
-kspace is the way of representing the signal from the MRI acquisition. The antena of MRI will capte the radio frequency signal from the relaxation and we used gradient to transform position into phase and frequency, this is why we can transform our signal into a trajectories in the kspace. To reconstruct the image we used an inverse fourier transform and it allowing us to be in spatial mode.
-% How does kspace work
-At the center of the kspace we can find the low frequency which represent the global intensity and the contrast of the image. At the edge we can find the high frequency which represent the details and the outline of the image. When we will applied a mask to not get all acquisition we will try to save the most center kspace as possible because this where we got the most important part of the information to reconstruct the image. 
+The second method is undersampling. Undersampling is performed in the frequency domain (k-space) rather than in the spatial domain: it removes k-space samples by applying a sampling mask.
+k-space is a representation of the MRI acquisition signal. The RF coil captures the signal during relaxation, and gradients encode position into phase and frequency, which maps the signal to trajectories in k-space.
+The image is reconstructed using an inverse Fourier transform, which brings the data back to the spatial domain.
+At the center of k-space are low spatial frequencies that encode global intensity and contrast; at the edges are high spatial frequencies that encode fine details and boundaries.
+When applying an undersampling mask, we typically preserve the center of k-space as much as possible because it contains the most important information for reconstruction.
 % Why undersampling
-The underampling methods is very interesting because to fasten MRI acquisition we used underampling methods so by using undersampling we have more chance of having data in input close to image at the output of a low-field MRI acquisition. By doing that we used 3 different type of masks which are the cartesian mask and the radial mask and  3D radial mask:
+The undersampling approach is particularly relevant for accelerating MRI acquisition, since it better reflects what is produced by a low-field MRI scanner. In this work, I used three types of masks: Cartesian, radial, and 3D radial.
 
 \mbox{}\\
 % How we created the mask
-We can create this 3 maks by first creating the trajectories. The trajectories is the way the MRI get all the kspace acquisition. They are some important parameters that are required to create each trajectories and after used this trajectories as binary mask. 
+We can create these three masks by first generating the corresponding trajectories. A trajectory describes how the MRI system samples k-space during acquisition; we then use the sampled locations as a binary mask.
 
 For each trajectory type, the configuration can be divided into three main parts: the acquisition parameters, the readout parameters, and the trajectory parameters.
 

@@ -19,7 +19,7 @@
 \contentsline {subsection}{\numberline {4.1}Methodology}{9}{}%
 \contentsline {paragraph}{Datasets}{9}{}%
 \contentsline {paragraph}{GPU}{10}{}%
-\contentsline {paragraph}{Github}{10}{}%
+\contentsline {paragraph}{GitHub}{10}{}%
 \contentsline {paragraph}{Weights \& Biases}{10}{}%
 \contentsline {subsection}{\numberline {4.2}Design and Development}{11}{}%
 \contentsline {subsubsection}{\numberline {4.2.1}Preprocessing}{11}{}%
