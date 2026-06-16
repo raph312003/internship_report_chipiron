@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.5.5)  2 JUN 2026 17:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.5.5)  16 JUN 2026 10:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -189,148 +189,210 @@ Overfull \hbox (8.72781pt too wide) in paragraph at lines 13--13
  []
 
 [3] [4{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [5] [6] [7]
-<example_curve.png, id=29, 845.0772pt x 284.262pt>
-File: example_curve.png Graphic file (type png)
-<use example_curve.png>
-Package pdftex.def Info: example_curve.png  used on input line 105.
+<image/example_curve.png, id=29, 845.0772pt x 284.262pt>
+File: image/example_curve.png Graphic file (type png)
+<use image/example_curve.png>
+Package pdftex.def Info: image/example_curve.png  used on input line 167.
 (pdftex.def)             Requested size: 292.5pt x 98.38712pt.
-
-Overfull \hbox (2.01366pt too wide) in paragraph at lines 115--115
+ [8]
+Overfull \hbox (2.01366pt too wide) in paragraph at lines 179--179
 []\OT1/cmr/bx/n/17.28 Corporate So-cial Re-spon-si-bil-ity (CSR) Pol-
  []
 
-[8 <./example_curve.png>] [9] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 167--168
+[9 <./image/example_curve.png>] [10] [11]
+Underfull \hbox (badness 10000) in paragraph at lines 260--261
 
  []
 
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 181--182
-
- []
-
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 205--206
+<image/Resolution_difference.png, id=42, 662.475pt x 335.45325pt>
+File: image/Resolution_difference.png Graphic file (type png)
+<use image/Resolution_difference.png>
+Package pdftex.def Info: image/Resolution_difference.png  used on input line 277.
+(pdftex.def)             Requested size: 292.5pt x 148.11172pt.
+[12 <./image/Resolution_difference.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
 
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 234--235
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
 
- []
-
-
-Overfull \hbox (44.44942pt too wide) in paragraph at lines 236--237
-[]\OT1/cmr/m/n/12 The ac-qui-si-tion con-fig-u-ra-tion is com-mon to all tra-jec-tory types (\OT1/cmtt/m/n/12 decay[]cartesian\OT1/cmr/m/n/12 ,
  []
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 292--293
+Underfull \hbox (badness 10000) in paragraph at lines 368--369
 
+ []
+
+
+Overfull \hbox (44.44942pt too wide) in paragraph at lines 370--372
+[]\OT1/cmr/m/n/12 The ac-qui-si-tion con-fig-u-ra-tion is com-mon to all tra-jec-tory types (\OT1/cmtt/m/n/12 decay[]cartesian\OT1/cmr/m/n/12 ,
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 301--302
+Underfull \hbox (badness 10000) in paragraph at lines 435--436
 
- []
-
-
-Overfull \hbox (14.54436pt too wide) in paragraph at lines 319--320
-\OT1/cmr/m/n/12 sity is con-cen-trated to-ward the cen-ter of k-space. A high value of \OT1/cmtt/m/n/12 density[]decay
  []
 
 [16]
-<image/decay_cartesian_mask.png, id=62, 338.4645pt x 293.29575pt>
+Underfull \hbox (badness 10000) in paragraph at lines 445--446
+
+ []
+
+
+Overfull \hbox (14.54436pt too wide) in paragraph at lines 463--465
+\OT1/cmr/m/n/12 sity is con-cen-trated to-ward the cen-ter of k-space. A high value of \OT1/cmtt/m/n/12 density[]decay
+ []
+
+<image/decay_cartesian_mask.png, id=65, 338.4645pt x 293.29575pt>
 File: image/decay_cartesian_mask.png Graphic file (type png)
 <use image/decay_cartesian_mask.png>
-Package pdftex.def Info: image/decay_cartesian_mask.png  used on input line 328.
+Package pdftex.def Info: image/decay_cartesian_mask.png  used on input line 476.
 (pdftex.def)             Requested size: 292.5pt x 253.4825pt.
-<image/stack_of_radial_mask.png, id=64, 296.307pt x 307.74976pt>
+[17]
+<image/decay_cartesian_trajectories.png, id=69, 310.761pt x 284.262pt>
+File: image/decay_cartesian_trajectories.png Graphic file (type png)
+<use image/decay_cartesian_trajectories.png>
+Package pdftex.def Info: image/decay_cartesian_trajectories.png  used on input line 486.
+(pdftex.def)             Requested size: 292.5pt x 267.56631pt.
+ [18 <./image/decay_cartesian_mask.png>]
+<image/stack_of_radial_mask.png, id=74, 296.307pt x 307.74976pt>
 File: image/stack_of_radial_mask.png Graphic file (type png)
 <use image/stack_of_radial_mask.png>
-Package pdftex.def Info: image/stack_of_radial_mask.png  used on input line 347.
+Package pdftex.def Info: image/stack_of_radial_mask.png  used on input line 511.
 (pdftex.def)             Requested size: 292.5pt x 303.81854pt.
- [17 <./image/decay_cartesian_mask.png>]
-Overfull \hbox (9.88603pt too wide) in paragraph at lines 353--355
+ [19 <./image/decay_cartesian_trajectories.png>]
+<image/stack_of_radial_trajectories.png, id=80, 310.761pt x 284.262pt>
+File: image/stack_of_radial_trajectories.png Graphic file (type png)
+<use image/stack_of_radial_trajectories.png>
+Package pdftex.def Info: image/stack_of_radial_trajectories.png  used on input line 520.
+(pdftex.def)             Requested size: 292.5pt x 267.56631pt.
+ [20 <./image/stack_of_radial_mask.png>]
+Overfull \hbox (9.88603pt too wide) in paragraph at lines 526--528
 \OT1/cmr/m/n/12 tun-able pa-ram-e-ters, as it shares the same con-fig-u-ra-tion as the \OT1/cmtt/m/n/12 stack[]of[]radial
  []
 
-<image/phyllotaxis_radial_mask.png, id=69, 341.47575pt x 344.487pt>
+<image/phyllotaxis_radial_mask.png, id=85, 341.47575pt x 344.487pt>
 File: image/phyllotaxis_radial_mask.png Graphic file (type png)
 <use image/phyllotaxis_radial_mask.png>
-Package pdftex.def Info: image/phyllotaxis_radial_mask.png  used on input line 359.
+Package pdftex.def Info: image/phyllotaxis_radial_mask.png  used on input line 532.
 (pdftex.def)             Requested size: 292.5pt x 295.08084pt.
-[18 <./image/stack_of_radial_mask.png>]
-Overfull \hbox (13.1802pt too wide) in paragraph at lines 365--366
+[21 <./image/stack_of_radial_trajectories.png>]
+Overfull \hbox (13.1802pt too wide) in paragraph at lines 538--540
 []\OT1/cmr/m/n/12 The pa-ram-e-ters as-so-ci-ated with the \OT1/cmtt/m/n/12 stack[]of[]radial \OT1/cmr/m/n/12 and \OT1/cmtt/m/n/12 decay[]cartesian
  []
 
-[19 <./image/phyllotaxis_radial_mask.png>]
-<image/decay_cartesian_example.png, id=79, 792.561pt x 271.61475pt>
+[22 <./image/phyllotaxis_radial_mask.png>]
+<image/decay_cartesian_example.png, id=94, 792.561pt x 271.61475pt>
 File: image/decay_cartesian_example.png Graphic file (type png)
 <use image/decay_cartesian_example.png>
-Package pdftex.def Info: image/decay_cartesian_example.png  used on input line 384.
+Package pdftex.def Info: image/decay_cartesian_example.png  used on input line 567.
 (pdftex.def)             Requested size: 292.5pt x 100.24306pt.
-<image/stack_of_radial_example.png, id=80, 655.248pt x 219.82124pt>
+<image/stack_of_radial_example.png, id=95, 655.248pt x 219.82124pt>
 File: image/stack_of_radial_example.png Graphic file (type png)
 <use image/stack_of_radial_example.png>
-Package pdftex.def Info: image/stack_of_radial_example.png  used on input line 393.
+Package pdftex.def Info: image/stack_of_radial_example.png  used on input line 576.
 (pdftex.def)             Requested size: 292.5pt x 98.1304pt.
- [20 <./image/decay_cartesian_example.png>]
-<image/stack_of_radial3D_example.png, id=85, 734.745pt x 248.72925pt>
+ [23 <./image/decay_cartesian_example.png>]
+<image/stack_of_radial3D_example.png, id=100, 734.745pt x 248.72925pt>
 File: image/stack_of_radial3D_example.png Graphic file (type png)
 <use image/stack_of_radial3D_example.png>
-Package pdftex.def Info: image/stack_of_radial3D_example.png  used on input line 402.
+Package pdftex.def Info: image/stack_of_radial3D_example.png  used on input line 585.
 (pdftex.def)             Requested size: 292.5pt x 99.01932pt.
- (./report.bbl [21 <./image/stack_of_radial_example.png> <./image/stack_of_radial3D_example.png>]
-Underfull \hbox (badness 4168) in paragraph at lines 9--12
-[]\OT1/cmr/m/n/12 National Breast Can-cer Or-ga-ni-za-tion.  Na-tional mam-mog-ra-phy
+ (./report.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
+[]\OT1/cmr/m/n/12 American Can-cer So-ci-ety.  Lim-i-ta-tions of mam-mo-grams.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
+\OT1/cmtt/m/n/12 https : / / www . cancer . org / cancer / types / breast-[]cancer /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
+\OT1/cmtt/m/n/12 screening-[]tests-[]and-[]early-[]detection / mammograms /
+ []
+
+[24 <./image/stack_of_radial_example.png> <./image/stack_of_radial3D_example.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 9--12
+[]\OT1/cmr/m/n/12 American Can-cer So-ci-ety.  What de-fine a highr
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 9--12
+\OT1/cmr/m/n/12 risk pa-tient.  $\OT1/cmtt/m/n/12 https : / / www . cancer . org / cancer / types /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--12
+\OT1/cmtt/m/n/12 breast-[]cancer / screening-[]tests-[]and-[]early-[]detection /
+ []
+
+
+Overfull \hbox (133.45284pt too wide) in paragraph at lines 9--12
+\OT1/cmtt/m/n/12 american-[]cancer-[]society-[]recommendations-[]for-[]the-[]early-[]detection-[]of-[]breast-[]cancer .
+ []
+
+[25]
+Underfull \hbox (badness 4168) in paragraph at lines 24--27
+[]\OT1/cmr/m/n/12 National Breast Can-cer Or-ga-ni-za-tion.  Na-tional mam-mog-ra-phy
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--27
 \OT1/cmr/m/n/12 day in-for-ma-tion.  $\OT1/cmtt/m/n/12 https : / / www . nationalbreastcancer . org /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--17
-\OT1/cmr/m/n/12 for-ma-tion.  $\OT1/cmtt/m/n/12 https : / / www . cancer . fr / professionnels-[]de-[]sante /
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
+[]\OT1/cmr/m/n/12 National Breast Can-cer Or-ga-ni-za-tion.  Preva-lence of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--17
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
+\OT1/cmr/m/n/12 mam-mo-graph-i-cally dense breasts in the united states.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
+\OT1/cmtt/m/n/12 https : / / www . cancer . fr / professionnels-[]de-[]sante /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
 \OT1/cmtt/m/n/12 veille / nota-[]bene-[]cancer / bulletin-[]n-[]243 /
  []
 
 
-Overfull \hbox (36.91664pt too wide) in paragraph at lines 14--17
+Overfull \hbox (36.91664pt too wide) in paragraph at lines 29--32
 \OT1/cmtt/m/n/12 prevalence-[]of-[]mammographically-[]dense-[]breasts-[]in-[]the-[]united-[]states$\OT1/cmr/m/n/12 ,
  []
 
-[22]
-Underfull \hbox (badness 2591) in paragraph at lines 19--22
+
+Underfull \hbox (badness 2591) in paragraph at lines 34--37
 \OT1/cmr/m/n/12 tics.  $\OT1/cmtt/m/n/12 https : / / www . komen . org / breast-[]cancer / facts-[]statistics /
  []
 
-) [23] (./report.aux)
+) [26] (./report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2835 strings out of 467533
- 45594 string characters out of 5422139
- 456636 words of memory out of 5000000
- 31713 multiletter control sequences out of 15000+600000
+ 2862 strings out of 467533
+ 46655 string characters out of 5422139
+ 455716 words of memory out of 5000000
+ 31740 multiletter control sequences out of 15000+600000
  633502 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 59i,6n,67p,798b,297s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 59i,6n,67p,323b,297s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on report.pdf (23 pages, 925677 bytes).
+Output written on report.pdf (26 pages, 1493839 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
+ 149 PDF objects out of 1000 (max. 8388607)
+ 85 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -4,45 +4,46 @@
 \contentsline {subsection}{\numberline {1.2}Preliminary Planning of Tasks}{3}{}%
 \contentsline {section}{\numberline {2}Project Presentation}{3}{}%
 \contentsline {subsection}{\numberline {2.1}Company Context}{3}{}%
-\contentsline {subsubsection}{\numberline {2.1.1}Epidemiology and Clinical Context}{3}{}%
-\contentsline {subsubsection}{\numberline {2.1.2}Breast Cancer Screening Pipeline with their Limitations}{3}{}%
-\contentsline {subsubsection}{\numberline {2.1.3}Chipiron Low-Field MRI Solution}{5}{}%
-\contentsline {subsubsection}{\numberline {2.1.4}Chipiron Current Position in Low-Field MRI Development}{6}{}%
-\contentsline {subsubsection}{\numberline {2.1.5}Industry Sector}{6}{}%
-\contentsline {subsubsection}{\numberline {2.1.6}Markets and Clients}{7}{}%
-\contentsline {subsubsection}{\numberline {2.1.7}Products and Services}{7}{}%
-\contentsline {subsubsection}{\numberline {2.1.8}Strategic Objectives}{7}{}%
-\contentsline {subsection}{\numberline {2.2}Hosting Department or Service}{7}{}%
-\contentsline {subsection}{\numberline {2.3}Purpose of the Mission for the Company}{7}{}%
+\contentsline {subsubsection}{\numberline {2.1.1}Chipiron global context}{3}{}%
+\contentsline {subsubsection}{\numberline {2.1.2}Epidemiology and Clinical Context}{4}{}%
+\contentsline {subsubsection}{\numberline {2.1.3}Breast Cancer Screening Pipeline with their Limitations}{4}{}%
+\contentsline {subsubsection}{\numberline {2.1.4}Low-Field MRI Solution}{5}{}%
+\contentsline {subsubsection}{\numberline {2.1.5}Chipiron Current Position in Low-Field MRI Development}{7}{}%
+\contentsline {subsubsection}{\numberline {2.1.6}Industry Sector}{7}{}%
+\contentsline {subsubsection}{\numberline {2.1.7}Markets and Clients}{8}{}%
+\contentsline {subsubsection}{\numberline {2.1.8}Products and Services}{8}{}%
+\contentsline {subsubsection}{\numberline {2.1.9}Strategic Objectives}{8}{}%
+\contentsline {subsection}{\numberline {2.2}Hosting Department or Service}{8}{}%
+\contentsline {subsection}{\numberline {2.3}Purpose of the Mission for the Company}{8}{}%
 \contentsline {section}{\numberline {3}Corporate Social Responsibility (CSR) Policy}{9}{}%
 \contentsline {section}{\numberline {4}Description of the Work Performed}{9}{}%
 \contentsline {subsection}{\numberline {4.1}Methodology}{9}{}%
-\contentsline {paragraph}{Datasets}{9}{}%
+\contentsline {paragraph}{Datasets}{10}{}%
 \contentsline {paragraph}{GPU}{10}{}%
-\contentsline {paragraph}{GitHub}{10}{}%
-\contentsline {paragraph}{Weights \& Biases}{10}{}%
+\contentsline {paragraph}{GitHub}{11}{}%
+\contentsline {paragraph}{Weights \& Biases}{11}{}%
 \contentsline {subsection}{\numberline {4.2}Design and Development}{11}{}%
 \contentsline {subsubsection}{\numberline {4.2.1}Preprocessing}{11}{}%
-\contentsline {paragraph}{Reshaping}{11}{}%
-\contentsline {paragraph}{Normalization}{12}{}%
-\contentsline {paragraph}{Downsampling vs Undersampling}{13}{}%
-\contentsline {paragraph}{Acquisition}{14}{}%
+\contentsline {paragraph}{Reshaping}{12}{}%
+\contentsline {paragraph}{Normalization}{13}{}%
+\contentsline {paragraph}{Downsampling vs Undersampling}{14}{}%
+\contentsline {paragraph}{Acquisition}{15}{}%
 \contentsline {paragraph}{Readout}{16}{}%
-\contentsline {paragraph}{Trajectory}{16}{}%
-\contentsline {paragraph}{Noise in kspace}{19}{}%
-\contentsline {subsubsection}{\numberline {4.2.2}Training pipeline}{22}{}%
-\contentsline {subsubsection}{\numberline {4.2.3}Architecture models}{22}{}%
-\contentsline {subsubsection}{\numberline {4.2.4}Testing and Measurements}{22}{}%
-\contentsline {subsection}{\numberline {4.3}Difficulties Encountered}{22}{}%
-\contentsline {subsection}{\numberline {4.4}Problem-Solving Approach}{22}{}%
-\contentsline {subsection}{\numberline {4.5}Implementations and Achievements}{22}{}%
-\contentsline {subsection}{\numberline {4.6}Testing and Measurements}{22}{}%
-\contentsline {section}{\numberline {5}Conclusion and Final Assessment}{22}{}%
-\contentsline {subsection}{\numberline {5.1}Project Status}{22}{}%
-\contentsline {subsection}{\numberline {5.2}Future Work and Continuation}{22}{}%
-\contentsline {subsection}{\numberline {5.3}Contribution to the Company}{22}{}%
-\contentsline {subsection}{\numberline {5.4}Quality Assessment of the Work}{22}{}%
-\contentsline {section}{\numberline {6}Appendices}{22}{}%
-\contentsline {subsection}{\numberline {6.1}CV Before the Internship}{22}{}%
-\contentsline {subsection}{\numberline {6.2}CV After the Internship (Final Year Engineering)}{22}{}%
-\contentsline {subsection}{\numberline {6.3}Career Prospects}{22}{}%
+\contentsline {paragraph}{Trajectory}{17}{}%
+\contentsline {paragraph}{Noise in kspace}{22}{}%
+\contentsline {subsubsection}{\numberline {4.2.2}Training pipeline}{25}{}%
+\contentsline {subsubsection}{\numberline {4.2.3}Architecture models}{25}{}%
+\contentsline {subsubsection}{\numberline {4.2.4}Testing and Measurements}{25}{}%
+\contentsline {subsection}{\numberline {4.3}Difficulties Encountered}{25}{}%
+\contentsline {subsection}{\numberline {4.4}Problem-Solving Approach}{25}{}%
+\contentsline {subsection}{\numberline {4.5}Implementations and Achievements}{25}{}%
+\contentsline {subsection}{\numberline {4.6}Testing and Measurements}{25}{}%
+\contentsline {section}{\numberline {5}Conclusion and Final Assessment}{25}{}%
+\contentsline {subsection}{\numberline {5.1}Project Status}{25}{}%
+\contentsline {subsection}{\numberline {5.2}Future Work and Continuation}{25}{}%
+\contentsline {subsection}{\numberline {5.3}Contribution to the Company}{25}{}%
+\contentsline {subsection}{\numberline {5.4}Quality Assessment of the Work}{25}{}%
+\contentsline {section}{\numberline {6}Appendices}{25}{}%
+\contentsline {subsection}{\numberline {6.1}CV Before the Internship}{25}{}%
+\contentsline {subsection}{\numberline {6.2}CV After the Internship (Final Year Engineering)}{25}{}%
+\contentsline {subsection}{\numberline {6.3}Career Prospects}{25}{}%

@@ -15,69 +15,128 @@
 \subsection{Preliminary Planning of Tasks}
 \section{Project Presentation}
 \subsection{Company Context}
-\subsubsection{Epidemiology and Clinical Context}
-Breast cancer is the most common disease among women worldwide \cite{iarc2025}. One in 20 women will develop breast cancer in their lifetime, and among them, 30\% will die from the disease. These numbers vary significantly between regions: in the United States, the incidence is higher, with 1 in 10 women developing breast cancer, but with a mortality-to-survival ratio of approximately 16\%. 
-More concerning is the rapid increase in incidence among young women, with an annual growth of 2.1\% from 1990 to 2018 in Europe, for reasons that remain unclear to this day. The good news is that early detection makes a major difference. Stage I breast cancer has a 5-year survival rate above 98\% \cite{nbc_mammo}, whereas this rate drops below 70\% for stage III disease. Tumor progression is highly heterogeneous, but the most aggressive forms can reach stage III in less than one year.
 
-The American College of Radiology (ACR) recommends annual breast cancer screening for all women over the age of 40. Depending on individual risk factors, high-risk patients may be advised to undergo more frequent imaging even before this age.
+\subsubsection{Chipiron global context}
+Chipiron is a French deeptech company founded in 2020 by Dimitri Labat and Evan Kervella. 
+Based in the 19th arrondissement of Paris, the company brings together around 30 employees from multidisciplinary backgrounds, including MRI physics, hardware engineering, software development, and artificial intelligence.
+
+Chipiron operates in the healthcare sector, more specifically in the field of medical imaging. 
+The company is developing a new generation of ultra-low-field MRI systems designed to be lighter, more affordable, and easier to deploy than conventional MRI scanners.
+Its initial clinical focus is breast imaging, with the aim of improving access to early cancer detection and screening.
+
+Through its innovative approach combining advanced hardware and AI-driven image reconstruction techniques, Chipiron aims to make MRI examinations more accessible and ultimately transform the way medical imaging is delivered worldwide.
+At Chipiron, it is believed that within the next decade, low-field MRI could become as routine as standard blood tests, enabling new opportunities in health monitoring and personalized medicine. 
+Since its creation in 2020, the start-up has been working to overcome current limitations and position itself among the first companies to develop and manufacture low-field MRI systems (around 10 mT) dedicated to breast imaging.
+
+\subsubsection{Epidemiology and Clinical Context}
+Breast cancer is the most common disease among women worldwide \cite{iarc2025}. 
+One in 20 women will develop breast cancer in their lifetime, and among them, 30\% will die from the disease. 
+These numbers vary significantly between regions: in the United States, the incidence is higher, with 1 in 10 women developing breast cancer, but with a mortality-to-survival ratio of approximately 16\%. 
+More concerning is the rapid increase in incidence among young women, with an annual growth of 2.1\% from 1990 to 2018 in Europe, for reasons that remain unclear to this day.
+The good news is that early detection makes a major difference. 
+Stage I breast cancer has a 5-year survival rate above 98\% \cite{nbc_mammo}, whereas this rate drops below 70\% for stage III disease.
+Tumor progression is highly heterogeneous, but the most aggressive forms can reach stage III in less than one year.
+
+The American College of Radiology (ACR) recommends annual breast cancer screening for all women over the age of 40. 
+Depending on individual risk factors, high-risk patients may be advised to undergo more frequent imaging even before this age.
+
 \subsubsection{Breast Cancer Screening Pipeline with their Limitations}
 
-The standard technique used for breast cancer screening is mammography. It is an established imaging modality that entered widespread clinical use in the 1960s \cite{komen_stats}. Since then, it has evolved considerably, from a basic 2D X-ray technique to digital breast tomosynthesis, which enables high-resolution 3D imaging of the breast.
+The standard technique used for breast cancer screening is mammography. 
+It is an established imaging modality that entered widespread clinical use in the 1960s \cite{komen_stats}. 
+Since then, it has evolved considerably, from a basic 2D X-ray technique to digital breast tomosynthesis, which enables high-resolution 3D imaging of the breast.
 
 Despite being relatively inexpensive, high-throughput, and highly sensitive in non-dense breast tissue, modern mammography has important limitations:
 
 \begin{itemize}
     \item It is uncomfortable for patients, as it requires breast compression to obtain standardized image quality.
     \item It involves ionizing radiation, and cumulative exposure can be harmful.
-    \item Most importantly, it is not sufficiently reliable. Sensitivity varies significantly depending on the technique, ranging from as low as 55\% to up to 90\% for more advanced methods. This leads to a non-negligible number of false negatives, which is critical for small aggressive tumors. Specificity is generally higher, around 85\% to 95\%, which is less problematic in a screening context where minimizing false negatives is the priority.
+    \item Most importantly, it is not sufficiently reliable. Sensitivity varies significantly depending on the technique, ranging from as low as 55\% to up to 90\% for more advanced methods. 
+    This leads to a non-negligible number of false negatives, which is critical for small aggressive tumors. 
+    Specificity is generally higher, around 85\% to 95\%, which is less problematic in a screening context where minimizing false negatives is the priority.
 \end{itemize}
 
-The main reason behind the lack of sensitivity of mammography is the variability of breast anatomy between patients. In the United States, it is estimated \cite{org_breast} that more than 40\% of women over 40 years old have heterogeneous or extremely dense breast tissue. These patients are at higher risk of developing breast cancer, and mammography becomes more difficult to interpret because dense tissue can mask tumours, leading to an increased rate of false negatives. Despite its reduced performance in dense breast populations, mammography remains the standard method for population-wide breast cancer screening.
+The main reason behind the lack of sensitivity of mammography is the variability of breast anatomy between patients. 
+In the United States, it is estimated \cite{org_breast} that more than 40\% of women over 40 years old have heterogeneous or extremely dense breast tissue. 
+These patients are at higher risk of developing breast cancer, and mammography becomes more difficult to interpret because dense tissue can mask tumours, leading to an increased rate of false negatives such as 1 in 8 breast cancers \cite{pu2026}. 
+Despite its reduced performance in dense breast populations, mammography remains the standard method for population-wide breast cancer screening.
 
-After a mammography examination, if a suspicious finding is detected or if breast density makes the exam inconclusive, the patient is typically referred to a second-line imaging modality. Depending on the clinical context, this may involve direct biopsy or additional imaging. Ultrasound is the most commonly used second-line technique due to its low cost and accessibility. When performed correctly, it can be highly effective. However, its performance remains strongly operator-dependent, resulting in variable sensitivity and specificity.
+After a mammography examination, if a suspicious finding is detected or if breast density makes the exam inconclusive, the patient is typically referred to a second-line imaging modality. 
+Depending on the clinical context, this may involve direct biopsy or additional imaging. 
+Ultrasound is the most commonly used second-line technique due to its low cost and accessibility. 
+When performed correctly, it can be highly effective. 
+However, its performance remains strongly operator-dependent, resulting in variable sensitivity and specificity.
 
-The last option in the diagnostic pathway is breast MRI, which is considered the most sensitive imaging modality. However, due to its high cost and operational constraints, it is still not widely accessible. The American College of Radiology (ACR) recommends MRI primarily for high-risk patients, representing approximately 10 to 15\% of the population. These patients typically have a lifetime breast cancer risk of around 20\% and often begin MRI screening before the age of 30.
+The last option in the diagnostic pathway is breast MRI, which is considered the most sensitive imaging modality. 
+However, due to its high cost and operational constraints, it is still not widely accessible. 
+The American College of Radiology (ACR) recommends MRI primarily for high-risk patients, representing approximately 10 to 15\% of the population. 
+Factors contributing to this elevated risk include pathogenic genetic mutations (e.g., BRCA1/2), a strong family history of breast cancer, prior chest irradiation at a young age, and certain hereditary cancer syndromes such as Li-Fraumeni or Cowden syndrome \cite{syndrom2026}.
+These women are usually advised to initiate MRI screening before the age of 30, in addition to conventional mammographic surveillance.
 
-\subsubsection{Chipiron Low-Field MRI Solution}
+\subsubsection{Low-Field MRI Solution}
+Chipiron chose to focus on magnetic resonance imaging (MRI) for breast imaging applications because, as discussed previously, it represents the most advanced medical imaging modality.
+It provides a wide variety of soft tissue contrasts at millimetric resolution within a few minutes of acquisition. 
+Depending on the sequence used, MRI enables visualization of anatomical structures, vessels, tumors, lesions, and even subtle differences in temperature or chemical composition within muscles and internal organs. 
+Some MRI sequences also allow monitoring of metabolic or functional activity. 
+For these reasons, MRI is an essential tool for diagnosing many life-threatening diseases, monitoring treatment effectiveness, and enabling image-guided therapy and surgery.
 
-Chipiron chose to focus on magnetic resonance imaging (MRI) for breast imaging applications because, as explained earlier, it is the most advanced medical imaging modality. It provides a wide variety of soft tissue contrasts at millimetric resolution within a few minutes of acquisition. Depending on the sequence used, MRI enables visualization of anatomical structures, vessels, tumors, lesions, and even subtle differences in temperature or chemical composition within muscles and internal organs. Some MRI sequences also allow monitoring of metabolic or functional activity. For these reasons, MRI is an essential tool for diagnosing many life-threatening diseases, monitoring treatment effectiveness, and enabling image-guided therapy and surgery.
+In the context of breast cancer imaging, MRI can accurately detect tumours of only a few millimeters in size, with a sensitivity higher than mammography, which remains the current gold standard for screening. 
+Using contrast agent injection, MRI can also discriminate between benign and malignant lesions, significantly reducing the number of false positives with an approximation of 77\% \cite{diag2026} and unnecessary biopsies. 
 
-In the context of breast cancer imaging, MRI can accurately detect tumours of only a few millimeters in size, with a sensitivity higher than mammography, which remains the current gold standard for screening. Using contrast agent injection, MRI can also discriminate between benign and malignant lesions, significantly reducing the number of false positives and unnecessary biopsies. 
+Despite these advantages, MRI remains largely inaccessible worldwide. 
+MRI systems typically weigh around five tons and require a magnetically shielded room, costly maintenance, and highly trained staff. 
+They operate using strong magnetic fields generated by large superconducting electromagnets. 
+Higher magnetic field strength leads to higher image quality for a given scan time.
 
-Despite these advantages, MRI remains largely inaccessible worldwide. MRI systems typically weigh around five tons and require a magnetically shielded room, costly maintenance, and highly trained staff. They operate using strong magnetic fields generated by large superconducting electromagnets. Higher magnetic field strength leads to higher image quality for a given scan time.
+For decades, MRI manufacturers have focused on increasing magnetic field strength as the main driver of image quality. 
+Most clinical MRI systems operate at 1.5~T or 3~T, while research systems can reach up to 7~T, with fewer than 150 units deployed worldwide.
 
-For decades, MRI manufacturers have focused on increasing magnetic field strength as the main driver of image quality. Most clinical MRI systems operate at 1.5~T or 3~T, while research systems can reach up to 7~T, with fewer than 150 units deployed worldwide.
+However, increasing field strength directly leads to larger, more expensive, and less accessible systems. 
+Therefore, democratizing MRI requires achieving clinically relevant image quality at lower magnetic fields. 
+This idea is not new: since the early days of MRI, engineers have attempted to build low-field clinical systems. 
+However, none of these efforts have yet achieved large-scale clinical adoption due to multiple technical and physical constraints.
 
-However, increasing field strength directly leads to larger, more expensive, and less accessible systems. Therefore, democratizing MRI requires achieving clinically relevant image quality at lower magnetic fields. This idea is not new: since the early days of MRI, engineers have attempted to build low-field clinical systems. However, none of these efforts have yet achieved large-scale clinical adoption due to multiple technical and physical constraints.
+In fact, it is very challenging to perform MRI at lower fields, for the reasons stated above: there is less signal and the detection is less sensitive. 
+Consequently, the signal-to-noise ratio (SNR) is low. SNR is the key determinant of image quality: a high SNR yields a high-quality image with fine resolution in a short time.
 
-In fact, it is very challenging to perform MRI at lower fields, for the reasons stated above: there is less signal and the detection is less sensitive. Consequently, the signal-to-noise ratio (SNR) is low. SNR is the key determinant of image quality: a high SNR yields a high-quality image with fine resolution in a short time.
+Moreover, magnetic field strength is by no means the only driver of image quality. 
+Images produced on 1.5~T scanners have improved tremendously since the 1990s, primarily thanks to advances in software and image reconstruction. 
+This is why, for Chipiron, it is very important to combine the best possible hardware to perform MRI at low fields and make the best use of AI for image enhancement.
 
-Moreover, magnetic field strength is by no means the only driver of image quality. Images produced on 1.5~T scanners have improved tremendously since the 1990s, primarily thanks to advances in software and image reconstruction. This is why, for Chipiron, it is very important to combine the best possible hardware to perform MRI at low fields and make the best use of AI for image enhancement.
-
-At Chipiron, it is believed that within the next decade, low-field MRI could become as routine as standard blood tests, enabling new opportunities in health monitoring and personalized medicine. Since its creation in 2020, the start-up has been working to overcome current limitations and position itself among the first companies to develop and manufacture low-field MRI systems (around 10 mT) dedicated to breast imaging.
 \subsubsection{Chipiron Current Position in Low-Field MRI Development}
 % Chipiron position
 
 \subsubsection{Industry Sector}
 % Over companies working on MRI (hyperfine)
 % Type of technologies
-There are several major companies in the MRI market, such as Siemens Healthineers, GE HealthCare, Philips Healthcare, and Canon Medical Systems. However, these companies mainly focus on high-field MRI systems, typically operating at 1.5~T or 3~T. These high-field MRI manufacturers are not really considered direct competitors to Chipiron.
+There are several major companies in the MRI market, such as Siemens Healthineers, GE HealthCare, Philips Healthcare, and Canon Medical Systems.
+However, these companies mainly focus on high-field MRI systems, typically operating at 1.5~T or 3~T.
+These high-field MRI manufacturers are not really considered direct competitors to Chipiron.
 
-Indeed, a 10~mT MRI scanner will never replace a 3~T MRI scanner. High-field MRI will still be necessary, especially for the most complex clinical cases. Low-field MRI is instead intended for situations where it can provide enough information to support a clinical decision.
+Indeed, a 10~mT MRI scanner will never replace a 3~T MRI scanner.
+High-field MRI will still be necessary, especially for the most complex clinical cases. Low-field MRI is instead intended for situations where it can provide enough information to support a clinical decision.
 
-For this reason, it is more relevant to look at companies developing low-field MRI systems, although there are currently only a few of them. The main pioneer in this field is Hyperfine, an American company that received FDA clearance in 2021 for its portable MRI device called \textit{Swoop}. The system operates at 64~mT and was designed mainly for intensive care units and acute stroke diagnosis. Thanks to advanced AI-based reconstruction methods, the image quality has improved significantly.
+For this reason, it is more relevant to look at companies developing low-field MRI systems, although there are currently only a few of them.
+The main pioneer in this field is Hyperfine, an American company that received FDA clearance in 2021 for its portable MRI device called \textit{Swoop}.
+The system operates at 64~mT and was designed mainly for intensive care units and acute stroke diagnosis.
+Thanks to advanced AI-based reconstruction methods, the image quality has improved significantly.
 
-Despite these impressive improvements, Hyperfine is still searching for a strong product-market fit. One difficulty is that many patients using their MRI are elderly or have limited mobility, making positioning inside the scanner more complicated.
+Despite these impressive improvements, Hyperfine is still searching for a strong product-market fit. 
+One difficulty is that many patients using their MRI are elderly or have limited mobility, making positioning inside the scanner more complicated.
 
-In any case, Hyperfine and Chipiron target very different applications. Hyperfine mainly focuses on brain imaging, while Chipiron is focused on breast imaging.
+In any case, Hyperfine and Chipiron target very different applications. 
+Hyperfine mainly focuses on brain imaging, while Chipiron is focused on breast imaging.
 % Industrials actors
-The goal of Chipiron is to establish a strong and clearly defined use case, supported by sufficiently reliable technology, in order to attract major industrial partners who could potentially acquire or collaborate with the company. Once Chipiron obtains FDA clearance, it will not have the manufacturing capacity or infrastructure to produce MRI systems at scale. As a result, it will need to partner with large established manufacturers such as Siemens or GE HealthCare to enable large-scale production and distribution.
+The goal of Chipiron is to establish a strong and clearly defined use case, supported by sufficiently reliable technology, in order to attract major industrial partners who could potentially acquire or collaborate with the company. 
+Once Chipiron obtains FDA clearance, it will not have the manufacturing capacity or infrastructure to produce MRI systems at scale. 
+As a result, it will need to partner with large established manufacturers such as Siemens or GE HealthCare to enable large-scale production and distribution.
 
 
 \subsubsection{Markets and Clients}
 
 % United state market (Ask question)
-The market targeted by Chipiron is currently the United States. Obtaining FDA clearance is generally considered more straightforward than achieving CE marking in Europe. In addition, the prevalence of dense breast tissue is higher in the U.S. population than in Europe, which increases the risk of undetected malignant cancers and therefore strengthens the clinical need for improved breast imaging solutions.
+The market targeted by Chipiron is currently the United States. Obtaining FDA clearance is generally considered more straightforward than achieving CE marking in Europe. 
+In addition, the prevalence of dense breast tissue is higher in the U.S. population than in Europe, which increases the risk of undetected malignant cancers and therefore strengthens the clinical need for improved breast imaging solutions.
 % Who will use the mri (hospital, clinic, ...)
 The goal of Chipiron MRI is to be used in clinic.
 
@@ -88,13 +147,16 @@ The goal of Chipiron MRI is to be used in clinic.
 
 \subsubsection{Strategic Objectives}
 
-% Companies strategies
+% Companies strategies (FDA clearance + getting buy by a bigger company for the manufacturation part ?)
 \subsection{Hosting Department or Service}
 % organigramme (Presentation of the differente teams)
 \subsection{Purpose of the Mission for the Company}
 
-In MRI, contrast agents such as gadolinium are used to help determine whether a lesion is benign or malignant. Radiologists analyze the temporal evolution of the contrast enhancement, known as the dynamic contrast enhancement (DCE).
-The objective is to observe how the signal intensity evolves over time after the injection of the contrast agent. A malignant lesion typically presents a rapid increase in signal intensity followed by a rapid decrease. This behavior is referred to as the \textit{wash-in wash-out} phenomenon and is associated with a high probability of malignancy. 
+In MRI, contrast agents such as gadolinium are used to help determine whether a lesion is benign or malignant. 
+Radiologists analyze the temporal evolution of the contrast enhancement, known as the dynamic contrast enhancement (DCE).
+The objective is to observe how the signal intensity evolves over time after the injection of the contrast agent. 
+A malignant lesion typically presents a rapid increase in signal intensity followed by a rapid decrease. 
+This behavior is referred to as the \textit{wash-in wash-out} phenomenon and is associated with a high probability of malignancy. 
 In contrast, a benign lesion generally shows a slower enhancement and tends to maintain a high signal intensity over a longer period of time, indicating a lower risk of malignancy.
 For example, in Figure~\ref{fig:dynamic_curve}, the lesion is likely benign because the signal intensity decreases slowly over time after the initial contrast enhancement.
 % Show an example of benign lesion and malign lesion
@@ -102,13 +164,15 @@ For example, in Figure~\ref{fig:dynamic_curve}, the lesion is likely benign beca
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{example_curve.png}
+    \includegraphics[width=0.75\textwidth]{image/example_curve.png}
     \caption{Dynamic contrast enhancement curves illustrating benign and malignant lesion behaviors}
     \label{fig:dynamic_curve}
     \vspace{0.5cm}
 \end{figure}
 
-The more aggressive the lesion is, the faster the acquisition must be in order to correctly capture the wash-in wash-out dynamics. Consequently, MRI acquisitions need to be accelerated. However, accelerating the acquisition process generally leads to a degradation in image quality.
+The more aggressive the lesion is, the faster the acquisition must be in order to correctly capture the wash-in wash-out dynamics.
+Consequently, MRI acquisitions need to be accelerated. 
+However, accelerating the acquisition process generally leads to a degradation in image quality.
 Therefore, the objective of this internship is to evaluate different Deep Learning models capable of enhancing image quality after accelerated MRI acquisition, while preserving sufficient temporal and spatial information to accurately analyze the contrast enhancement dynamics over time.
 
 
@@ -117,79 +181,136 @@ Therefore, the objective of this internship is to evaluate different Deep Learni
 \section{Description of the Work Performed}
 \subsection{Methodology}
 % How I am working
-At the beginning of my internship, I had a Notion page listing all the objectives as well as a timeline to track progress and get an idea of how quickly I was expected to advance. I worked mostly on-site, with one or two days of remote work.
+At the beginning of my internship, I had a Notion page listing all the objectives as well as a timeline to track progress and get an idea of how quickly I was expected to advance.
+I worked mostly on-site, with one or two days of remote work.
 
-I was part of the AI team at Chipiron and supervised by two mentors. We held weekly check-ins to review my progress. During these meetings, I presented the results of the tests I had carried out during the week. They provided feedback on my results and also suggested additional experiments for me to run. I also attended regular meetings with both the software team and the AI team. 
+I was part of the AI team at Chipiron and supervised by two mentors. 
+We held weekly check-ins to review my progress. During these meetings, I presented the results of the tests I had carried out during the week. 
+They provided feedback on my results and also suggested additional experiments for me to run. 
+I also attended regular meetings with both the software team and the AI team. 
 % What tool I am using
 To accomplish my internship mission, I used several tools that were essential for my work organization and execution.
 
-First of all, I was provided with a work computer. I mainly used Slack to communicate with everyone in the company. It was very useful, as it could be connected to my Google account, especially Google Calendar so I could have access to my planning and to video calls. Moreover, whenever I had a question, I could ask my supervisor directly on Slack, and I also used it to schedule and organize my weekly tasks.
+First of all, I was provided with a work computer. 
+I mainly used Slack to communicate with everyone in the company. 
+It was very useful, as it could be connected to my Google account, especially Google Calendar so I could have access to my planning and to video calls. 
+Moreover, whenever I had a question, I could ask my supervisor directly on Slack, and I also used it to schedule and organize my weekly tasks.
 %Datasets
 \paragraph{Datasets}
 \mbox{}\\
 To run my experiments and models, I worked with two different datasets:
 
 \begin{itemize}
-    \item FastMRI Breast: This dataset consists of MRI data from 300 different patients. The 3D breast volumes have a shape of 192 × 320 × 320 pixels, with a spatial resolution of 1.1 × 1.0 × 1.0 mm. Each sample in the dataset includes four different time-point acquisitions. In the training pipeline, the dataset was split into two parts: 240 samples for training and 60 samples for validation, which were also used for testing.
+    \item FastMRI Breast: This dataset consists of MRI data from 300 different patients. 
+    The 3D breast volumes have a shape of 192 × 320 × 320 pixels, with a spatial resolution of 1.1 × 1.0 × 1.0 mm. 
+    Each sample in the dataset includes four different time-point acquisitions. 
+    In the training pipeline, the dataset was split into two parts: 240 samples for training and 60 samples for validation, which were also used for testing.
     % Check the number o f sample in 
-    \item Mamamia: This dataset contains MRI data from 500 different patients. The 3D volume shapes vary across samples, as does the spatial resolution. Each sample includes between 4 and 6 time-point acquisitions. The main difference compared to the other dataset is that it provides segmentation masks, highlighting the regions where the contrast agent is visible. This allows us to analyze the dynamic behavior of the contrast agent in the breast over time.
+    \item Mamamia: This dataset contains MRI data from 500 different patients. 
+    The 3D volume shapes vary across samples, as does the spatial resolution. 
+    Each sample includes between 4 and 6 time-point acquisitions. 
+    The main difference compared to the other dataset is that it provides segmentation masks, highlighting the regions where the contrast agent is visible. 
+    This allows us to analyze the dynamic behavior of the contrast agent in the breast over time.
 \end{itemize}
 
 % GPU
 \paragraph{GPU}
 \mbox{}\\
-To train my models within reasonable time constraints, I relied on several GPUs with different computational capacities. The first one, named \textit{Leviathan}, had 16~GB of memory. I mainly ran my code on this machine and used its disk storage to host the FastMRI Breast and Mamamia datasets. I also had access to a second GPU, \textit{Cthulhu}, which was significantly more powerful with 49~GB of memory. It was used for training larger and more computationally demanding models. Without access to these resources, it would have been impossible to complete my internship work.
+To train my models within reasonable time constraints, I relied on several GPUs with different computational capacities. 
+The first one, named \textit{Leviathan}, had 16~GB of memory. 
+I mainly ran my code on this machine and used its disk storage to host the FastMRI Breast and Mamamia datasets. 
+I also had access to a second GPU, \textit{Cthulhu}, which was significantly more powerful with 49~GB of memory. 
+It was used for training larger and more computationally demanding models. 
+Without access to these resources, it would have been impossible to complete my internship work.
 
-Access to these machines was done remotely via SSH. As a result, my entire development environment was hosted on the servers, and my personal computer was only used as an interface. I then connected to the machines using Visual Studio Code through remote development tools, which allowed me to code and execute experiments directly on the GPUs.
+Access to these machines was done remotely via SSH. 
+As a result, my entire development environment was hosted on the servers, and my personal computer was only used as an interface. 
+I then connected to the machines using Visual Studio Code through remote development tools, which allowed me to code and execute experiments directly on the GPUs.
 % GitHub
 \paragraph{GitHub}
 \mbox{}\\
-In addition, I made extensive use of GitHub throughout the internship. At the beginning, I created a personal repository in order to regularly back up my work and safely experiment without affecting the main company repositories. This helped me progressively learn best practices in version control, including branch management, merge requests, code reviews, rebasing, issue tracking, and the use of Copilot in the development workflow.
+In addition, I made extensive use of GitHub throughout the internship. 
+At the beginning, I created a personal repository in order to regularly back up my work and safely experiment without affecting the main company repositories. 
+This helped me progressively learn best practices in version control, including branch management, merge requests, code reviews, rebasing, issue tracking, and the use of Copilot in the development workflow.
 
-Initially, I worked exclusively within my own repository to become familiar with these tools. Once I gained confidence, I started contributing directly to the company’s repositories by submitting merge requests, particularly to integrate my models and training pipelines into the production codebase.
+Initially, I worked exclusively within my own repository to become familiar with these tools. 
+Once I gained confidence, I started contributing directly to the company’s repositories by submitting merge requests, particularly to integrate my models and training pipelines into the production codebase.
 
 % W&B
 \paragraph{Weights \& Biases}
 \mbox{}\\
 I use a software which is called Weights \& Biases (wandb) to track my model training and to store both training results and model weights.
 
-The main goal is to keep a complete history of each training run by logging metrics such as the training loss and validation loss. This allows me to visualize how both losses evolve over time and to ensure that the model is not overfitting. Moreover, I plot the results on the test dataset using wandb, including different metrics and the various states of the samples.
+The main goal is to keep a complete history of each training run by logging metrics such as the training loss and validation loss. 
+This allows me to visualize how both losses evolve over time and to ensure that the model is not overfitting. 
+Moreover, I plot the results on the test dataset using wandb, including different metrics and the various states of the samples.
 
-The most important use of wandb in my workflow is the storage of model weights. This is particularly useful because the trained models can be saved directly on the platform and later retrieved via the API for evaluation or testing. Consequently, a model only needs to be trained once for a given configuration, after which it can be reused without retraining.
+The most important use of wandb in my workflow is the storage of model weights. 
+This is particularly useful because the trained models can be saved directly on the platform and later retrieved via the API for evaluation or testing. 
+Consequently, a model only needs to be trained once for a given configuration, after which it can be reused without retraining.
 \subsection{Design and Development}
 
 \subsubsection{Preprocessing}
 
-Before developing my training pipeline and experimenting with different model architectures, I first focused on data preprocessing. This step involved all the necessary procedures to clean, structure, and prepare the dataset before feeding it into the training pipeline and the neural network models.
+Before developing my training pipeline and experimenting with different model architectures, I first focused on data preprocessing. 
+This step involved all the necessary procedures to clean, structure, and prepare the dataset before feeding it into the training pipeline and the neural network models.
 
 % Reshaping
 \paragraph{Reshaping}
 \mbox{}\\
 
-First, it was necessary to standardize the dataset by resizing all samples to a common shape. For example, in the FastMRI breast dataset, each sample originally has a fixed size of 192 × 320 × 320 pixels. Since each pixel corresponds to an input value for the model, this represents a total of 19,660,800 values per sample. Such a high dimensionality significantly increases both training time and GPU memory requirements.
+First, it was necessary to standardize the dataset by resizing all samples to a common shape. 
+For example, in the FastMRI breast dataset, each sample originally has a fixed size of 192 × 320 × 320 pixels. 
+Since each pixel corresponds to an input value for the model, this represents a total of 19,660,800 values per sample. 
+Such a high dimensionality significantly increases both training time and GPU memory requirements.
 
-To address this issue, I reduced the size of all samples from 192 × 320 × 320 to 64 × 80 × 80. The spatial dimensions (height and width) were reduced by a factor of 4, while the depth was reduced by a factor of 3. These reduction factors were chosen empirically with the main objective of decreasing computational cost rather than preserving strict physical consistency. The downsampling was performed using a simple subsampling strategy, where, for example, a factor of 2 consists in retaining one slice out of two, without introducing interpolation noise.
+To address this issue, I reduced the size of all samples from 192 × 320 × 320 to 64 × 80 × 80. 
+The spatial dimensions (height and width) were reduced by a factor of 4, while the depth was reduced by a factor of 3. 
+These reduction factors were chosen empirically with the main objective of decreasing computational cost rather than preserving strict physical consistency. 
+The downsampling was performed using a simple subsampling strategy, where, for example, a factor of 2 consists in retaining one slice out of two, without introducing interpolation noise.
 
-This resizing inevitably changes the spatial resolution of the data, increasing it from approximately 1.1 × 1.0 × 1.0 mm to 3.3 × 4.0 × 4.0 mm. In the context of Chipiron, the target is to achieve a final resolution of 2 mm, so the goal at the end of the internship is to present results for contrast enhancement at this resolution.
+This resizing inevitably changes the spatial resolution of the data, increasing it from approximately 1.1 × 1.0 × 1.0 mm to 3.3 × 4.0 × 4.0 mm.
 
-To implement this preprocessing, I developed an initial script that takes as input samples of size 192 × 320 × 320 and applies configurable downsampling along each dimension. The processed dataset is then saved in a separate directory.
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Resolution_difference.png}
+    \caption{Resolution comparison}
+    \label{fig:Resolution_difference}
+    \vspace{0.5cm}
+\end{figure}
 
-The Mamaia dataset presents a different challenge, as the samples do not all share the same dimensions. In this case, I reused the same script but without fixed per-axis configuration. Instead, the output shape can be directly specified, allowing flexible resizing for each sample.
+In the context of Chipiron, the target is to achieve a final resolution of 2 mm, so the goal at the end of the internship is to present results for contrast enhancement at this resolution.
+
+To implement this preprocessing, I developed an initial script that takes as input samples of size 192 × 320 × 320 and applies configurable downsampling along each dimension. 
+The processed dataset is then saved in a separate directory.
+
+The Mamaia dataset presents a different challenge, as the samples do not all share the same dimensions. 
+In this case, I reused the same script but without fixed per-axis configuration. 
+Instead, the output shape can be directly specified, allowing flexible resizing for each sample.
 
 % Normalization
 \paragraph{Normalization}
 \mbox{}\\
 
-Normalization is an important step in the preprocessing pipeline. It is essential to apply the same normalization method to every sample so that all inputs are represented on a comparable scale. This improves the stability of the training process and helps the deep learning model learn more effectively.
+Normalization is an important step in the preprocessing pipeline. It is essential to apply the same normalization method to every sample so that all inputs are represented on a comparable scale. 
+This improves the stability of the training process and helps the deep learning model learn more effectively.
 
-In most cases, it is preferable to normalize the data to a range between 0 and 1. This is particularly important because neural networks rely on activation functions whose behavior strongly depends on the scale of the input values. For instance, the sigmoid activation function produces outputs between 0 and 1. If very large input values are used, such as 100 and 200 within an intensity range of 0--255, both outputs will be extremely close to 1. Consequently, the network will struggle to distinguish between these inputs. On the other hand, when the data are normalized within the interval $[0,1]$, the sigmoid function generates more distinct outputs, enabling the model to better capture variations in the data.
+In most cases, it is preferable to normalize the data to a range between 0 and 1. 
+This is particularly important because neural networks rely on activation functions whose behavior strongly depends on the scale of the input values. 
+For instance, the sigmoid activation function produces outputs between 0 and 1. 
+If very large input values are used, such as 100 and 200 within an intensity range of 0--255, both outputs will be extremely close to 1. 
+Consequently, the network will struggle to distinguish between these inputs. 
+On the other hand, when the data are normalized within the interval $[0,1]$, the sigmoid function generates more distinct outputs, enabling the model to better capture variations in the data.
 
 The most commonly used normalization method is the min--max normalization:
 \[
 x_{\mathrm{norm}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}}
 \]
 
-However, this approach can become problematic in the presence of extreme outlier values. For example, if a sample contains a value of 1000 while most values lie between 0 and 100, the majority of the normalized values will be compressed close to 0. As a result, the contrast between typical values is significantly reduced.
+However, this approach can become problematic in the presence of extreme outlier values. 
+For example, if a sample contains a value of 1000 while most values lie between 0 and 100, the majority of the normalized values will be compressed close to 0. 
+As a result, the contrast between typical values is significantly reduced.
 
 To overcome this limitation, I used percentile-based normalization:
 \[
@@ -198,42 +319,56 @@ x_{\mathrm{norm}} = \frac{x - P_1(x)}{P_{99}(x) - P_1(x)}
 
 where $P_1(x)$ and $P_{99}(x)$ denote the 1st and 99th percentiles of the data distribution, respectively.
 
-The main advantage of this method is that it reduces the influence of extreme values by ignoring the lowest 1\% and highest 1\% of the data during normalization. This allows the majority of the dataset to be normalized more effectively while preventing outliers from dominating the scaling process.
+The main advantage of this method is that it reduces the influence of extreme values by ignoring the lowest 1\% and highest 1\% of the data during normalization. 
+This allows the majority of the dataset to be normalized more effectively while preventing outliers from dominating the scaling process.
 
 % undersampling
 \paragraph{Downsampling vs Undersampling}
 \mbox{}\\
 
-As explained earlier, in order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition. The two datasets used in this work contain clean data; therefore, all samples must be artificially degraded to simulate data acquired from a low-field MRI system with accelerated acquisition.
+As explained earlier, in order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition. 
+The two datasets used in this work contain clean data; therefore, all samples must be artificially degraded to simulate data acquired from a low-field MRI system with accelerated acquisition.
 
 Two main methods can be used for this purpose:
 
 % Imgspace
-The first method consists of downsampling. Downsampling is the process of reducing the number of data points in each sample of a dataset. It is commonly used to reduce storage requirements, computational cost, or transmission load. However, it is also used as a degradation strategy to simulate low-field MRI data. This is achieved by increasing the downsampling factor and adding Gaussian noise.
+The first method consists of downsampling. 
+Downsampling is the process of reducing the number of data points in each sample of a dataset. 
+It is commonly used to reduce storage requirements, computational cost, or transmission load. 
+However, it is also used as a degradation strategy to simulate low-field MRI data. 
+This is achieved by increasing the downsampling factor and adding Gaussian noise.
 
 In our case, after reshaping, the data have dimensions $64 \times 80 \times 80$, and a downsampling factor of 2 is applied, effectively reducing the spatial resolution by a factor of two.
 
-However, in order to preserve the original sample size, a resizing operation is applied within the degradation function. This allows the downsampling effect to be simulated while keeping the input shape unchanged. In addition, Gaussian noise is added to each voxel. The noise is modeled as a zero-mean Gaussian distribution with a standard deviation of 0.01. This value was selected empirically by visual comparison with real low-field MRI images, and $\sigma = 0.01$ was found to produce realistic noise levels.
+However, in order to preserve the original sample size, a resizing operation is applied within the degradation function. 
+This allows the downsampling effect to be simulated while keeping the input shape unchanged. 
+In addition, Gaussian noise is added to each voxel. The noise is modeled as a zero-mean Gaussian distribution with a standard deviation of 0.01.
+This value was selected empirically by visual comparison with real low-field MRI images, and $\sigma = 0.01$ was found to produce realistic noise levels.
 
 % kspace
-The second method is undersampling. Undersampling is performed in the frequency domain (k-space) rather than in the spatial domain: it removes k-space samples by applying a sampling mask.
-k-space is a representation of the MRI acquisition signal. The RF coil captures the signal during relaxation, and gradients encode position into phase and frequency, which maps the signal to trajectories in k-space.
+The second method is undersampling. 
+Undersampling is performed in the frequency domain (k-space) rather than in the spatial domain: it removes k-space samples by applying a sampling mask.
+k-space is a representation of the MRI acquisition signal. 
+The RF coil captures the signal during relaxation, and gradients encode position into phase and frequency, which maps the signal to trajectories in k-space.
 The image is reconstructed using an inverse Fourier transform, which brings the data back to the spatial domain.
 At the center of k-space are low spatial frequencies that encode global intensity and contrast; at the edges are high spatial frequencies that encode fine details and boundaries.
 When applying an undersampling mask, we typically preserve the center of k-space as much as possible because it contains the most important information for reconstruction.
 % Why undersampling
-The undersampling approach is particularly relevant for accelerating MRI acquisition, since it better reflects what is produced by a low-field MRI scanner. In this work, I used three types of masks: Cartesian, radial, and 3D radial.
+The undersampling approach is particularly relevant for accelerating MRI acquisition, since it better reflects what is produced by a low-field MRI scanner. 
+In this work, I used three types of masks: Cartesian, radial, and 3D radial.
 
 \mbox{}\\
 % How we created the mask
-We can create these three masks by first generating the corresponding trajectories. A trajectory describes how the MRI system samples k-space during acquisition; we then use the sampled locations as a binary mask.
+We can create these three masks by first generating the corresponding trajectories. 
+A trajectory describes how the MRI system samples k-space during acquisition; we then use the sampled locations as a binary mask.
 
 For each trajectory type, the configuration can be divided into three main parts: the acquisition parameters, the readout parameters, and the trajectory parameters.
 
 \paragraph{Acquisition}
 \mbox{}\\
 
-The acquisition configuration is common to all trajectory types (\texttt{decay\_cartesian}, \texttt{stack\_of\_radial}, and \texttt{stack\_of\_radial\_3D}). It is defined by three main parameters:
+The acquisition configuration is common to all trajectory types (\texttt{decay\_cartesian}, \texttt{stack\_of\_radial}, and \texttt{stack\_of\_radial\_3D}). 
+It is defined by three main parameters:
 
 \begin{itemize}
     \item Field of View (FOV)
@@ -254,7 +389,8 @@ Therefore,
 \]
 
 
-For example, in our case the input volume size is $(64, 80, 80)$ voxels and the spatial resolution is $(3.3, 4.0, 4.0)$ mm. The resulting FOV is therefore approximately
+For example, in our case the input volume size is $(64, 80, 80)$ voxels and the spatial resolution is $(3.3, 4.0, 4.0)$ mm. 
+The resulting FOV is therefore approximately
 
 \[
 (64 \times 3.3,\; 80 \times 4.0,\; 80 \times 4.0)
@@ -263,15 +399,20 @@ For example, in our case the input volume size is $(64, 80, 80)$ voxels and the 
 \]
 
 
-Another important acquisition parameter is the number of shots. A sample corresponds to a single measurement point in k-space. A shot is a collection of samples acquired consecutively during a readout.
+Another important acquisition parameter is the number of shots. 
+A sample corresponds to a single measurement point in k-space. 
+A shot is a collection of samples acquired consecutively during a readout.
 
-In our configuration, each shot contains 80 samples. To fully sample the k-space, 5120 shots are required. Therefore, the total number of acquired k-space samples is
+In our configuration, each shot contains 80 samples. 
+To fully sample the k-space, 5120 shots are required. 
+Therefore, the total number of acquired k-space samples is
 
 \[
 5120 \times 80 = 409\,600.
 \]
 
-For the low-field MRI system considered here, the acquisition time of a single shot is approximately 30 ms. Consequently, a fully sampled acquisition requires
+For the low-field MRI system considered here, the acquisition time of a single shot is approximately 30 ms. 
+Consequently, a fully sampled acquisition requires
 
 \[
 5120 \times 30 \text{ ms}
@@ -280,7 +421,9 @@ For the low-field MRI system considered here, the acquisition time of a single s
 =
 2 \text{ min } 33.6 \text{ s}.
 \]
-To capture the dynamics of the contrast agent, multiple acquisitions must be performed over time. A fully sampled acquisition lasting 2 min 33.6 s is therefore too long, since the contrast agent distribution evolves continuously and important temporal information may be lost during the acquisition. By applying an undersampling factor of 4, the number of acquired shots is reduced from 5120 to 1280, resulting in a shorter acquisition time of 38.4 s.
+To capture the dynamics of the contrast agent, multiple acquisitions must be performed over time. 
+A fully sampled acquisition lasting 2 min 33.6 s is therefore too long, since the contrast agent distribution evolves continuously and important temporal information may be lost during the acquisition. 
+By applying an undersampling factor of 4, the number of acquired shots is reduced from 5120 to 1280, resulting in a shorter acquisition time of 38.4 s.
 
 \[
 1280 \times 30 \text{ ms}
@@ -293,7 +436,8 @@ To capture the dynamics of the contrast agent, multiple acquisitions must be per
 
 The readout configuration is also common to all trajectory types.
 
-A readout corresponds to the acquisition of a sequence of k-space samples during a single shot. The main readout parameter is therefore the number of samples acquired per shot.
+A readout corresponds to the acquisition of a sequence of k-space samples during a single shot. 
+The main readout parameter is therefore the number of samples acquired per shot.
 
 In our experiments, each shot contains 80 samples, meaning that the readout length is fixed to 80 for all trajectory types.
 
@@ -316,11 +460,15 @@ Each trajectory has its own specific parameters that determine the sampling patt
 
 For the \texttt{decay\_cartesian} trajectory, several parameters control the sampling pattern in k-space.
 
-The parameter, \texttt{density\_decay}, controls how strongly the sampling density is concentrated toward the center of k-space. A high value of \texttt{density\_decay} results in a higher concentration of shots near the center, whereas values closer to zero lead to a more uniform distribution across k-space.
+The parameter, \texttt{density\_decay}, controls how strongly the sampling density is concentrated toward the center of k-space. 
+A high value of \texttt{density\_decay} results in a higher concentration of shots near the center, whereas values closer to zero lead to a more uniform distribution across k-space.
 
-The parameter, \texttt{keep\_edges}, determines whether high-frequency components are preserved. When set to \texttt{true}, more shots are sampled near the edges of k-space, allowing better preservation of high-frequency information. When set to \texttt{false}, the sampling is concentrated toward the center, prioritizing low-frequency components and resulting in a more circular distribution.
+The parameter, \texttt{keep\_edges}, determines whether high-frequency components are preserved. 
+When set to \texttt{true}, more shots are sampled near the edges of k-space, allowing better preservation of high-frequency information. 
+When set to \texttt{false}, the sampling is concentrated toward the center, prioritizing low-frequency components and resulting in a more circular distribution.
 
-Finally, the \texttt{sampling\_method} defines how shots are selected according to the prescribed density. Two strategies are available: \texttt{random}, which performs stochastic sampling based on the density map, and \texttt{lloyd}, which generates a pseudo-random and more uniformly spaced distribution using an iterative optimization approach.
+Finally, the \texttt{sampling\_method} defines how shots are selected according to the prescribed density.
+Two strategies are available: \texttt{random}, which performs stochastic sampling based on the density map, and \texttt{lloyd}, which generates a pseudo-random and more uniformly spaced distribution using an iterative optimization approach.
 
 \begin{figure}[H]
     \centering
@@ -331,15 +479,31 @@ Finally, the \texttt{sampling\_method} defines how shots are selected according 
     \vspace{0.5cm}
 \end{figure}
 
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/decay_cartesian_trajectories.png}
+    \caption{Visualization of a 3D cartesian trajectories}
+    \label{fig:decay_cartesian_trajectories}
+    \vspace{0.5cm}
+\end{figure}
+
+
+
 For the \texttt{stack\_of\_radial} trajectory, several parameters control the sampling pattern in k-space.
 
-The parameter \texttt{nb\_spokes} defines the number of radial spokes acquired per slice. It is computed from the total number of shots divided by the number of slices (or stacks). In our case, this corresponds to
+The parameter \texttt{nb\_spokes} defines the number of radial spokes acquired per slice. 
+It is computed from the total number of shots divided by the number of slices (or stacks). 
+In our case, this corresponds to
 
 \[
 \frac{1280}{64} = 20 \ \text{spokes per slice}.
 \]
 
-The parameters \texttt{spoke\_tilt} and \texttt{stack\_tilt} control the angular distribution of the radial spokes. They define how successive spokes are rotated within each slice and across slices. These angles can follow different strategies, such as uniform spacing or a golden-angle scheme, which helps improve k-space coverage and is particularly beneficial for dynamic imaging.
+The parameters \texttt{spoke\_tilt} and \texttt{stack\_tilt} control the angular distribution of the radial spokes. 
+They define how successive spokes are rotated within each slice and across slices. 
+These angles can follow different strategies, such as uniform spacing or a golden-angle scheme, which helps improve k-space coverage and is particularly beneficial for dynamic imaging.
 
 \begin{figure}[H]
     \centering
@@ -347,6 +511,15 @@ The parameters \texttt{spoke\_tilt} and \texttt{stack\_tilt} control the angular
     \includegraphics[width=0.75\textwidth]{image/stack_of_radial_mask.png}
     \caption{Representation of a slice of a radial mask}
     \label{fig:stack_of_radial_mask}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/stack_of_radial_trajectories.png}
+    \caption{Visualization of a 3D stack of radial trajectories}
+    \label{fig:stack_of_radial_trajectories}
     \vspace{0.5cm}
 \end{figure}
 
@@ -362,19 +535,29 @@ Finally, the \texttt{stack\_of\_radial\_3D} trajectory does not introduce additi
     \vspace{0.5cm}
 \end{figure}
 
-The parameters associated with the \texttt{stack\_of\_radial} and \texttt{decay\_cartesian} trajectories will be systematically explored in order to assess their influence and identify the optimal configuration for each acquisition time. One of the objectives of this internship is also to investigate which trajectory configuration best enhances dynamic contrast.
+The parameters associated with the \texttt{stack\_of\_radial} and \texttt{decay\_cartesian} trajectories will be systematically explored in order to assess their influence and identify the optimal configuration for each acquisition time.
+One of the objectives of this internship is also to investigate which trajectory configuration best enhances dynamic contrast.
 
 % Talk about the noise
 \paragraph{Noise in kspace}
-Once the trajectory configurations are defined, the undersampling mask can be generated. However, an additional aspect must be considered: the signal-to-noise ratio (SNR).
+Once the trajectory configurations are defined, the undersampling mask can be generated. 
+However, an additional aspect must be considered: the signal-to-noise ratio (SNR).
 
-Since a low-field MRI system is used, the acquired signal is inherently weaker, resulting in a reduced SNR and consequently a noisier image. To realistically simulate this low-SNR condition, Gaussian noise is introduced during the data generation process.
+Since a low-field MRI system is used, the acquired signal is inherently weaker, resulting in a reduced SNR and consequently a noisier image. 
+To realistically simulate this low-SNR condition, Gaussian noise is introduced during the data generation process.
 
-In the case of undersampled acquisitions, the noise is added directly in k-space, where the measurements are defined. Only the k-space samples retained by the undersampling mask are affected by noise. A zero-mean Gaussian distribution with a standard deviation of 200 is applied independently to both the real and imaginary components, as the data are complex-valued in the frequency domain. This value was empirically chosen based on multiple experiments to visually match the noise level observed in real low-field MRI acquisitions.
+In the case of undersampled acquisitions, the noise is added directly in k-space, where the measurements are defined. 
+Only the k-space samples retained by the undersampling mask are affected by noise. 
+A zero-mean Gaussian distribution with a standard deviation of 200 is applied independently to both the real and imaginary components, as the data are complex-valued in the frequency domain. 
+This value was empirically chosen based on multiple experiments to visually match the noise level observed in real low-field MRI acquisitions.
 
-Furthermore, the noise is not uniform across k-space. Due to the sampling density variations induced by the mask, certain regions contain more samples than others. For instance, in the \texttt{decay\_cartesian} trajectory, the \texttt{density\_decay} parameter leads to a higher concentration of samples in the center of k-space. In these regions, the effective noise level should be lower due to increased redundancy of information.
+Furthermore, the noise is not uniform across k-space. 
+Due to the sampling density variations induced by the mask, certain regions contain more samples than others. 
+For instance, in the \texttt{decay\_cartesian} trajectory, the \texttt{density\_decay} parameter leads to a higher concentration of samples in the center of k-space. 
+In these regions, the effective noise level should be lower due to increased redundancy of information.
 
-To account for this effect, the noise amplitude is scaled by the inverse square root of the local sampling density. This ensures that regions with higher sampling density exhibit a reduced noise variance, making the simulated k-space more consistent with realistic low-field MRI acquisition physics.
+To account for this effect, the noise amplitude is scaled by the inverse square root of the local sampling density. 
+This ensures that regions with higher sampling density exhibit a reduced noise variance, making the simulated k-space more consistent with realistic low-field MRI acquisition physics.
 
 We can see some representation of the images with the undersampling and the noise added depending on the mask we used.
 

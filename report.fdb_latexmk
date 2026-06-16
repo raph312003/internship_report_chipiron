@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex report"] 1780415570.47537 "report.aux" "report.bbl" "report" 1780415572.52927 0
-  "./references.bib" 1778853504.20416 1355 20a2df822ee797e5b727bc8b3f7c8d32 ""
+["bibtex report"] 1781597345.11515 "report.aux" "report.bbl" "report" 1781597466.99743 0
+  "./references.bib" 1781594540.6287 2284 a2ed2f298e24f2a4f784530add3abbea ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "report.aux" 1780415572.16627 7259 66a1e209fa5153427c43aab5d72cb803 "pdflatex"
+  "report.aux" 1781597466.65597 8124 4692bbea7444198fa4d24fd4241ec866 "pdflatex"
   (generated)
   "report.bbl"
   "report.blg"
   (rewritten before read)
-["pdflatex"] 1780415570.63214 "/home/rapha/report/report.tex" "report.pdf" "report" 1780415572.52948 0
+["pdflatex"] 1781597464.78031 "/home/rapha/report/report.tex" "report.pdf" "report" 1781597466.99764 0
   "/etc/texmf/web2c/texmf.cnf" 1777970792.54324 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/rapha/report/report.tex" 1780415568.39427 35725 edfe4b4d1339616fc00e1a4b95aea259 ""
+  "/home/rapha/report/report.tex" 1781597464.39597 37742 e1761d4e3b666966fb897045a1e67bb2 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -68,17 +68,20 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1769369718 41603 27f93b3067076450172040dcd57ca8b3 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777970825 5541477 3118940318599480888143717dd32d64 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777970974 3640779 69ad9a6b186cf83896471feb61a8ddb4 ""
-  "example_curve.png" 1777989622.65691 427525 6a99e8d26449e1857af6f35785cf3138 ""
+  "image/Resolution_difference.png" 1781170171.75411 157404 9a34493943cf461bc691d2979ad346a8 ""
   "image/decay_cartesian_example.png" 1780414912.55899 168015 1c94f82ae81e21ba0e79750d971c1d76 ""
   "image/decay_cartesian_mask.png" 1780408883.83536 50877 e4c0c0fd46f915f08f301c8ae77b5554 ""
+  "image/decay_cartesian_trajectories.png" 1781177258.26403 201011 4cf36b0074cd994a2ea42bba3dde8f9d ""
+  "image/example_curve.png" 1777989622.65691 427525 6a99e8d26449e1857af6f35785cf3138 ""
   "image/phyllotaxis_radial_mask.png" 1780409050.98315 30744 208c1b3e3a889e317934ba1d5cb81962 ""
   "image/stack_of_radial3D_example.png" 1780415034.75148 136024 6292afd00d907173d8b86a003563d3d1 ""
   "image/stack_of_radial_example.png" 1780415071.40968 124827 a3e41a393a24d47b8df9e0b5461b1c36 ""
   "image/stack_of_radial_mask.png" 1780408963.33582 31360 f6ab807abfb6e28be46e531d0cf4bb91 ""
-  "report.aux" 1780415572.16627 7259 66a1e209fa5153427c43aab5d72cb803 "pdflatex"
-  "report.bbl" 1780415570.62227 945 990b87709216254d9ae46de1f1096c7e "bibtex report"
-  "report.tex" 1780415568.39427 35725 edfe4b4d1339616fc00e1a4b95aea259 ""
-  "report.toc" 1780415572.16627 3447 3bf7f9981aa9ccdc691969f007ac4cf6 "pdflatex"
+  "image/stack_of_radial_trajectories.png" 1781177319.1578 225697 14bbe582843cbc5d89aed2a03240f8e3 ""
+  "report.aux" 1781597466.65597 8124 4692bbea7444198fa4d24fd4241ec866 "pdflatex"
+  "report.bbl" 1781597345.296 1764 febc63438f9580e0c4b9811f3756781f "bibtex report"
+  "report.tex" 1781597464.39597 37742 e1761d4e3b666966fb897045a1e67bb2 ""
+  "report.toc" 1781597466.65597 3519 e917aece72ffaca905e21502ba542beb "pdflatex"
   (generated)
   "report.aux"
   "report.log"
