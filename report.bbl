@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{NoNewNet}
+{Fabian Isensee, Philipp Kickingereder, Wolfgang Wick, Martin Bendszus, Klaus H. Maier-Hein}.
+\newblock No new-net.
+\newblock \url{https://arxiv.org/abs/1809.10483 }, 2019.
+
 \bibitem{iarc2025}
 {International Agency for Research on Cancer}.
 \newblock Global cancer statistics report.

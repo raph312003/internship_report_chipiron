@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.5.5)  9 JUN 2026 16:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.5.5)  16 JUN 2026 15:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -26,11 +26,21 @@ File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 ) (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks17
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
  (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks17
+\KV@toks@=\toks18
 ) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
  (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
@@ -47,9 +57,9 @@ File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ) (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count283
-\float@exts=\toks18
+\float@exts=\toks19
 \float@box=\box53
-\@float@everytoks=\toks19
+\@float@everytoks=\toks20
 \@floatcapt=\box54
 ) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
@@ -60,7 +70,7 @@ For additional information on amsmath, use the `?' option.
 Package: amstext 2024/11/17 v2.01 AMS text
  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks20
+\@emptytoks=\toks21
 \ex@=\dimen151
 )) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
@@ -98,21 +108,21 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \dotsspace@=\muskip18
 \c@parentequation=\count291
 \dspbrk@lvl=\count292
-\tag@help=\toks21
+\tag@help=\toks22
 \row@=\count293
 \column@=\count294
 \maxfields@=\count295
-\andhelp@=\toks22
+\andhelp@=\toks23
 \eqnshift@=\dimen154
 \alignsep@=\dimen155
 \tagshift@=\dimen156
 \tagwidth@=\dimen157
 \totwidth@=\dimen158
 \lineht@=\dimen159
-\@envbody=\toks23
+\@envbody=\toks24
 \multlinegap=\skip52
 \multlinetaggap=\skip53
-\mathdisplay@stack=\toks24
+\mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
 ) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -121,20 +131,20 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 ) (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count297
@@ -142,12 +152,12 @@ LaTeX Font Info:    ... okay on input line 6.
 \scratchbox=\box57
 \nofMPsegments=\count298
 \nofMParguments=\count299
-\everyMPshowfont=\toks25
+\everyMPshowfont=\toks26
 \MPscratchCnt=\count300
 \MPscratchDim=\dimen161
 \MPnumerator=\count301
 \makeMPintoPDFobject=\count302
-\everyMPtoPDFconversion=\toks26
+\everyMPtoPDFconversion=\toks27
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
  (/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
@@ -177,14 +187,22 @@ Package grfext Info: Graphics extension search list:
 (grfext)             \AppendGraphicsExtensions on input line 504.
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-)) (./report.toc [1
+)) (./report.toc
+LaTeX Font Info:    Trying to load font information for U+msa on input line 3.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
 \tf@toc=\write3
 \openout3 = `report.toc'.
 
  [2]
-Overfull \hbox (8.72781pt too wide) in paragraph at lines 13--13
+Overfull \hbox (8.72781pt too wide) in paragraph at lines 14--14
 []\OT1/cmr/bx/n/17.28 Requirements Spec-i-fi-ca-tion and Pre-lim-i-nary
  []
 
@@ -192,50 +210,50 @@ Overfull \hbox (8.72781pt too wide) in paragraph at lines 13--13
 <example_curve.png, id=29, 845.0772pt x 284.262pt>
 File: example_curve.png Graphic file (type png)
 <use example_curve.png>
-Package pdftex.def Info: example_curve.png  used on input line 105.
+Package pdftex.def Info: example_curve.png  used on input line 107.
 (pdftex.def)             Requested size: 292.5pt x 98.38712pt.
 
-Overfull \hbox (2.01366pt too wide) in paragraph at lines 115--115
+Overfull \hbox (2.01366pt too wide) in paragraph at lines 117--117
 []\OT1/cmr/bx/n/17.28 Corporate So-cial Re-spon-si-bil-ity (CSR) Pol-
  []
 
 [8 <./example_curve.png>] [9] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 167--168
+Underfull \hbox (badness 10000) in paragraph at lines 169--170
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 181--182
+Underfull \hbox (badness 10000) in paragraph at lines 183--184
 
  []
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 205--206
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
 
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 234--235
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
 
  []
 
 
-Overfull \hbox (44.44942pt too wide) in paragraph at lines 236--237
+Overfull \hbox (44.44942pt too wide) in paragraph at lines 238--239
 []\OT1/cmr/m/n/12 The ac-qui-si-tion con-fig-u-ra-tion is com-mon to all tra-jec-tory types (\OT1/cmtt/m/n/12 decay[]cartesian\OT1/cmr/m/n/12 ,
  []
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 292--293
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
 
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 301--302
+Underfull \hbox (badness 10000) in paragraph at lines 303--304
 
  []
 
 
-Overfull \hbox (14.54436pt too wide) in paragraph at lines 319--320
+Overfull \hbox (14.54436pt too wide) in paragraph at lines 321--322
 \OT1/cmr/m/n/12 sity is con-cen-trated to-ward the cen-ter of k-space. A high value of \OT1/cmtt/m/n/12 density[]decay
  []
 
@@ -243,25 +261,25 @@ Overfull \hbox (14.54436pt too wide) in paragraph at lines 319--320
 <image/decay_cartesian_mask.png, id=62, 338.4645pt x 293.29575pt>
 File: image/decay_cartesian_mask.png Graphic file (type png)
 <use image/decay_cartesian_mask.png>
-Package pdftex.def Info: image/decay_cartesian_mask.png  used on input line 328.
+Package pdftex.def Info: image/decay_cartesian_mask.png  used on input line 330.
 (pdftex.def)             Requested size: 292.5pt x 253.4825pt.
 <image/stack_of_radial_mask.png, id=64, 296.307pt x 307.74976pt>
 File: image/stack_of_radial_mask.png Graphic file (type png)
 <use image/stack_of_radial_mask.png>
-Package pdftex.def Info: image/stack_of_radial_mask.png  used on input line 347.
+Package pdftex.def Info: image/stack_of_radial_mask.png  used on input line 349.
 (pdftex.def)             Requested size: 292.5pt x 303.81854pt.
  [17 <./image/decay_cartesian_mask.png>]
-Overfull \hbox (9.88603pt too wide) in paragraph at lines 353--355
+Overfull \hbox (9.88603pt too wide) in paragraph at lines 355--357
 \OT1/cmr/m/n/12 tun-able pa-ram-e-ters, as it shares the same con-fig-u-ra-tion as the \OT1/cmtt/m/n/12 stack[]of[]radial
  []
 
 <image/phyllotaxis_radial_mask.png, id=69, 341.47575pt x 344.487pt>
 File: image/phyllotaxis_radial_mask.png Graphic file (type png)
 <use image/phyllotaxis_radial_mask.png>
-Package pdftex.def Info: image/phyllotaxis_radial_mask.png  used on input line 359.
+Package pdftex.def Info: image/phyllotaxis_radial_mask.png  used on input line 361.
 (pdftex.def)             Requested size: 292.5pt x 295.08084pt.
 [18 <./image/stack_of_radial_mask.png>]
-Overfull \hbox (13.1802pt too wide) in paragraph at lines 365--366
+Overfull \hbox (13.1802pt too wide) in paragraph at lines 367--368
 []\OT1/cmr/m/n/12 The pa-ram-e-ters as-so-ci-ated with the \OT1/cmtt/m/n/12 stack[]of[]radial \OT1/cmr/m/n/12 and \OT1/cmtt/m/n/12 decay[]cartesian
  []
 
@@ -269,85 +287,85 @@ Overfull \hbox (13.1802pt too wide) in paragraph at lines 365--366
 <image/decay_cartesian_example.png, id=79, 792.561pt x 271.61475pt>
 File: image/decay_cartesian_example.png Graphic file (type png)
 <use image/decay_cartesian_example.png>
-Package pdftex.def Info: image/decay_cartesian_example.png  used on input line 384.
+Package pdftex.def Info: image/decay_cartesian_example.png  used on input line 386.
 (pdftex.def)             Requested size: 292.5pt x 100.24306pt.
 <image/stack_of_radial_example.png, id=80, 655.248pt x 219.82124pt>
 File: image/stack_of_radial_example.png Graphic file (type png)
 <use image/stack_of_radial_example.png>
-Package pdftex.def Info: image/stack_of_radial_example.png  used on input line 393.
+Package pdftex.def Info: image/stack_of_radial_example.png  used on input line 395.
 (pdftex.def)             Requested size: 292.5pt x 98.1304pt.
  [20 <./image/decay_cartesian_example.png>]
 <image/stack_of_radial3D_example.png, id=85, 734.745pt x 248.72925pt>
 File: image/stack_of_radial3D_example.png Graphic file (type png)
 <use image/stack_of_radial3D_example.png>
-Package pdftex.def Info: image/stack_of_radial3D_example.png  used on input line 402.
+Package pdftex.def Info: image/stack_of_radial3D_example.png  used on input line 404.
 (pdftex.def)             Requested size: 292.5pt x 99.01932pt.
  [21 <./image/stack_of_radial_example.png> <./image/stack_of_radial3D_example.png>]
 <image/training_pipeline.png, id=91, 516.12825pt x 341.47575pt>
 File: image/training_pipeline.png Graphic file (type png)
 <use image/training_pipeline.png>
-Package pdftex.def Info: image/training_pipeline.png  used on input line 428.
+Package pdftex.def Info: image/training_pipeline.png  used on input line 430.
 (pdftex.def)             Requested size: 292.5pt x 193.51773pt.
  [22 <./image/training_pipeline.png>]
 <image/mask_ground_truth.png, id=96, 525.162pt x 250.536pt>
 File: image/mask_ground_truth.png Graphic file (type png)
 <use image/mask_ground_truth.png>
-Package pdftex.def Info: image/mask_ground_truth.png  used on input line 449.
+Package pdftex.def Info: image/mask_ground_truth.png  used on input line 451.
 (pdftex.def)             Requested size: 292.5pt x 139.54227pt.
 <image/segmentation_contrast_mask.png, id=97, 525.162pt x 250.536pt>
 File: image/segmentation_contrast_mask.png Graphic file (type png)
 <use image/segmentation_contrast_mask.png>
-Package pdftex.def Info: image/segmentation_contrast_mask.png  used on input line 465.
+Package pdftex.def Info: image/segmentation_contrast_mask.png  used on input line 467.
 (pdftex.def)             Requested size: 292.5pt x 139.54227pt.
- [23 <./image/mask_ground_truth.png>] [24 <./image/segmentation_contrast_mask.png>] [25] [26] [27] (./report.bbl [28]
-Underfull \hbox (badness 4168) in paragraph at lines 9--12
+ [23 <./image/mask_ground_truth.png>] [24 <./image/segmentation_contrast_mask.png>] [25] [26] [27] [28] [29] [30] [31] (./report.bbl [32]
+Underfull \hbox (badness 4168) in paragraph at lines 14--17
 []\OT1/cmr/m/n/12 National Breast Can-cer Or-ga-ni-za-tion.  Na-tional mam-mog-ra-phy
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 9--12
+Underfull \hbox (badness 10000) in paragraph at lines 14--17
 \OT1/cmr/m/n/12 day in-for-ma-tion.  $\OT1/cmtt/m/n/12 https : / / www . nationalbreastcancer . org /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--17
+Underfull \hbox (badness 10000) in paragraph at lines 19--22
 \OT1/cmr/m/n/12 for-ma-tion.  $\OT1/cmtt/m/n/12 https : / / www . cancer . fr / professionnels-[]de-[]sante /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 14--17
+Underfull \hbox (badness 10000) in paragraph at lines 19--22
 \OT1/cmtt/m/n/12 veille / nota-[]bene-[]cancer / bulletin-[]n-[]243 /
  []
 
 
-Overfull \hbox (36.91664pt too wide) in paragraph at lines 14--17
+Overfull \hbox (36.91664pt too wide) in paragraph at lines 19--22
 \OT1/cmtt/m/n/12 prevalence-[]of-[]mammographically-[]dense-[]breasts-[]in-[]the-[]united-[]states$\OT1/cmr/m/n/12 ,
  []
 
-[29]
-Underfull \hbox (badness 2591) in paragraph at lines 19--22
+[33]
+Underfull \hbox (badness 2591) in paragraph at lines 24--27
 \OT1/cmr/m/n/12 tics.  $\OT1/cmtt/m/n/12 https : / / www . komen . org / breast-[]cancer / facts-[]statistics /
  []
 
-) [30] (./report.aux)
+) [34] (./report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2859 strings out of 467533
- 46461 string characters out of 5422139
- 456707 words of memory out of 5000000
- 31737 multiletter control sequences out of 15000+600000
- 633502 words of font info for 60 fonts, out of 8000000 for 9000
+ 3384 strings out of 467533
+ 52444 string characters out of 5422139
+ 457318 words of memory out of 5000000
+ 32245 multiletter control sequences out of 15000+600000
+ 634737 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  59i,6n,67p,798b,297s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on report.pdf (30 pages, 1091306 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on report.pdf (34 pages, 1133007 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
- 93 compressed objects within 1 object stream
+ 195 PDF objects out of 1000 (max. 8388607)
+ 114 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
