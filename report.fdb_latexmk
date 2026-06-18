@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex report"] 1781615082.64844 "report.aux" "report.bbl" "report" 1781615547.73214 0
+["bibtex report"] 1781792301.62882 "report.aux" "report.bbl" "report" 1781792303.92864 0
   "./references.bib" 1781600350.69524 1584 d4be4d60a6793ed24d0edb85afa4de04 ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "report.aux" 1781615547.24431 9686 a555bf817c452567e14deea3e262dd05 "pdflatex"
+  "report.aux" 1781792303.56059 10200 d17c026d45376214dd89ad84cd88adfc "pdflatex"
   (generated)
   "report.bbl"
   "report.blg"
   (rewritten before read)
-["pdflatex"] 1781615545.44996 "/home/rapha/report/report.tex" "report.pdf" "report" 1781615547.73236 0
+["pdflatex"] 1781792301.82386 "/home/rapha/report/report.tex" "report.pdf" "report" 1781792303.92884 0
   "/etc/texmf/web2c/texmf.cnf" 1777970792.54324 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/rapha/report/report.tex" 1781615545.00831 59719 61709c7ef90ac0324372b922c209c09f ""
+  "/home/rapha/report/report.tex" 1781792299.18459 61993 72e8887f9d907d5b9632481a62949164 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -90,10 +90,10 @@
   "image/stack_of_radial_example.png" 1780415071.40968 124827 a3e41a393a24d47b8df9e0b5461b1c36 ""
   "image/stack_of_radial_mask.png" 1780408963.33582 31360 f6ab807abfb6e28be46e531d0cf4bb91 ""
   "image/training_pipeline.png" 1781598068.10381 96435 4f1a301c1b3fe4c887f4438a1323fe61 ""
-  "report.aux" 1781615547.24431 9686 a555bf817c452567e14deea3e262dd05 "pdflatex"
-  "report.bbl" 1781615082.82842 1138 52f2f56673d2b8be4892e330ede826a5 "bibtex report"
-  "report.tex" 1781615545.00831 59719 61709c7ef90ac0324372b922c209c09f ""
-  "report.toc" 1781615547.24431 4430 714e69a57fc620458e04de365c891f49 "pdflatex"
+  "report.aux" 1781792303.56059 10200 d17c026d45376214dd89ad84cd88adfc "pdflatex"
+  "report.bbl" 1781792301.81659 1138 52f2f56673d2b8be4892e330ede826a5 "bibtex report"
+  "report.tex" 1781792299.18459 61993 72e8887f9d907d5b9632481a62949164 ""
+  "report.toc" 1781792303.56059 4698 809820566dab19d39a282458ccc1c6ef "pdflatex"
   (generated)
   "report.aux"
   "report.log"

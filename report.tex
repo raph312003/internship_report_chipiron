@@ -724,10 +724,46 @@ X \in \mathbb{R}^{B \times 2 \times D \times H \times W}.
 
 As for the output we only want one channel because the ground truth has one channel and we need the same dimension to calculate the cost function (loss).
 
+\paragraph{NoNew-Netv2}
+The big difference between NoNewnet and NoNewnetv2 is in the decoder with the way we upsample the sample.
+In the NoNew-Net
+
 % architecture example
 \paragraph{ResU-Net}
 
+The second architecture I investigated was a residual version of the U-Net. 
+Instead of directly predicting the post-contrast image, the network predicts the residual which is the difference between the pre-contrast and post-contrast acquisitions.
+
+The intuition behind this approach is that the anatomical structures are already present in the pre-contrast image, while the contrast agent only modifies a limited number of regions. 
+Consequently, learning the residual is an easier task than reconstructing the entire post-contrast image from scratch. 
+The network only has to estimate the contrast enhancement rather than the complete image.
+
+To implement this idea, I started from the original NoNew-Net architecture and introduced a residual connection. 
+The output of the network represents the predicted enhancement, which is then added to the pre-contrast image to obtain the final reconstructed post-contrast image. 
+Since MRI intensities are non-negative, an activation function is applied after the residual addition to ensure that the reconstructed intensities remain positive.
+
+In addition to the residual connection, I incorporated Squeeze-and-Excitation (SE) blocks into the ResU-Net architecture. 
+These blocks are particularly beneficial in deep convolutional networks with a large number of feature channels.
+In a standard convolutional neural network, all feature channels are treated equally by subsequent convolution layers. 
+However, not all channels contribute equally to the reconstruction task. 
+SE blocks introduce a lightweight channel-attention mechanism that learns an importance coefficient for each feature channel. 
+As a result, informative channels are emphasized while less relevant ones are reduced.
+
+The training configuration of the ResU-Net is identical to that of the original NoNew-Net, except for the number of feature channels.
+While NoNew-Net uses 30 feature channels, the ResU-Net was configured with 64 feature channels to increase its representational capacity.
 % architecture example
+
+\paragraph{Dense-Unet}
+
+\paragraph{DeepCascade}
+
+\paragraph{UnetAttGate}
+
+\paragraph{UnetAttBlock}
+
+\paragraph{ViT}
+
+
 
 \subsubsection{Testing and Measurements}
 
