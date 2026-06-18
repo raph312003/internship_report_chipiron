@@ -6,7 +6,7 @@
 \contentsline {subsection}{\numberline {2.1}Company Context}{3}{}%
 \contentsline {subsubsection}{\numberline {2.1.1}Chipiron global context}{3}{}%
 \contentsline {subsubsection}{\numberline {2.1.2}Epidemiology and Clinical Context}{4}{}%
-\contentsline {subsubsection}{\numberline {2.1.3}Breast Cancer Screening Pipeline with their Limitations}{4}{}%
+\contentsline {subsubsection}{\numberline {2.1.3}Breast Cancer Screening Pipeline with its Limitations}{4}{}%
 \contentsline {subsubsection}{\numberline {2.1.4}Low-Field MRI Solution}{5}{}%
 \contentsline {subsubsection}{\numberline {2.1.5}Chipiron Current Position in Low-Field MRI Development}{7}{}%
 \contentsline {subsubsection}{\numberline {2.1.6}Industry Sector}{7}{}%
