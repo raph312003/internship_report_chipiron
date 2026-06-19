@@ -849,6 +849,197 @@ By doing this, I control the random generation in my pipeline and improve the re
 
 
 \subsubsection{Architecture models}
+
+
+\paragraph{artificial neural network}
+Now that the entire training pipeline was operational, I was able to experiment with different deep learning models and compare their performances in order to determine which one was the most suitable for our problem.
+
+
+First, deep learning models rely on artificial neural networks to learn complex tasks from data. Most neural networks consist of an input layer, multiple hidden layers, and an output layer, whose structure depends on the desired prediction.
+Each hidden layer is composed of numerous parameters, called weights, which are numerical values that define the strength of the connections between neurons.
+
+
+During training, the network learns by adjusting these weights through a process involving forward propagation and backward propagation, as explained earlier.
+Forward propagation computes the model's predictions, while backward propagation updates the weights based on the prediction errors to improve the network's performance over time.
+
+
+\paragraph{Convolution neural network (CNN)}
+
+
+A Convolutional Neural Network (CNN) is a specialized type of deep learning architecture designed for tasks involving image analysis and recognition, which makes it particularly well suited to our problem.
+CNNs are highly effective at identifying patterns and extracting relevant features from images, such as edges, textures, and shapes.
+They are composed of several layers called also channels, that apply multiple learnable filters to the input image.
+These filters, which can have dimensions such as (3*3*3) or (5*5*5) in the case of three-dimensional images, the coefficiet in the filter are optimized during training to detect different types of features within the images.
+As the input passes through the network, each filter generates a feature map that highlights the presence and spatial location of specific patterns.
+By combining information extracted at different layers, CNNs progressively learn complex and abstract representations of the input image.
+
+
+\paragraph{activation function}
+
+
+In CNN we also need some activation function to bring some non-linearity and allow to solve some more complex problem.
+Most of the time the activation function is applied at the end of each convolution.
+It determines if the information is translate to the next layer or not in network.
+For example a famous activation function is the Relu function, where all the negative number turn to 0.
+Or the sigmoid where the negative number are between 0 and 0.5 and positive number are between 0.5 and 1.
+In our case the activation function are applied on each feature map of the network.    
+
+
+\paragraph{batchNormalization vs InstanceNormalization}
+
+
+Training deep neural network is complicated by the fact that the distribution of each layer's input changes during training as the parameters of the prvious layers change.
+Therefore this slows down the training by requiring lower learning rate and careful parameter initialization and make it hard to train models with saturing nonlinearities.
+We call this problem as internal covariate shift, and we solved that by normalizing the pre activation layers.
+The goal is to make normalization part of the models architecture. For that there are 2 differents approachs:
+
+
+\begin{itemize}
+    \item Batch Normalization (BN) : It normalizes each feature map by calculating the average and the variance by using all the example in the batch.
+    It has 2 learnable parameter sush as gamma for the scaling und beta for the shifting.
+    The Beta can replace the bias that we have in the feature map. % Formula ?
+    \[
+    \hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}
+    \]
+
+
+    \[
+    y_i = \gamma \hat{x}_i + \beta
+    \]
+
+
+    Knowing that $\mu_B$ represents the mean of the batch and $\sigma_B^2$ the variance of the batch, $\epsilon$ is a small constant added to avoid division by zero.
+    Finally, $\gamma$ and $\beta$ are learnable parameters of the model.
+
+
+    \item Instance Normalization (IN) : It normalized each feature by calulating the average and the variance separately for every feature map across its spatial dimensions;
+    It also has 2 learnable parameter like BN % Formula ?
+    \[
+    \hat{x}_{h,w,d} = \frac{x_{h,w,d} - \mu_I}{\sqrt{\sigma_I^2 + \epsilon}}
+    \]
+    \[
+    y_{h,w,d} = \gamma \hat{x}_{h,w,d} + \beta
+    \]
+    The only change is $\mu_I$ represents the mean of the sample and $\sigma_I^2$ the variance of the sample not the batch
+
+
+\end{itemize}
+
+
+Batch Normalization significantly improve training stbility by reducing internal covariate shift and accelerated convergence.
+It stabilizes learning by making the model's activations more consistent across different batches and ensures faster convergence, allowing the use of larger learning rates.
+In the other way Instance Normalization, it doesn’t directly improve training speed or stability, but it helps to preserve individual image characteristics.
+
+
+\paragraph{Maxpooling}
+
+
+Maxpooling is an operation typically used in CNN because it reduces the spatial by sliding the 3D window and taking the maximum value in each region.
+It helps the downsampling and reduces the computation while returning important features.
+
+
+
+
+Most deep learning models rely on core components such as convolutional layers, activation functions, batch normalization, and max pooling, which are essential for building stable neural networks, particularly in medical imaging applications.
+However, the main differences lie in the network architecture, which can vary considerably depending on the specific problem.
+In this work, I experimented with several architectures, which will be presented in the following section.
+
+
+\paragraph{NoNew-Net}
+The first Architecture I investigated was the nonewnet \cite{NoNewNet}, it's based on a U-Net Architecture.
+U-Net architectures are widely used in deep learning and have served as the foundation for numerous successful models in medical image analysis, particularly for segmentation tasks.
+In our application, U-Net architectures have also demonstrated strong performance for image denoising while remaining relatively simple to implement.
+For these reasons, NoNew-Net was selected as a baseline model for our experiments.
+
+
+NoNew-Net is organized into several blocks which corresponds for each to a different resolution levels.
+It folloms the classical encoder-decoder structure of a U-net with the Skip connection.
+At each stage of the encoder, the spatial dimensions of the feature maps are reduced by a factor of two with Maxpooling, while the number of feature channels is typically doubled to extract features with high level information.
+in the decoder, the feature maps are progressively upsampled, increasing their spatial dimensions by a factor of two at each stage, while the number of feature channels is reduced accordingly.
+Finally, Skip connections are used to transfer information from the encoder to the corresponding decoder levels, allowing the network to preserve fine spatial details during the reconstruction process.
+
+
+For each architecture, a configuration file in YAML format was used like training pipeline introduced earlier.
+The NoNew-Net architecture uses a kernel size of 3, corresponding to a 3D convolutional filter of size 3 × 3 × 3.
+The base number of feature channels is set to 30 and is progressively increased throughout the encoder, typically doubling at each block.
+The number of blocks was set to 4, as a result,the block at the bottom of the U-net that we call the bottleneck layer contains 480 feature channels.
+The activation function used is Leaky ReLU. Unlike standard ReLU, it introduces a small negative slope (0.2), meaning that negative values are not entirely set to zero but are instead scaled down.
+Finally, an important design aspect of the model concerns the number of input and output channels, which depends most of the time on the specific problem being addressed.
+In our case, the model takes two input channels corresponding to pre-contrast and post-contrast acquisitions.
+These two inputs are concatenated along the channel dimension to form a single tensor with two channels.
+This is why the model is configured to start with 2 input channels.
+
+
+\[
+X = \mathrm{Concat}(X_1, X_2)
+\]
+
+
+\[
+X_1, X_2 \in \mathbb{R}^{B \times 1 \times D \times H \times W}
+\]
+
+
+\[
+X \in \mathbb{R}^{B \times 2 \times D \times H \times W}.
+\]
+
+
+As for the output we only want one channel because the ground truth has one channel and we need the same dimension to calculate the cost function (loss).
+
+
+\paragraph{NoNew-Netv2}
+The big difference between NoNewnet and NoNewnetv2 is in the decoder with the way we upsample the sample.
+In the NoNew-Net
+
+
+% architecture example
+\paragraph{ResU-Net}
+
+
+The second architecture I investigated was a residual version of the U-Net.
+Instead of directly predicting the post-contrast image, the network predicts the residual which is the difference between the pre-contrast and post-contrast acquisitions.
+
+
+The intuition behind this approach is that the anatomical structures are already present in the pre-contrast image, while the contrast agent only modifies a limited number of regions.
+Consequently, learning the residual is an easier task than reconstructing the entire post-contrast image from scratch.
+The network only has to estimate the contrast enhancement rather than the complete image.
+
+
+To implement this idea, I started from the original NoNew-Net architecture and introduced a residual connection.
+The output of the network represents the predicted enhancement, which is then added to the pre-contrast image to obtain the final reconstructed post-contrast image.
+Since MRI intensities are non-negative, an activation function is applied after the residual addition to ensure that the reconstructed intensities remain positive.
+
+
+In addition to the residual connection, I incorporated Squeeze-and-Excitation (SE) blocks into the ResU-Net architecture.
+These blocks are particularly beneficial in deep convolutional networks with a large number of feature channels.
+In a standard convolutional neural network, all feature channels are treated equally by subsequent convolution layers.
+However, not all channels contribute equally to the reconstruction task.
+SE blocks introduce a lightweight channel-attention mechanism that learns an importance coefficient for each feature channel.
+As a result, informative channels are emphasized while less relevant ones are reduced.
+
+
+The training configuration of the ResU-Net is identical to that of the original NoNew-Net, except for the number of feature channels.
+While NoNew-Net uses 30 feature channels, the ResU-Net was configured with 64 feature channels to increase its representational capacity.
+% architecture example
+
+
+\paragraph{Dense-Unet}
+
+
+\paragraph{DeepCascade}
+
+
+\paragraph{UnetAttGate}
+
+
+\paragraph{UnetAttBlock}
+
+
+\paragraph{ViT}
+
+
+
 \subsubsection{Testing and Measurements}
 \subsection{Difficulties Encountered}
 \subsection{Problem-Solving Approach}
