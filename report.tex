@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \begin{document}
 \tableofcontents
 \newpage
@@ -590,6 +591,263 @@ We can see some representation of the images with the undersampling and the nois
 
 
 \subsubsection{Training pipeline}
+
+
+Now that the preprocessing stage has been completed and realistic low-field MRI data have been generated, including accelerated acquisitions
+obtained through undersampling techniques, the next step is to establish an appropriate training pipeline for the deep learning models.
+
+
+\paragraph{Using 2 inputs}
+First of all it's important to be aware that the deep learning models are going to be designed to take two input volumes: a high-quality pre-contrast image
+and a noisy accelerated post-contrast image. Indeed, in dynamic contrast MRI acquisition, both acquisitions are required to assess the evolution
+of the contrast agent over time and help determine whether a tumor is benign or malignant. Since the pre-contrast acquisition is performed only once,
+it can be acquired with high image quality without strict time constraints. In contrast, multiple post-contrast acquisitions are required after the injection of the contrast agent.
+To reduce the overall examination time, these acquisitions can be accelerated using undersampling techniques like we explained above.
+The idea behind this approach is that, apart from the contrast enhancement, the anatomical structures remain largely unchanged between acquisitions.
+Therefore, the high-quality pre-contrast volume provides valuable structural information that can assist the reconstruction of the global accelerated post-contrast images.
+By adding both volumes to the network, the model is encouraged to focus on the contrast-related changes rather than relearning anatomical
+information already available in the pre-contrast image. This allows the reconstruction process to better preserve and recover the clinically
+relevant contrast enhancement while benefiting from the high-quality structural reference.
+
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/training_pipeline.png}
+    \caption{Training pipeline representation}
+    \label{fig:Training_pipeline_representation}
+    \vspace{0.5cm}
+\end{figure}
+
+
+\paragraph{organization of my training pipeline}
+\paragraph{preprocessing script}
+
+
+First of all, before launching the training pipeline, a preprocessing script can be used to reduce the image resolution and ensure that all samples have
+a consistent size. The processed data are saved in a separate folder, allowing the training pipeline to directly use these lower-resolution samples.
+This reduces computational cost and speeds up the training process as explain above.
+
+
+During preprocessing, two segmentation masks are also saved with the new dataset. The first mask is designed to keep only
+the relevant region of each sample. In many acquisitions, large areas surrounding the object of interest contain only black pixels,
+which do not carry any useful information. Keeping these empty regions could negatively influence the model during the training, as it may learn to denoise
+or reconstruct irrelevant background areas instead of focusing on meaningful structures.
+
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/mask_ground_truth.png}
+    \caption{Mask Ground truth}
+    \label{fig:mask_ground_truth}
+    \vspace{0.5cm}
+\end{figure}
+
+
+The second mask is only available in the Mamamia dataset and is not provided in the FastMRI Breast dataset. This segmentation mask specifically
+identifies regions containing contrast enhancement, allowing us to know where the contrast agent is expected to appear within the breast tissue.
+
+
+This mask is particularly useful otherwise we can't study the contrast dynamics, as it enables the analysis to focus exclusively on the enhanced regions rather
+than the entire breast. Additionally, it can be used into the training process to guide the model's attention toward contrast
+areas, which are often the most clinically relevant features, instead of treating all regions of the sample equally.
+
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/segmentation_contrast_mask.png}
+    \caption{segmentation contrast mask}
+    \label{fig:segmentation_contrast_mask}
+    \vspace{0.5cm}
+\end{figure}
+
+
+\paragraph{Data-preparation}
+After running the preprocessing script, a dedicated class which is named LoadingFastMRIBreastDataset3D is used to ensure that the dataset is properly organized before being fed into the model.
+
+
+First, the class loads the data from the directory containing the .h5 files. It then separates the different acquisitions for each patient, as each
+sample contains between 3 and 6 acquisitions. For every subject, the first acquisition is considered as the pre-contrast image. As for the post-contrast images,
+either all available acquisitions can be included in the training set, or a single one can be randomly selected, depending on the chosen strategy.
+At the beginning I will choose to select one randomly.
+
+
+A corresponding ground truth is also defined, which corresponds to the same post-contrast acquisition without any acceleration applied.
+This allows a direct comparison between accelerated and fully sampled data so our model can learn and adjust base on the ground-truth.
+We will go more in details in the training part.
+
+
+Next, each volume is normalized using a percentile-based normalization method, as described previously.
+Finally, only the post-contrast volumes are subjected to an undersampling operation in order to simulate the effects of accelerated low-field MRI acquisitions,
+while the pre-contrast and ground truth images remain fully sampled.
+
+
+Moreover, the dataset also provides two segmentation masks for each sample, as previously introduced. A final important piece of information is the acquisition timestamps.
+These timestamps are available for all acquisitions in the dataset and indicate the exact acquisition time of each MRI scan.
+
+
+The times-tamps of each acquisitions represent how long it took the MRI to get the acquisition. It is very important for us because by having the time-stamps you can easily
+separate the acquisitions in the testing phase, so we can see the dynamic of the contrast over time.
+
+
+At the end, this class can return the post-contrast images, the accelerated pre-contrast images, the ground truth, the two segmentation masks, and the timestamps.
+Depending on the configuration, it is possible to choose which elements are returned.
+
+
+However, the three main outputs will always be returned: the post-contrast images, the accelerated pre-contrast images, and the corresponding ground
+truth. In the case of the FastMRI breast dataset, the segmentation masks for the contrast is not available, so the pipeline is designed to handle this situation and
+avoid requiring them.
+
+
+For datasets where both segmentation masks are available, they can optionally be used, as they may improve performance.
+Nevertheless, the model can also be trained without them, which makes it possible to compare results with and without the
+use of segmentation information.
+
+
+% talk about the fact that the class is taking one sample at a time ?
+
+
+\paragraph{training}
+
+
+The training pipeline is important because it directly affects how the model learns. In deep learning, the dataset is typically split into a
+training set and a validation set. The training set is used to optimize the model, while the validation set is used during training to monitor
+performance and tune hyperparameters. Unlike the validation set, the test set is only used at the end to evaluate the model on unseen data.
+
+
+\paragraph{Risk of training}
+We need both a training dataset and a validation dataset to ensure that the model does not overfit. Overfitting occurs when a model performs very
+well on the data it was trained on but poorly on new, unseen data. Therefore, using separate datasets is essential to assess the model's ability
+to generalize.
+
+
+During training, several important parameters in deep learning must also be carefully considered and understood.
+
+
+\paragraph{Batchsize}
+
+
+The first important parameter is the batch size, which represents the number of samples processed simultaneously during training. In general,
+larger batch sizes can speed up training because more samples are handled in parallel. For example, training with a batch size of 8 is logicaly
+faster than with a batch size of 4.
+
+
+However, larger batch sizes also require more GPU memory, especially when dealing with large volumetric data containing many voxels. In my case,
+I chose a batch size of 4 because it provided a good balance between training speed and the available GPU memory.
+
+
+When the model will be trained on full image resolution at the end of my internship, I will likely need to reduce the batch size
+to 1 due to the large size of each sample.
+
+
+\paragraph{Loss}
+The loss function measures the error between the outputs generated by the model and the ground truth target images. It plays a crucial role during
+training, as the objective is to minimize this error over time.
+
+
+Two of the most commonly used loss functions are the Mean Squared Error (MSE) and the Mean Absolute Error (MAE). The MSE computes the average squared
+difference between the predicted outputs and the ground truth, whereas the MAE computes the average absolute difference. The main difference between
+them is that the MSE is more sensitive to outliers because larger errors are penalized more heavily.
+
+
+It is also possible to combine these two loss functions. In my case, I chose the MSE because I did not expect a significant number of outliers in the data.
+
+
+\paragraph{The gradient descent}
+Gradient descent is an important optimization method used to minimize the cost function in our case the loss by progressively adjusting the model parameters which are
+mainly the weights and biases.
+
+
+It is based on computing the partial derivatives of the loss with respect to these parameters such as weights and biases. Another key element is the learning rate (lr),
+which controls the size of each update step during optimization. If the learning rate is too high, the algorithm may fail to converge to the minimum, so
+it must be carefully tuned. I chose a lr of 0.0001 whichs slow down a bit the training but allows finding quite well the convergence of the cost function.
+
+
+\paragraph{backpropagation}
+
+
+Backpropagation works together with gradient descent. It computes the gradient of the loss function layer by layer, starting from the output layer and moving
+backward through the network. Once all gradients are computed, gradient descent uses them to update the weights and biases.
+
+
+In other words, backpropagation calculates how each parameter contributes to the error, and gradient descent applies these values to adjust the model
+parameters.
+
+
+\paragraph{epoch}
+
+
+An epoch represents each time all the samples from our dataset have gone through the model. At the end of each epoch, the average training loss and validation loss are computed.
+The goal is to check the model's learning progress by observing how these losses evolve over time by displaying it on wandb software as introduce earlier. where training and
+validation loss curves are plotted across epochs.
+
+
+\paragraph{Patience}
+
+
+Finally, another important parameter during training is the patience. Patience refers to the number of consecutive epochs during which we allow the
+validation loss to not improve before stopping the training.
+
+
+During training, we compute two losses: the training loss and the validation loss. The training loss is used to update the model parameters through
+backpropagation and gradient descent. In contrast, the validation loss is not used for updates; it is only used to evaluate how well the model generalizes
+and to detect overfitting.
+
+
+Patience is applied only to the validation loss. It helps detect overfitting during training. For example, with a patience of 10, if the validation loss
+does not improve for 10 consecutive epochs while the training loss continues to decrease, it indicates that the model is starting to overfit the training
+data.
+
+
+In that case, continuing the training is not useful, since the model is no longer improving its ability to generalize to unseen data.
+
+
+\paragraph{main}
+
+
+The main script controls the entire training pipeline. It manages the LoadingFastMRIBreastDataset3D class as well as all the training steps described above. It's also
+saves the model on Weights \& Biases (wandb) and evaluates it using different metrics that will be explained later. To start the training, I run this main script,
+which centralizes everything. It also allows me to choose different configurations for both the model and the training pipeline.
+
+
+I created several YAML configuration files to easily change settings. Depending on the chosen configuration, I can test different options such as downsampling,
+undersampling, or the use of segmentation masks. There is also a default configuration, which is the simplest setup. This allows anyone to run the pipeline directly
+or modify the YAML files to experiment with different settings. This configuration with the yaml setup is very useful because it allows me to test different configs
+easily so I can see which config is giving the best result.
+
+
+\paragraph{seed}
+
+
+In my pipeline, controlling the seed and ensuring reproducibility was very important. A reproducible pipeline is the fact of running twice the same pipeline
+with same config and you got almost the same result.
+
+
+However, perfect reproducibility is not guaranteed, especially on GPUs, because computations are highly parallel and not always fully deterministic.
+Despite this, we can get as close as possible by fixing the random seed for the random data which are generated. The seed sets the initial state of
+the random number generator, which controls the sequence of random values produced during training. Indeed in the training pipeline random values are used
+specifically to generate the undersampling and downsampling noise for the Gaussian distribution.
+
+
+However, we need to be careful. If we fix the seed, then the same random noise pattern will be generated each time the pipeline is run. As a result, every
+sample in the training dataset will receive the same noise realization across different runs, which can reduce variability and may not always reflect the true
+randomness of the noise from low-filed MRI images.
+
+
+That's why in the LoadingFastMRIBreastDataset3D class, I ensured that the preprocessing assigns different seeds to the training samples at each epoch.
+This way, every epoch uses a different noise pattern for all samples, and the noise also changes from one epoch to another. This introduces a form of
+data augmentation, which helps reduce overfitting by increasing variability in the training data.
+
+
+For the validation set, I only ensure that the noise is fixed across epochs but different between samples. No data augmentation is applied during validation,
+since its role is strictly to evaluate the model in a consistent and stable way.
+
+
+By doing this, I control the random generation in my pipeline and improve the reproducibility of my experiments. This makes it easier to reliably compare results when testing the model.
+
+
 \subsubsection{Architecture models}
 \subsubsection{Testing and Measurements}
 \subsection{Difficulties Encountered}
