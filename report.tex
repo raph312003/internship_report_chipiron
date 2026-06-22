@@ -1035,8 +1035,24 @@ While NoNew-Net uses 30 feature channels, the ResU-Net was configured with 64 fe
 
 \paragraph{Dense-Unet}
 
+The Dense U-Net architecture is very similar to the standard U-Net. 
+It has the same encoder-decoder structure.
+The main difference is that it uses Dense Blocks instead of the usual double convolution blocks.
 
-\paragraph{DeepCascade}
+In a Dense Block, each layer receives the outputs of all the previous layers as its input because in a standard network, each layer only receives the output of the previous layer.
+This allows the network to reuse features that have already been learned.
+
+In our implementation, we use a growth rate of 16. This means that each layer produces 16 new feature channels.
+As a result, the number of channels increases gradually inside each Dense Block. 
+However, unlike a standard U-Net, the number of channels does not simply double when moving from one block to the next.
+
+The main advantage of Dense Blocks is that they reuse features from previous layers.
+This improves the flow of information through the network and reduces the number of trainable parameters, since each layer only needs to learn a small number of new features.
+
+However, because all the feature maps are concatenated together, Dense Blocks can require a lot of memory than others networks.
+For this reason, it is important to choose an appropriate growth rate that provides a good balance between performance and memory consumption.
+
+The training configuration of the Dense-Unet is identical to the original NoNew-Net, except with the growth-rate which is not present in th NoNew-Net.
 
 
 \paragraph{UnetAttGate}
