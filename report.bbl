@@ -35,6 +35,11 @@ Honghuan Dong, Linqing Kang, Sijia Cheng, and Rongju Zhang.
 \newblock Prevalence of mammographically dense breasts in the united states.
 \newblock \url{https://www.cancer.fr/professionnels-de-sante/veille/nota-bene-cancer/bulletin-n-243/prevalence-of-mammographically-dense-breasts-in-the-united-states}, 2025.
 
+\bibitem{AttentionUnet}
+{Ozan Oktay, Jo Schlemper, Loic Le Folgoc, Matthew Lee, Mattias Heinrich, Kazunari Misawa, Kensaku Mori, Steven McDonagh, Nils Y Ha}.
+\newblock Attention u-net.
+\newblock \url{https://arxiv.org/pdf/1804.03999 }, 2018.
+
 \bibitem{komen_stats}
 {Susan G. Komen Foundation}.
 \newblock Breast cancer survival rates statistics.

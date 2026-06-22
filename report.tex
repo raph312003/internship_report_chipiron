@@ -1056,7 +1056,27 @@ The training configuration of the Dense-Unet is identical to the original NoNew-
 
 
 \paragraph{UnetAttGate}
+Attention Gate U-Net \cite{AttentionUnet} is used in segmentation tasks because it improves the model’s ability to focus on relevant regions of the image while reducing the influence of irrelevant background information.
+It works by assigning higher weights to important features and lower weights to less useful ones.
+To achieve this, attention gates are added at the skip connections in the decoder.
+These gates help filter the information coming from the encoder before it is combined with the decoder features.
 
+Each attention gate takes two inputs. 
+The first input is the feature map from the skip connection, which contains strong spatial information.
+The second input comes from a deeper layer in the decoder, which contains more feature representations.
+
+These two inputs are added together to compute attention coefficients. 
+The network learns to give higher values to aligned and relevant features, and lower values to irrelevant ones.
+
+A ReLU activation is applied during this process, followed by a sigmoid function to normalize the attention weights between 0 and 1.
+The resulting attention map is then resized to match the spatial dimensions of the decoder feature map.
+It is multiplied element-wise with the skip connection features.
+This allows the network to keep important pixels while suppressing less relevant ones.
+
+We can say that the attention gate tries to increase the quality of the feature sent to the decoder. 
+However, it can add more complexity and more computational cost.
+
+the configs are the same as the NoNew-Net
 
 \paragraph{UnetAttBlock}
 
