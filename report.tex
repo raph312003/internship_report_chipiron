@@ -989,9 +989,18 @@ As for the output we only want one channel because the ground truth has one chan
 
 
 \paragraph{NoNew-Netv2}
-The big difference between NoNewnet and NoNewnetv2 is in the decoder with the way we upsample the sample.
-In the NoNew-Net
+The main difference between NoNewnet and NoNewnetv2 is in the decoder, more specifically in the upsampling strategy.
+In the original NoNew-Net, the feature maps are upsampled using an interpolation function. 
+This operation doesn't involve any learnable parameters, it simply increases the spatial resolution by applying a mathematical interpolation.
+After this step, a normal convolution like in the encoder is applied to learn how to combine and refine the features in the decoder.
 
+However, the interpolation layer is replaced by a 3D transposed convolution (ConvTranspose3D).
+Unlike interpolation, a transposed convolution contains learnable parameters that are optimized during training.
+As a result, it not only upsamples the feature maps but also learns an upsampling operation.
+
+The advantage of Interpolation is the fact that is computationally cheaper and it doesn't introduce additional parameters, making it faster and more memory-efficient.
+In contrast, transposed convolution increases the number of trainable parameters and the computational cost.
+It also provides greater flexibility by learning a better upsampling adapted to our specific task, which can improve the reconstruction of samples.
 
 % architecture example
 \paragraph{ResU-Net}
