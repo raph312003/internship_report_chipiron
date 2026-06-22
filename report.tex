@@ -1079,6 +1079,46 @@ However, it can add more complexity and more computational cost.
 the configs are the same as the NoNew-Net
 
 \paragraph{UnetAttBlock}
+The Attention U-Net is different from the Attention Gate U-Net. 
+It does not use attention gates in the skip connections of the decoder. 
+Instead, it applies a Multi-Head Attention (MHA) block at the bottleneck of the network.
+The bottleneck is the deepest part of the U-Net. 
+It has the highest number of channels and contains rich feature representations.
+
+The goal of the MHA is to capture global dependencies in the bottleneck feature map.
+It allows each position to interact with all the others.
+
+The difference between CNN and Multi-Head Attention is that CNN focuses on local information. Each pixel is processed using information from its neighborhood, which allows the network to capture local patterns.
+In contrast, Multi-Head Attention works globally. 
+Each position can interact with all other positions in the image. 
+This means that each pixel can take into account information from the entire feature map, not just its local surroundings.
+
+To make it work we need first to convert the bottleneck feature map into tokens.
+Each spatial position such as a voxel is represented by one token.
+
+The embedding of each token corresponds to the number of channels in the CNN at the bottleneck. 
+Since the bottleneck has many channels, each token is a high-dimensional feature vector.
+For example, in our case the bottleneck has 1024 channels so each embedding has a vector of size (1*1024)
+Once we have the tokens and their embedding dimension, we can apply MHA. 
+The output has the same shape as the input in terms of number of tokens and embedding size, but the values inside the embeddings are updated. 
+They now contain information that comes from all other tokens in the feature map.
+
+\paragraph{MHA attention block}
+MHA works using three learned matrices: Query, Key, and Value.
+First, each token is multiplied by these three matrices. This produces a Query vector, a Key vector, and a Value vector for every token.
+Then, for each token, we compute attention scores by taking the dot product between its Query and the Keys of all other tokens.
+This gives a measure of how much each token should pay attention to the others.
+These scores are then passed through a softmax function to normalize them into numbers between 0 and 1.
+Next, each token is updated by taking a weighted sum of the Value vectors. 
+This process is done in parallel for all tokens. 
+The learned parameters of the model are the projection matrices for Query, Key, and Value, which are optimized during training.
+
+This approach combines CNN and Multi-Head Attention to check if they work well together in the same network.
+The Multi-Head Attention improves the understanding of the feature maps by capturing global relationships. 
+However, it also makes the architecture more complex and increases memory usage.
+
+The config is the same as the NoNew-Net.
+
 
 
 \paragraph{ViT}
