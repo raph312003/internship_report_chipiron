@@ -1119,9 +1119,51 @@ However, it also makes the architecture more complex and increases memory usage.
 
 The config is the same as the NoNew-Net.
 
+\paragraph{DeepCascade}
 
+The DeepCascade network is more complicated than a standard U-Net and is specifically designed for the reconstruction of undersampled data. 
+Unlike conventional architectures that operate only in the image domain, DeepCascade alternates between the image space and the k-space, allowing the network to exploit complementary information from both domains.
+In addition to the undersampled k-space, the network also takes the undersampling mask as input. 
+This mask is used as the data consistency to enforce agreement with the acquired measurements, ensuring that only the unknown k-space coefficients are modified while the known k-space coefficients are preserved.
+
+The architecture is composed of a sequence of cascaded blocks. 
+There are two different types of blocks:
+
+\begin{itemize}
+    \item The first block, referred to as the image-space block called i, applies convolution operations in the image domain. 
+    Once the convolution is performed, an FFT is used to transform the data back into the k-space. 
+    A data consistency steps is then applied in the k-space, using the undersampling mask to ensure that only the missing information is updated. 
+    After this step, the output is passed to the next block.
+    \item The second block is called k like k-space, we apply convolution in the k-space directly.
+    We don't have to apply an FFT before the DC blocks because we are already in the k-space.
+    Then we applied the DC blocks to again change the information that we don't know in the k-space.
+\end{itemize}
+
+We repeat these two types of blocks four times. 
+In principle, increasing the number of cascades (around 10 iterations) would improve performance, but this significantly increases GPU memory consumption and computational cost.
+
+This architecture is working well in the classical setting of undersampled reconstruction, where the only degradation comes from missing k-space samples. 
+In that case, the data consistency term is very effective, since it enforces agreement with the acquired measurements while allowing the network to estimate the missing coefficients.
+
+However, in our specific paradigm, the situation is more complex. 
+The acquired k-space data is not only undersampled but also very noisy because of the SNR explained earlier. 
+As a consequence, a strict data consistency constraint becomes less appropriate, since it forces the reconstruction to remain close to noisy measurements. 
+To reduce this limitation, the data consistency term should ideally be made trainable or adaptive within the network, allowing it to balance fidelity to the measurements and noise suppression. 
+In the extreme case, this term could converge towards zero, effectively reducing the architecture to a standard CNN-based reconstruction model.
+
+A second limitation concerns the use of convolutional neural networks in the k-space domain. 
+The relationship between image space and k-space via the Fourier transform is linear but CNNs are designed to learn non-linear mappings. 
+Moreover, CNNs exploit local spatial correlations, assuming that nearby pixels carry related information. 
+This assumption holds in image space but does not translate to k-space, where neighboring coefficients do not correspond to neighboring anatomical structures. 
+As a result, modifying a single k-space coefficient can influence the entire reconstructed image after the inverse Fourier transform, which makes the notion of locality in CNN less meaningful.
+
+% Talhed about the phase ?
+To conclude, this architecture was well suited for classical undersampled reconstruction problems. 
+However, in the context of this internship, where the data follows a different and more realistic noise-corrupted paradigm, the DeepCascade model appears less effective than simpler architectures such as a standard U-Net. 
+This observation will be further evaluated in the testing section.
 
 \paragraph{ViT}
+Have not finish to test it yet.
 
 
 
