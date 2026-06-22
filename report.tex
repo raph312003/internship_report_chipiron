@@ -346,7 +346,7 @@ This allows the downsampling effect to be simulated while keeping the input shap
 In addition, Gaussian noise is added to each voxel. The noise is modeled as a zero-mean Gaussian distribution with a standard deviation of 0.01.
 This value was selected empirically by visual comparison with real low-field MRI images, and $\sigma = 0.01$ was found to produce realistic noise levels.
 
-% kspace
+% k-space
 The second method is undersampling. 
 Undersampling is performed in the frequency domain (k-space) rather than in the spatial domain: it removes k-space samples by applying a sampling mask.
 k-space is a representation of the MRI acquisition signal. 
@@ -540,7 +540,7 @@ The parameters associated with the \texttt{stack\_of\_radial} and \texttt{decay\
 One of the objectives of this internship is also to investigate which trajectory configuration best enhances dynamic contrast.
 
 % Talk about the noise
-\paragraph{Noise in kspace}
+\paragraph{Noise in k-space}
 Once the trajectory configurations are defined, the undersampling mask can be generated. 
 However, an additional aspect must be considered: the signal-to-noise ratio (SNR).
 
