@@ -31,8 +31,8 @@ Since its creation in 2020, the start-up has been working to overcome current li
 
 \subsubsection{Epidemiology and Clinical Context}
 Breast cancer is the most common disease among women worldwide \cite{iarc2025}. 
-One in 20 women will develop breast cancer in their lifetime, and among them, 30\% will die from the disease. 
-These numbers vary significantly between regions: in the United States, the incidence is higher, with 1 in 10 women developing breast cancer, but with a mortality-to-survival ratio of approximately 16\%. 
+based on current trends, one in 20 women will develop breast cancer in their lifetime, and among them, 30\% will die from the disease. 
+These numbers vary significantly between regions: in the United States, the incidence is higher with 1 in 10 women developing breast cancer but with a mortality rate of approximately 16\%. 
 More concerning is the rapid increase in incidence among young women, with an annual growth of 2.1\% from 1990 to 2018 in Europe, for reasons that remain unclear to this day.
 The good news is that early detection makes a major difference. 
 Stage I breast cancer has a 5-year survival rate above 98\% \cite{nbc_mammo}, whereas this rate drops below 70\% for stage III disease.
@@ -59,7 +59,7 @@ Despite being relatively inexpensive, high-throughput, and highly sensitive in n
 
 The main reason behind the lack of sensitivity of mammography is the variability of breast anatomy between patients. 
 In the United States, it is estimated \cite{org_breast} that more than 40\% of women over 40 years old have heterogeneous or extremely dense breast tissue. 
-These patients are at higher risk of developing breast cancer, and mammography becomes more difficult to interpret because dense tissue can mask tumours, leading to an increased rate of false negatives such as 1 in 8 breast cancers \cite{pu2026}. 
+These patients are at higher risk of developing breast cancer, and mammography becomes more difficult to interpret because dense tissue can mask tumors, leading to an increased rate of false negatives such as 1 in 8 breast cancers \cite{pu2026}. 
 Despite its reduced performance in dense breast populations, mammography remains the standard method for population-wide breast cancer screening.
 
 After a mammography examination, if a suspicious finding is detected or if breast density makes the exam inconclusive, the patient is typically referred to a second-line imaging modality. 
@@ -71,17 +71,17 @@ However, its performance remains strongly operator-dependent, resulting in varia
 The last option in the diagnostic pathway is breast MRI, which is considered the most sensitive imaging modality. 
 However, due to its high cost and operational constraints, it is still not widely accessible. 
 The American College of Radiology (ACR) recommends MRI primarily for high-risk patients, representing approximately 10 to 15\% of the population. 
-Factors contributing to this elevated risk include pathogenic genetic mutations (e.g., BRCA1/2), a strong family history of breast cancer, prior chest irradiation at a young age, and certain hereditary cancer syndromes such as Li-Fraumeni or Cowden syndrome \cite{syndrom2026}.
+Factors contributing to this elevated risk include pathogenic genetic mutations, a strong family history of breast cancer, prior chest irradiation at a young age, and certain hereditary cancer syndromes such as Li-Fraumeni or Cowden syndrome \cite{syndrom2026}.
 These women are usually advised to initiate MRI screening before the age of 30, in addition to conventional mammographic surveillance.
 
 \subsubsection{Low-Field MRI Solution}
 Chipiron chose to focus on magnetic resonance imaging (MRI) for breast imaging applications because, as discussed previously, it represents the most advanced medical imaging modality.
-It provides a wide variety of soft tissue contrasts at millimetric resolution within a few minutes of acquisition. 
+High-Field MRI provides a wide variety of soft tissue contrasts at millimetric resolution within a few minutes of acquisition. 
 Depending on the sequence used, MRI enables visualization of anatomical structures, vessels, tumors, lesions, and even subtle differences in temperature or chemical composition within muscles and internal organs. 
 Some MRI sequences also allow monitoring of metabolic or functional activity. 
 For these reasons, MRI is an essential tool for diagnosing many life-threatening diseases, monitoring treatment effectiveness, and enabling image-guided therapy and surgery.
 
-In the context of breast cancer imaging, MRI can accurately detect tumours of only a few millimeters in size, with a sensitivity higher than mammography, which remains the current gold standard for screening. 
+In the context of breast cancer imaging, MRI can accurately detect tumors of only a few millimeters in size, with a sensitivity higher than mammography, which remains the current gold standard for screening. 
 Using contrast agent injection, MRI can also discriminate between benign and malignant lesions, significantly reducing the number of false positives with an approximation of 77\% \cite{diag2026} and unnecessary biopsies. 
 
 Despite these advantages, MRI remains largely inaccessible worldwide. 
@@ -97,13 +97,18 @@ Therefore, democratizing MRI requires achieving clinically relevant image qualit
 This idea is not new: since the early days of MRI, engineers have attempted to build low-field clinical systems. 
 However, none of these efforts have yet achieved large-scale clinical adoption due to multiple technical and physical constraints.
 
-In fact, it is very challenging to perform MRI at lower fields, for the reasons stated above: there is less signal and the detection is less sensitive. 
-Consequently, the signal-to-noise ratio (SNR) is low. SNR is the key determinant of image quality: a high SNR yields a high-quality image with fine resolution in a short time.
+In fact, MRI at low magnetic field strengths remains challenging. 
+The lower field strength reduces the signal-to-noise ratio, leading to noisier images. 
+In addition, as low-field MRI systems are still relatively new, their hardware is less mature and optimized than that of conventional high-field scanners, which can further degrade image quality.
+Consequently, the signal-to-noise ratio (SNR) is reduced. 
+Since SNR is a major determinant of image quality, a lower SNR requires a trade-off between acquisition time and spatial resolution: image quality can be improved either by increasing the acquisition time or by reducing the spatial resolution.
 
 Moreover, magnetic field strength is by no means the only driver of image quality. 
-Images produced on 1.5~T scanners have improved tremendously since the 1990s, primarily thanks to advances in software and image reconstruction. 
-This is why, for Chipiron, it is very important to combine the best possible hardware to perform MRI at low fields and make the best use of AI for image enhancement.
-
+Images produced on 1.5~T scanners have improved tremendously since the 1990s, largely thanks to major advances in hardware such as stronger and more sensitive receiver coils, improved gradient systems, and the advent of parallel imaging alongside software improvements which kess vital than hardware.
+Finally, the use of AI in commercial MRI systems is very recent, even though it has been explored in academic research since the early days of deep learning.
+The limited use of AI mainly comes from the difficulty of ensuring that it does not remove or invent structures in the images.
+It is not easy to guarantee that the output is reliable and faithful to the original data. 
+While AI brings flexibility, this also increases the need for additional controls to ensure robustness and consistency.
 \subsubsection{Chipiron Current Position in Low-Field MRI Development}
 % Chipiron position
 
@@ -112,18 +117,21 @@ This is why, for Chipiron, it is very important to combine the best possible har
 % Type of technologies
 There are several major companies in the MRI market, such as Siemens Healthineers, GE HealthCare, Philips Healthcare, and Canon Medical Systems.
 However, these companies mainly focus on high-field MRI systems, typically operating at 1.5~T or 3~T.
+The last few years, they tend to explore also low-field MRI around 0.5 T with some good results, but it remains way less than Chipiron with 10 mT.
 These high-field MRI manufacturers are not really considered direct competitors to Chipiron.
 
 Indeed, a 10~mT MRI scanner will never replace a 3~T MRI scanner.
-High-field MRI will still be necessary, especially for the most complex clinical cases. Low-field MRI is instead intended for situations where it can provide enough information to support a clinical decision.
+High-field MRI will still be necessary, especially for the most complex clinical cases. 
+Low-field MRI is instead aimed at increasing accessibility and providing sufficient information for fast clinical decision-making in more routine or resource-limited settings.
 
 For this reason, it is more relevant to look at companies developing low-field MRI systems, although there are currently only a few of them.
 The main pioneer in this field is Hyperfine, an American company that received FDA clearance in 2021 for its portable MRI device called \textit{Swoop}.
-The system operates at 64~mT and was designed mainly for intensive care units and acute stroke diagnosis.
-Thanks to advanced AI-based reconstruction methods, the image quality has improved significantly.
+The system operates at 64~mT and was designed mainly for rapid brain imaging and stroke assessment.
+Thanks to advanced AI-based reconstruction methods, the image quality has improved significantly compare to traditional low-field reconstruction approaches.
 
 Despite these impressive improvements, Hyperfine is still searching for a strong product-market fit. 
-One difficulty is that many patients using their MRI are elderly or have limited mobility, making positioning inside the scanner more complicated.
+One difficulty is that many patients using their MRI are elderly or have limited mobility. 
+It makes the positioning inside the scanner more complicated than in standard high-field MRI systems, where patient positioning is facilitated by dedicated tables and controlled scanning environments.
 
 In any case, Hyperfine and Chipiron target very different applications. 
 Hyperfine mainly focuses on brain imaging, while Chipiron is focused on breast imaging.
@@ -136,8 +144,11 @@ As a result, it will need to partner with large established manufacturers such a
 \subsubsection{Markets and Clients}
 
 % United state market (Ask question)
-The market targeted by Chipiron is currently the United States. Obtaining FDA clearance is generally considered more straightforward than achieving CE marking in Europe. 
+The market targeted by Chipiron is currently the United States. 
+Obtaining FDA clearance is generally considered more straightforward than achieving CE marking in Europe. 
+Moreover, it is easier to deploy and to identify potential buyers for the system, as the U.S. hospital system is more privately driven, making adoption decisions more decentralized.
 In addition, the prevalence of dense breast tissue is higher in the U.S. population than in Europe, which increases the risk of undetected malignant cancers and therefore strengthens the clinical need for improved breast imaging solutions.
+
 % Who will use the mri (hospital, clinic, ...)
 The goal of Chipiron MRI is to be used in clinic.
 
@@ -153,7 +164,9 @@ The goal of Chipiron MRI is to be used in clinic.
 % organigramme (Presentation of the different teams)
 \subsection{Purpose of the Mission for the Company}
 
-In MRI, contrast agents such as gadolinium are used to help determine whether a lesion is benign or malignant. 
+In MRI, contrast agents such as gadolinium are used to help determine whether a lesion is benign or malignant.
+Gadolinium is injected into the bloodstream and circulates through the body.
+It tends to accumulate in highly vascularized tissues, such as malignant lesions, making them appear brighter on MRI scans. 
 Radiologists analyze the temporal evolution of the contrast enhancement, known as the dynamic contrast enhancement (DCE).
 The objective is to observe how the signal intensity evolves over time after the injection of the contrast agent. 
 A malignant lesion typically presents a rapid increase in signal intensity followed by a rapid decrease. 
@@ -174,8 +187,10 @@ For example, in Figure~\ref{fig:dynamic_curve}, the lesion is likely benign beca
 The more aggressive the lesion is, the faster the acquisition must be in order to correctly capture the wash-in wash-out dynamics.
 Consequently, MRI acquisitions need to be accelerated. 
 However, accelerating the acquisition process generally leads to a degradation in image quality.
+More precisely, accelerating the acquisition means acquiring fewer samples in k-space, which is the frequency domain where the MRI signal is encoded.
+By accelerating the acquisition it will as explain earlier increase the SNR.
 Therefore, the objective of this internship is to evaluate different Deep Learning models capable of enhancing image quality after accelerated MRI acquisition, while preserving sufficient temporal and spatial information to accurately analyze the contrast enhancement dynamics over time.
-
+Apart from working on deep learning models, I also need to evaluate which trajectory configurations are optimal to achieve the fastest possible acquisition while preserving the best image quality and contrast enhancement.
 
 \section{Corporate Social Responsibility (CSR) Policy}
 
