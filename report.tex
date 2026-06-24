@@ -848,7 +848,7 @@ specifically to generate the undersampling and downsampling noise for the Gaussi
 
 However, we need to be careful. If we fix the seed, then the same random noise pattern will be generated each time the pipeline is run. As a result, every
 sample in the training dataset will receive the same noise realization across different runs, which can reduce variability and may not always reflect the true
-randomness of the noise from low-filed MRI images.
+randomness of the noise from low-field MRI images.
 
 
 That's why in the LoadingFastMRIBreastDataset3D class, I ensured that the preprocessing assigns different seeds to the training samples at each epoch.
