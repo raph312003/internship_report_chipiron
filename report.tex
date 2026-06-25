@@ -212,10 +212,23 @@ Apart from working on deep learning models, I also need to evaluate which trajec
 % It was very useful, as it could be connected to my Google account, especially Google Calendar so I could have access to my planning and to video calls. 
 % Moreover, whenever I had a question, I could ask my supervisor directly on Slack, and I also used it to schedule and organize my weekly tasks.
 % Datasets
-It was very important to structure my work by advancing step by step.
-The goal is to start with a simple case and step by step we had some difficulties/ problematic wich will conduse a the end to our problematic.
+It was essential to structure the project by progressing step by step. 
+The idea was to begin with a simple problem and gradually introduce additional challenges, ultimately leading to the original research problem.
 
-First of all, the first step was to do some paper research.
+The first step consisted of developing a robust and flexible pipeline that could easily be adapted to test different models. 
+The initial task was to use the clean pre-contrast image as input to reconstruct the post-contrast image. 
+This simplified setting allowed us to focus on the model architecture without introducing unnecessary complexity.
+
+The second step involved implementing and comparing several relatively simple neural network architectures. 
+At the same time, we established a reliable evaluation framework to ensure that the obtained results were meaningful and reproducible.
+
+Once these two initial stages were completed, we moved to a more challenging and realistic setting that better reflected the actual problem. 
+Instead of using a clean pre-contrast image, both the pre-contrast and post-contrast images contained noise, making the reconstruction task significantly more difficult.
+
+Finally, after comparing the different models under these more realistic conditions and reaching the limits of their performance through architectural improvements, the focus shifted toward optimizing the overall pipeline and its configuration. 
+This included refining preprocessing, training procedures, and hyperparameter settings to further improve the reconstruction quality.
+
+So the goal is to answer the problematic at the end with which trajectories and which model we can have fastest acquisition with the best contrast reconstruction and sample acquisition?
 \paragraph{Datasets}
 \mbox{}\\
 To run my experiments and models, I worked with two different datasets:
