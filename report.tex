@@ -215,7 +215,8 @@ Apart from working on deep learning models, I also need to evaluate which trajec
 It was essential to structure the project by progressing step by step. 
 The idea was to begin with a simple problem and gradually introduce additional challenges, ultimately leading to the original research problem.
 
-The first step consisted of developing a robust and flexible pipeline that could easily be adapted to test different models. 
+The first step consisted of developing a robust and flexible pipeline that could easily be adapted to test different models.
+
 The initial task was to use the clean pre-contrast image as input to reconstruct the post-contrast image. 
 This simplified setting allowed us to focus on the model architecture without introducing unnecessary complexity.
 
@@ -1197,14 +1198,138 @@ This observation will be further evaluated in the testing section.
 \paragraph{ViT}
 Have not finish to test it yet.
 
+\subsection{Testing and Measurements}
+
+The objective of the evaluation is to assess the performance of the different models in order to identify the most suitable architecture and draw meaningful conclusions.
+
+As explained previously, the project has two main objectives:
+\begin{itemize}
+    \item Reconstruct high-quality images from noisy and undersampled MRI acquisitions over time.
+    \item Enhance the image contrast throughout the temporal sequence.
+\end{itemize}
+
+To evaluate these objectives, both qualitative and quantitative analyses are performed. 
+Qualitative evaluation consists of visually inspecting each reconstructed images to ensure that anatomical structures are accurately preserved for the sample and the contrast. 
+Quantitative evaluation allows an objective comparison between the different architectures in terms of image reconstruction quality and contrast enhancement.
+
+For each experiment, three evaluation metrics are used:
+
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Square Error):} This metric measures the voxel-wise difference between the reconstructed image and the reference image. 
+    An RMSE value close to 0 indicates a high similarity between the two images, whereas larger values correspond to greater reconstruction errors.
+    
+    \item \textbf{PSNR (Peak Signal-to-Noise Ratio):} PSNR is derived from the RMSE and expresses the reconstruction quality on a logarithmic scale. 
+    Unlike RMSE, higher PSNR values indicate better reconstruction quality. 
+    Values around 40~dB or higher generally correspond to very similar images.
+    
+    \item \textbf{SSIM (Structural Similarity Index Measure):} Unlike RMSE and PSNR, SSIM evaluates the structural similarity between two images by comparing luminance, contrast, and structural information rather than individual voxels. 
+    A value close to 1 indicates a high structural similarity, while values closer to 0 indicate poor agreement.
+\end{itemize}
+
+\subsubsection{Full-Sample Qualitative Evaluation}
+
+The first evaluation consists of a qualitative analysis of each sample coming out of the network. 
+Indeed, one of the most effective ways to assess the performance of a neural network is to visually compare its output with the corresponding ground truth.
+
+For each test, four images are displayed:
+\begin{itemize}
+    \item The \textbf{post-contrast input}, which is a fully sampled acquisition without undersampling or additional noise. 
+    Although it does not contain contrast enhancement, it provides a high-quality reference of the anatomical structures.
+    \item The \textbf{pre-contrast input}, which has been undersampled and corrupted with noise to simulate the acquisition of a low-field MRI scanner.
+    \item The \textbf{model output}, corresponding to the image reconstructed by the neural network.
+    \item The \textbf{ground truth}, which serves as the reference image. 
+    The objective is for the reconstructed image to be as close as possible to this reference.
+\end{itemize}
+
+The first step of the evaluation is a visual inspection to determine whether the network successfully reconstructs the missing information and produces an image that resembles the ground truth while improving upon the input image.
+
+To complement the visual analysis, the three metrics introduced in the previous section (RMSE, PSNR, and SSIM) are computed between the model output and the ground truth. 
+They are also computed between the input images (post-contrast and pre-contrast) and the ground truth. 
+This comparison is essential to verify that the network effectively improves the image quality. 
+If the reconstructed image does not achieve better metric values than the input images, it indicates that the network has failed to learn the desired mapping and may even degrade the image quality.
+
+The second row of the figure displays the absolute difference between each image and the ground truth. 
+These error maps highlight the regions where the reconstruction differs the most from the reference image, allowing us to identify the anatomical structures that remain difficult for the network to reconstruct. 
+A color bar is used to facilitate the interpretation of the error magnitude.
+
+Finally, the third row presents the signed difference between each image and the ground truth. 
+Unlike the previous row, the absolute value is not applied, making it possible to distinguish overestimation from underestimation. 
+Red regions indicate voxel intensities that are higher than the ground truth, blue regions correspond to lower intensities, and white regions represent negligible differences, indicating an accurate reconstruction.
 
 
+%photo
+
+\subsubsection{Contrast Qualitative Evaluation}
+
+To evaluate the contrast enhancement, RMSE, PSNR, and SSIM are not suitable because the contrast agent is confined to a relatively small segmented region. 
+These metrics are very efficient to compare the entire sample but they do not accurately reflect the quality of the contrast reconstruction.
+
+Instead, the temporal evolution of the contrast intensity is analyzed. 
+For each sample, the mean intensity only ine the segmented contrast region is computed for every acquisition. 
+The resulting intensity curves are then plotted for both the model output and the ground truth.
+
+The objective is for the reconstructed intensity curve to closely follow the ground-truth curve. 
+A good match indicates that the network not only enhances the contrast but also correctly reproduces its temporal dynamics. 
+This is particularly important because the model should not generate a constant level of contrast enhancement across all acquisitions. 
+Instead, it must preserve the physiological evolution of the contrast agent over time, including both the wash-in and wash-out phases.
+
+%photo
+
+\subsubsection{Contrast Quantitative Evaluation}
+
+Finaly, the objective of this evaluation is to specifically assess the quality of the contrast enhancement while providing an objective comparison between the different metworks. 
+To achieve this, two quantitative metrics are used: the Relative Enhancement (RE) and the Contrast Ratio (CR).
+
+\begin{itemize}
+    \item \textbf{Relative Enhancement (RE):} This metric measures the relative increase in signal intensity between the pre-contrast segmentation and post-contrast segmentation. 
+    It quantifies the degree of enhancement produced by the contrast agent for each acquisition. 
+    By comparing the RE computed from the reconstructed to the ground truth, it is possible to evaluate how accurately the network reproduces the expected enhancement.
+    
+    \item \textbf{Contrast Ratio (CR):} This metric evaluates the contrast between the segmented lesion and the surrounding background tissue. 
+    It measures how distinguishable the lesion is from its environment. 
+    A higher contrast ratio indicates better lesion visibility from the surrounding tissue.
+    %formula
+\end{itemize}
+
+Both metrics are computed for every sample and for every network, as well as for the corresponding ground-truth samples.
+
+To compare the network, scatter plots are generated in which the metric values obtained from the reconstructed images are plotted against the ground-truth values. 
+A linear regression is then created for each model dependind on the result of all samples for the network. 
+The ideal reconstruction corresponds to the identity line ($y=x$), meaning that the reconstructed metric perfectly matches the ground truth.
+
+By comparing the regression lines of the different models with the identity line, it is possible to assess which model most accurately reproduces the true contrast enhancement.
+Two separate plots are produced: one for the Relative Enhancement (RE) and one for the Contrast Ratio (CR).
+
+% photo
 % \subsubsection{Testing and Measurements}
 \subsection{Difficulties Encountered}
+
+As explained in the methodology, the first phase of this work focused on developing the training pipeline, evaluating different neural network architectures, and comparing their reconstruction performance.
+The objective of the second phase is to make the reconstruction task more realistic by generating input data that better reflects the characteristics of low-field MRI acquisitions.
+
+In the initial pipeline, the network received two inputs: a pre-contrast image, which was fully sampled without noise, and a post-contrast image, which was undersampled and corrupted with noise to simulate a low-field MRI acquisition. 
+While this setup allowed the models to learn the reconstruction task, it did not accurately represent real acquisition conditions. 
+In practice, even a pre-contrast scan acquired on a low-field MRI system contains measurement noise.
+
+To better simulate this scenario, we propose a different acquisition strategy. 
+Instead of acquiring a single pre-contrast image, we consider a full 10-minute acquisition divided into ten shorter acquisitions. 
+These acquisitions are then averaged to produce the pre-contrast reference image. 
+Averaging multiple acquisitions increases the signal-to-noise ratio by exploiting all the available information while preserving the anatomical structures. 
+This averaged image is subsequently used as the pre-contrast input for reconstructing each individual post-contrast acquisition.
+
+However, in the available dataset, only one pre-contrast image and between three to five post-contrast acquisitions are available rather than ten acquisitions. 
+To reproduce the proposed acquisition strategy, a weighted average is computed by completing the missing acquisitions with the pre-contrast image. 
+This assumption is physiologically reasonable since, once the contrast agent has completely washed out, additional acquisitions would become equivalent to pre-contrast images.
+
+The resulting averaged pre-contrast image is then undersampled using the same sampling mask as the post-contrast acquisitions. 
+To account for the longer effective acquisition time, the noise level is reduced by a factor of $\sqrt{10}$. 
+This follows the well-known relationship between acquisition time and signal-to-noise ratio in MRI: averaging $N$ independent acquisitions increases the SNR by a factor of $\sqrt{N}$. 
+Consequently, using the equivalent of ten acquisitions produces a cleaner and more realistic pre-contrast image while remaining consistent with the physics of MRI acquisition.
+
 \subsection{Problem-Solving Approach}
 %Add noise on the before_contrast
 \subsection{Implementations and Achievements}
-\subsection{Testing and Measurements}
+
 
 \section{Conclusion and Final Assessment}
 \subsection{Project Status}
