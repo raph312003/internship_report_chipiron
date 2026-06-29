@@ -215,24 +215,31 @@ Apart from working on deep learning models, I also need to evaluate which trajec
 It was essential to structure the project by progressing step by step. 
 The idea was to begin with a simple problem and gradually introduce additional challenges, ultimately leading to the original research problem.
 
-The first step consisted of developing a robust and flexible pipeline that could easily be adapted to test different models.
+The projects was divided into three main parts.
+
+The first part consisted of developing a robust and flexible pipeline that could easily be adapted to test different models.
 
 The initial task was to use the clean pre-contrast image as input to reconstruct the post-contrast image. 
 This simplified setting allowed us to focus on the model architecture without introducing unnecessary complexity.
-
-The second step involved implementing and comparing several relatively simple neural network architectures. 
+The goal was then to implement and compare several relatively simple neural network architectures. 
 At the same time, we established a reliable evaluation framework to ensure that the obtained results were meaningful and reproducible.
 
-Once these two initial stages were completed, we moved to a more challenging and realistic setting that better reflected the actual problem. 
-Instead of using a clean pre-contrast image, both the pre-contrast and post-contrast images contained noise, making the reconstruction task significantly more difficult.
+Once this first part was completed, we moved on to the 2nd part which focused on a more challenging and realistic setting that better reflected the actual problem. 
 
-Finally, after comparing the different models under these more realistic conditions and reaching the limits of their performance through architectural improvements, the focus shifted toward optimizing the overall pipeline and its configuration. 
-This included refining preprocessing, training procedures, and hyperparameter settings to further improve the reconstruction quality.
+Instead of using a clean pre-contrast image,this time both pre-contrast and post-contrast images contained noise, making the reconstruction task significantly more difficult.
+This allowed us to compare the different models under more realistic conditions for fast low-field MRI acquisition and to evaluate the performance of the previously implemented network architectures.
 
-So the goal is to answer the problematic at the end with which trajectories and which model we can have fastest acquisition with the best contrast reconstruction and sample acquisition?
-\paragraph{Datasets}
+Finally, after evaluating the different models in these more realistic conditions and exploring the limits of their performance, the focus shifted toward optimizing the overall pipeline and its configuration. 
+This included refining the preprocessing steps, training procedures, and trajectories config parameters to further improve the reconstruction quality.
+
+Doing all that would allow us to answer the main research question: which acquisition trajectory and which model provide the fastest acquisition while achieving the best contrast reconstruction and the most efficient sampling strategy?
+
+\subsection{1st part: Initial Model Development and Evaluation Framework} 
+%\subsubsection{Conception} 
+\subsubsection{Datasets}
 \mbox{}\\
-To run my experiments and models, I worked with two different datasets:
+
+First of all, to run my experiments and models, I worked with two different datasets:
 
 \begin{itemize}
     \item FastMRI Breast: This dataset consists of MRI data from 300 different patients. 
@@ -282,11 +289,10 @@ Moreover, I plot the results on the test dataset using wandb, including differen
 The most important use of wandb in my workflow is the storage of model weights. 
 This is particularly useful because the trained models can be saved directly on the platform and later retrieved via the API for evaluation or testing. 
 Consequently, a model only needs to be trained once for a given configuration, after which it can be reused without retraining.
-\subsection{Design and Development}
 
 \subsubsection{Preprocessing}
-
-Before developing my training pipeline and experimenting with different model architectures, I first focused on data preprocessing. 
+\paragraph{Datasets}
+Before developing the first training pipeline and experimenting with different model architectures, I first focused on data preprocessing. 
 This step involved all the necessary procedures to clean, structure, and prepare the dataset before feeding it into the training pipeline and the neural network models.
 
 % Reshaping
@@ -735,12 +741,7 @@ avoid requiring them.
 
 
 For datasets where both segmentation masks are available, they can optionally be used, as they may improve performance.
-Nevertheless, the model can also be trained without them, which makes it possible to compare results with and without the
-use of segmentation information.
-
-
-% talk about the fact that the class is taking one sample at a time ?
-
+Nevertheless, the model can also be trained without them, which makes it possible to compare results with and without the use of segmentation information.
 
 \paragraph{training}
 
@@ -1195,10 +1196,7 @@ To conclude, this architecture was well suited for classical undersampled recons
 However, in the context of this internship, where the data follows a different and more realistic noise-corrupted paradigm, the DeepCascade model appears less effective than simpler architectures such as a standard U-Net. 
 This observation will be further evaluated in the testing section.
 
-\paragraph{ViT}
-Have not finish to test it yet.
-
-\subsection{Testing and Measurements}
+\subsubsection{Testing and Measurements}
 
 The objective of the evaluation is to assess the performance of the different models in order to identify the most suitable architecture and draw meaningful conclusions.
 
@@ -1226,7 +1224,7 @@ For each experiment, three evaluation metrics are used:
     A value close to 1 indicates a high structural similarity, while values closer to 0 indicate poor agreement.
 \end{itemize}
 
-\subsubsection{Full-Sample Qualitative Evaluation}
+\paragraph{Full-Sample Qualitative Evaluation}
 
 The first evaluation consists of a qualitative analysis of each sample coming out of the network. 
 Indeed, one of the most effective ways to assess the performance of a neural network is to visually compare its output with the corresponding ground truth.
@@ -1258,8 +1256,7 @@ Red regions indicate voxel intensities that are higher than the ground truth, bl
 
 
 %photo
-
-\subsubsection{Contrast Qualitative Evaluation}
+\paragraph{Contrast Qualitative Evaluation}
 
 To evaluate the contrast enhancement, RMSE, PSNR, and SSIM are not suitable because the contrast agent is confined to a relatively small segmented region. 
 These metrics are very efficient to compare the entire sample but they do not accurately reflect the quality of the contrast reconstruction.
@@ -1275,7 +1272,7 @@ Instead, it must preserve the physiological evolution of the contrast agent over
 
 %photo
 
-\subsubsection{Contrast Quantitative Evaluation}
+\paragraph{Contrast Quantitative Evaluation}
 
 Finaly, the objective of this evaluation is to specifically assess the quality of the contrast enhancement while providing an objective comparison between the different metworks. 
 To achieve this, two quantitative metrics are used: the Relative Enhancement (RE) and the Contrast Ratio (CR).
@@ -1300,9 +1297,10 @@ The ideal reconstruction corresponds to the identity line ($y=x$), meaning that 
 By comparing the regression lines of the different models with the identity line, it is possible to assess which model most accurately reproduces the true contrast enhancement.
 Two separate plots are produced: one for the Relative Enhancement (RE) and one for the Contrast Ratio (CR).
 
-% photo
-% \subsubsection{Testing and Measurements}
-\subsection{Difficulties Encountered}
+\subsubsection{Conclusion} 
+
+\subsection{2nd part: Transition to Realistic Acquisition Conditions} 
+\subsubsection{Modification of Training pipeline} 
 
 As explained in the methodology, the first phase of this work focused on developing the training pipeline, evaluating different neural network architectures, and comparing their reconstruction performance.
 The objective of the second phase is to make the reconstruction task more realistic by generating input data that better reflects the characteristics of low-field MRI acquisitions.
@@ -1325,11 +1323,20 @@ The resulting averaged pre-contrast image is then undersampled using the same sa
 To account for the longer effective acquisition time, the noise level is reduced by a factor of $\sqrt{10}$. 
 This follows the well-known relationship between acquisition time and signal-to-noise ratio in MRI: averaging $N$ independent acquisitions increases the SNR by a factor of $\sqrt{N}$. 
 Consequently, using the equivalent of ten acquisitions produces a cleaner and more realistic pre-contrast image while remaining consistent with the physics of MRI acquisition.
+ 
+\subsubsection{Testing and Measurements} 
+% RE not usefull CR more usefull
 
-\subsection{Problem-Solving Approach}
-%Add noise on the before_contrast
-\subsection{Implementations and Achievements}
+\subsubsection{Conclusion} 
 
+\subsection{3rd part: Acquisition Trajectory and Model Optimization} 
+\subsubsection{Conception} 
+\subsubsection{Problem-Solving Approach} 
+\subsubsection{Validation} 
+
+
+
+\subsection{Difficulties Encountered}
 
 \section{Conclusion and Final Assessment}
 \subsection{Project Status}
