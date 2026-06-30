@@ -1,0 +1,1499 @@
+\documentclass[12pt]{article}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+\tableofcontents
+\newpage
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+\section{Requirements Specification and Preliminary Planning}
+\subsection{Requirements Specification}
+\subsection{Preliminary Planning of Tasks}
+\section{Project Presentation}
+\subsection{Company Context}
+
+\subsubsection{Chipiron global context}
+Chipiron is a French deeptech company founded in 2020 by Dimitri Labat and Evan Kervella. 
+Based in the 19th arrondissement of Paris, the company brings together around 30 employees from multidisciplinary backgrounds, including MRI physics, hardware engineering, software development, and artificial intelligence.
+
+Chipiron operates in the healthcare sector, more specifically in the field of medical imaging. 
+The company is developing a new generation of ultra-low-field MRI systems designed to be lighter, more affordable, and easier to deploy than conventional MRI scanners.
+Its initial clinical focus is breast imaging, with the aim of improving access to early cancer detection and screening.
+
+Through its innovative approach combining advanced hardware and AI-driven image reconstruction techniques, Chipiron aims to make MRI examinations more accessible and ultimately transform the way medical imaging is delivered worldwide.
+At Chipiron, it is believed that within the next decade, low-field MRI could become as routine as standard blood tests, enabling new opportunities in health monitoring and personalized medicine. 
+Since its creation in 2020, the start-up has been working to overcome current limitations and position itself among the first companies to develop and manufacture low-field MRI systems (around 10 mT) dedicated to breast imaging.
+
+\subsubsection{Epidemiology and Clinical Context}
+Breast cancer is the most commonly diagnosed cancer among women worldwide \cite{iarc2025}. 
+based on current trends, one in 20 women will develop breast cancer in their lifetime, and among them, 30\% will die from the disease. 
+These numbers vary significantly between regions: in the United States, the incidence is higher with 1 in 10 women developing breast cancer but with a mortality rate of approximately 16\%. 
+More concerning is the rapid increase in incidence among young women, with an annual growth of 2.1\% from 1990 to 2018 in Europe, for reasons that remain unclear to this day.
+The good news is that early detection makes a major difference. 
+Stage I breast cancer has a 5-year survival rate above 98\% \cite{nbc_mammo}, whereas this rate drops below 70\% for stage III disease.
+Tumor progression is highly heterogeneous, but the most aggressive forms can reach stage III in less than one year.
+
+The American College of Radiology (ACR) recommends annual breast cancer screening for all women over the age of 40. 
+Depending on individual risk factors, high-risk patients may be advised to undergo more frequent imaging even before this age.
+
+\subsubsection{Breast Cancer Screening Pipeline with its Limitations}
+
+The standard technique used for breast cancer screening is mammography. 
+It is an established imaging modality that entered widespread clinical use in the 1960s \cite{komen_stats}. 
+Since then, it has evolved considerably, from a basic 2D X-ray technique to digital breast tomosynthesis, which enables high-resolution 3D imaging of the breast.
+
+Despite being relatively inexpensive, high-throughput, and highly sensitive in non-dense breast tissue, modern mammography has important limitations:
+
+\begin{itemize}
+    \item It is uncomfortable for patients, as it requires breast compression to obtain standardized image quality.
+    \item It involves ionizing radiation, and cumulative exposure can be harmful.
+    \item Most importantly, it is not sufficiently reliable. Sensitivity varies significantly depending on the technique, ranging from as low as 55\% to up to 90\% for more advanced methods. 
+    This leads to a non-negligible number of false negatives, which is critical for small aggressive tumors. 
+    Specificity is generally higher, around 85\% to 95\%, which is less problematic in a screening context where minimizing false negatives is the priority.
+\end{itemize}
+
+The main reason behind the lack of sensitivity of mammography is the variability of breast anatomy between patients. 
+In the United States, it is estimated \cite{org_breast} that more than 40\% of women over 40 years old have heterogeneous or extremely dense breast tissue. 
+These patients are at higher risk of developing breast cancer, and mammography becomes more difficult to interpret because dense tissue can mask tumors, leading to an increased rate of false negatives such as 1 in 8 breast cancers \cite{pu2026}. 
+Despite its reduced performance in dense breast populations, mammography remains the standard method for population-wide breast cancer screening.
+
+After a mammography examination, if a suspicious finding is detected or if breast density makes the exam inconclusive, the patient is typically referred to a second-line imaging modality. 
+Depending on the clinical context, this may involve direct biopsy or additional imaging. 
+Ultrasound is the most commonly used second-line technique due to its low cost and accessibility. 
+When performed correctly, it can be highly effective. 
+However, its performance remains strongly operator-dependent, resulting in variable sensitivity and specificity.
+
+The last option in the diagnostic pathway is breast MRI, which is considered the most sensitive imaging modality. 
+However, due to its high cost and operational constraints, it is still not widely accessible. 
+The American College of Radiology (ACR) recommends MRI primarily for high-risk patients, representing approximately 10 to 15\% of the population. 
+Factors contributing to this elevated risk include pathogenic genetic mutations, a strong family history of breast cancer, prior chest irradiation at a young age, and certain hereditary cancer syndromes such as Li-Fraumeni or Cowden syndrome \cite{syndrom2026}.
+These women are usually advised to initiate MRI screening before the age of 30, in addition to conventional mammographic surveillance.
+
+\subsubsection{Low-Field MRI Solution}
+Chipiron chose to focus on magnetic resonance imaging (MRI) for breast imaging applications because, as discussed in the previous section, it represents the most advanced medical imaging modality.
+High-Field MRI provides a wide variety of soft tissue contrasts at millimetric resolution within a few minutes of acquisition. 
+Depending on the sequence used, MRI enables visualization of anatomical structures, vessels, tumors, lesions, and even subtle differences in temperature or chemical composition within muscles and internal organs. 
+Some MRI sequences also allow monitoring of metabolic or functional activity. 
+For these reasons, MRI is an essential tool for diagnosing many life-threatening diseases, monitoring treatment effectiveness, and enabling image-guided therapy and surgery.
+
+In the context of breast cancer imaging, MRI can accurately detect tumors of only a few millimeters in size, with a sensitivity higher than mammography, which remains the current gold standard for screening. 
+Using contrast agent injection, MRI can also discriminate between benign and malignant lesions, significantly reducing the number of false positives with an approximation of 77\% \cite{diag2026} and unnecessary biopsies. 
+
+Despite these advantages, MRI remains largely inaccessible worldwide. 
+MRI systems typically weigh around five tons and require a magnetically shielded room, costly maintenance, and highly trained staff. 
+They operate using strong magnetic fields generated by large superconducting electromagnets. 
+Higher magnetic field strength generally leads to higher image quality for a given scan time.
+
+For decades, MRI manufacturers have focused on increasing magnetic field strength as the main driver of image quality. 
+Most clinical MRI systems operate at 1.5~T or 3~T, while research systems can reach up to 7~T, with fewer than 150 units deployed worldwide.
+
+However, increasing field strength directly leads to larger, more expensive, and less accessible systems. 
+Therefore, democratizing MRI requires achieving clinically relevant image quality at lower magnetic fields. 
+This idea is not new: since the early days of MRI, engineers have attempted to build low-field clinical systems. 
+However, none of these efforts have yet achieved large-scale clinical adoption due to multiple technical and physical constraints.
+
+In fact, MRI at low magnetic field strengths remains challenging. 
+The lower field strength reduces the signal-to-noise ratio, leading to noisier images. 
+In addition, as low-field MRI systems are still relatively new, their hardware is less mature and optimized than that of conventional high-field scanners, which can further degrade image quality.
+Consequently, the signal-to-noise ratio (SNR) is reduced. 
+Since SNR is a major determinant of image quality, a lower SNR requires a trade-off between acquisition time and spatial resolution: image quality can be improved either by increasing the acquisition time or by reducing the spatial resolution.
+
+Moreover, magnetic field strength is by no means the only driver of image quality. 
+Images produced on 1.5~T scanners have improved tremendously since the 1990s, largely thanks to major advances in hardware such as stronger and more sensitive receiver coils, improved gradient systems, and the advent of parallel imaging alongside software improvements which kess vital than hardware.
+Finally, the use of AI in commercial MRI systems is very recent, even though it has been explored in academic research since the early days of deep learning.
+The limited use of AI mainly comes from the difficulty of ensuring that it does not remove or invent structures in the images.
+It is not easy to guarantee that the output is reliable and faithful to the original data. 
+While AI brings flexibility, this also increases the need for additional controls to ensure robustness and consistency.
+\subsubsection{Chipiron Current Position in Low-Field MRI Development}
+% Chipiron position
+
+\subsubsection{Industry Sector}
+% Over companies working on MRI (hyperfine)
+% Type of technologies
+There are several major companies in the MRI market, such as Siemens Healthineers, GE HealthCare, Philips Healthcare, and Canon Medical Systems.
+However, these companies mainly focus on high-field MRI systems, typically operating at 1.5~T or 3~T.
+The last few years, they tend to explore also low-field MRI around 0.5 T with some good results, but it remains way less than Chipiron with 10 mT.
+These high-field MRI manufacturers are not really considered direct competitors to Chipiron.
+
+Indeed, a 10~mT MRI scanner will never replace a 3~T MRI scanner.
+High-field MRI will still be necessary, especially for the most complex clinical cases. 
+Low-field MRI is instead aimed at increasing accessibility and providing sufficient information for fast clinical decision-making in more routine or resource-limited settings.
+
+For this reason, it is more relevant to look at companies developing low-field MRI systems, although there are currently only a few of them on the market.
+The main pioneer in this field is Hyperfine, an American company that received FDA clearance in 2021 for its portable MRI device called \textit{Swoop}.
+The system operates at 64~mT and was designed mainly for rapid brain imaging and stroke assessment.
+Thanks to advanced AI-based reconstruction methods, the image quality has improved significantly compare to traditional low-field reconstruction approaches.
+
+Despite these impressive improvements, Hyperfine is still searching for a strong product-market fit. 
+One difficulty is that many patients using their MRI are elderly or have limited mobility. 
+It makes the positioning inside the scanner more complicated than in standard high-field MRI systems, where patient positioning is facilitated by dedicated tables and controlled scanning environments.
+
+In any case, Hyperfine and Chipiron target very different applications. 
+Hyperfine mainly focuses on brain imaging, while Chipiron is focused on breast imaging.
+% Industrials actors
+The goal of Chipiron is to establish a strong and clearly defined use case, supported by sufficiently reliable technology, in order to attract major industrial partners who could potentially acquire or collaborate with the company. 
+Once Chipiron obtains FDA clearance, it will not have the manufacturing capacity or infrastructure to produce MRI systems at scale. 
+As a result, it will need to partner with large established manufacturers such as Siemens or GE HealthCare to enable large-scale production and distribution.
+
+
+\subsubsection{Markets and Clients}
+
+% United state market (Ask question)
+The market targeted by Chipiron is currently the United States. 
+Obtaining FDA clearance is generally considered more straightforward than achieving CE marking in Europe. 
+Moreover, it is easier to deploy and to identify potential buyers for the system, as the U.S. hospital system is more privately driven, making adoption decisions more decentralized.
+In addition, the prevalence of dense breast tissue is higher in the U.S. population than in Europe, which increases the risk of undetected malignant cancers and therefore strengthens the clinical need for improved breast imaging solutions.
+
+% Who will use the mri (hospital, clinic, ...)
+The goal of Chipiron MRI is to be used in clinic.
+
+\subsubsection{Products and Services}
+
+% What will the companies sell
+% what is the companies selling
+
+\subsubsection{Strategic Objectives}
+
+% Company strategy (FDA clearance + getting bought by a bigger company for the manufacturing part?)
+\subsection{Hosting Department or Service}
+% organigramme (Presentation of the different teams)
+\subsection{Purpose of the Mission for the Company}
+
+In MRI, contrast agents such as gadolinium are used to help determine whether a lesion is benign or malignant.
+Gadolinium is injected into the bloodstream and circulates through the body.
+It tends to accumulate in highly vascularized tissues, such as malignant lesions, making them appear brighter on MRI scans. 
+Radiologists analyze the temporal evolution of the contrast enhancement, known as the dynamic contrast enhancement (DCE).
+The objective is to observe how the signal intensity evolves over time after the injection of the contrast agent. 
+A malignant lesion typically presents a rapid increase in signal intensity followed by a rapid decrease. 
+This behavior is referred to as the \textit{wash-in wash-out} phenomenon and is associated with a high probability of malignancy. 
+In contrast, a benign lesion generally shows a slower enhancement and tends to maintain a high signal intensity over a longer period of time, indicating a lower risk of malignancy.
+For example, in Figure~\ref{fig:dynamic_curve}, the lesion is likely benign because the signal intensity decreases slowly over time after the initial contrast enhancement.
+% Show an example of benign lesion and malign lesion
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/example_curve.png}
+    \caption{Dynamic contrast enhancement curves illustrating benign and malignant lesion behaviors}
+    \label{fig:dynamic_curve}
+    \vspace{0.5cm}
+\end{figure}
+
+The more aggressive the lesion is, the faster the acquisition must be in order to correctly capture the wash-in wash-out dynamics.
+Consequently, MRI acquisitions need to be accelerated. 
+However, accelerating the acquisition process generally leads to a degradation in image quality.
+More precisely, accelerating the acquisition means acquiring fewer samples in k-space, which is the frequency domain where the MRI signal is encoded.
+By accelerating the acquisition it will as explain earlier increase the SNR.
+Therefore, the objective of this internship is to evaluate different Deep Learning models capable of enhancing image quality after accelerated MRI acquisition, while preserving sufficient temporal and spatial information to accurately analyze the contrast enhancement dynamics over time.
+Apart from working on deep learning models, I also need to evaluate which trajectory configurations are optimal to achieve the fastest possible acquisition while preserving the best image quality and contrast enhancement.
+
+\section{Corporate Social Responsibility (CSR) Policy}
+
+\section{Description of the Work Performed}
+\subsection{Methodology}
+It was essential to structure the project by progressing step by step. 
+The idea was to begin with a simple problem and gradually introduce additional challenges, ultimately leading to the original research problem.
+
+The projects was divided into three main parts.
+
+The first part consisted of developing a robust and flexible pipeline that could easily be adapted to test different models.
+
+The initial task was to use the clean pre-contrast image as input to reconstruct the post-contrast image. 
+This simplified setting allowed us to focus on the model architecture without introducing unnecessary complexity.
+The goal was then to implement and compare several relatively simple neural network architectures. 
+At the same time, we established a reliable evaluation framework to ensure that the obtained results were meaningful and reproducible.
+
+Once this first part was completed, we moved on to the 2nd part which focused on a more challenging and realistic setting that better reflected the actual problem. 
+
+Instead of using a clean pre-contrast image,this time both pre-contrast and post-contrast images contained noise, making the reconstruction task significantly more difficult.
+This allowed us to compare the different models under more realistic conditions for fast low-field MRI acquisition and to evaluate the performance of the previously implemented network architectures.
+
+Finally, after evaluating the different models in these more realistic conditions and exploring the limits of their performance, the focus shifted toward optimizing the overall pipeline and its configuration. 
+This included refining the preprocessing steps, training procedures, and trajectories config parameters to further improve the reconstruction quality.
+
+Doing all that would allow us to answer the main research question: which acquisition trajectory and which model provide the fastest acquisition while achieving the best contrast reconstruction and the most efficient sampling strategy?
+
+\subsection{1st part: Initial Model Development and Evaluation Framework} 
+%\subsubsection{Conception} 
+\subsubsection{Datasets}
+\mbox{}\\
+
+First of all, to run my experiments and models, I worked with two different datasets:
+
+\begin{itemize}
+    \item FastMRI Breast: This dataset consists of MRI data from 300 different patients. 
+    The 3D breast volumes have a shape of 192 × 320 × 320 pixels, with a spatial resolution of 1.1 × 1.0 × 1.0 mm. 
+    Each sample in the dataset includes four different time-point acquisitions. 
+    In the training pipeline, the dataset was split into two parts: 240 samples for training and 60 samples for validation, which were also used for testing.
+    % Check the number o f sample in 
+    \item Mamamia: This dataset contains MRI data from 500 different patients. 
+    The 3D volume shapes vary across samples, as does the spatial resolution. 
+    Each sample includes between 4 and 6 time-point acquisitions. 
+    The main difference compared to the other dataset is that it provides segmentation masks, highlighting the regions where the contrast agent is visible. 
+    This allows us to analyze the dynamic behavior of the contrast agent in the breast over time.
+\end{itemize}
+
+% GPU
+\paragraph{GPU}
+\mbox{}\\
+To train my models within reasonable time constraints, I relied on several GPUs with different computational capacities. 
+The first one, named \textit{Leviathan}, had 16~GB of memory. 
+I mainly ran my code on this machine and used its disk storage to host the FastMRI Breast and Mamamia datasets. 
+I also had access to a second GPU, \textit{Cthulhu}, which was significantly more powerful with 49~GB of memory. 
+It was used for training larger and more computationally demanding models. 
+Without access to these resources, it would have been impossible to complete my internship work.
+
+Access to these machines was done remotely via SSH. 
+As a result, my entire development environment was hosted on the servers, and my personal computer was only used as an interface. 
+I then connected to the machines using Visual Studio Code through remote development tools, which allowed me to code and execute experiments directly on the GPUs.
+% GitHub
+\paragraph{GitHub}
+\mbox{}\\
+In addition, I made extensive use of GitHub throughout the internship. 
+At the beginning, I created a personal repository in order to regularly back up my work and safely experiment without affecting the main company repositories. 
+This helped me progressively learn best practices in version control, including branch management, merge requests, code reviews, rebasing, issue tracking, and the use of Copilot in the development workflow.
+
+Initially, I worked exclusively within my own repository to become familiar with these tools. 
+Once I gained confidence, I started contributing directly to the company’s repositories by submitting merge requests, particularly to integrate my models and training pipelines into the production codebase.
+
+% W&B
+\paragraph{Weights \& Biases}
+\mbox{}\\
+I use a software which is called Weights \& Biases (wandb) to track my model training and to store both training results and model weights.
+
+The main goal is to keep a complete history of each training run by logging metrics such as the training loss and validation loss. 
+This allows me to visualize how both losses evolve over time and to ensure that the model is not overfitting. 
+Moreover, I plot the results on the test dataset using wandb, including different metrics and the various states of the samples.
+
+The most important use of wandb in my workflow is the storage of model weights. 
+This is particularly useful because the trained models can be saved directly on the platform and later retrieved via the API for evaluation or testing. 
+Consequently, a model only needs to be trained once for a given configuration, after which it can be reused without retraining.
+
+\subsubsection{Preprocessing}
+\paragraph{Datasets}
+Before developing the first training pipeline and experimenting with different model architectures, I first focused on data preprocessing. 
+This step involved all the necessary procedures to clean, structure, and prepare the dataset before feeding it into the training pipeline and the neural network models.
+
+% Reshaping
+\paragraph{Reshaping}
+\mbox{}\\
+
+First, it was necessary to standardize the dataset by resizing all samples to a common shape. 
+For example, in the FastMRI breast dataset, each sample originally has a fixed size of 192 × 320 × 320 pixels. 
+Since each pixel corresponds to an input value for the model, this represents a total of 19,660,800 values per sample. 
+Such a high dimensionality significantly increases both training time and GPU memory requirements.
+
+To address this issue, I reduced the size of all samples from 192 × 320 × 320 to 64 × 80 × 80. 
+The spatial dimensions (height and width) were reduced by a factor of 4, while the depth was reduced by a factor of 3. 
+These reduction factors were chosen empirically with the main objective of decreasing computational cost rather than preserving strict physical consistency. 
+The downsampling was performed using a simple subsampling strategy, where, for example, a factor of 2 consists in retaining one slice out of two, without introducing interpolation noise.
+
+This resizing inevitably changes the spatial resolution of the data, increasing it from approximately 1.1 × 1.0 × 1.0 mm to 3.3 × 4.0 × 4.0 mm.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Resolution_difference.png}
+    \caption{Resolution comparison}
+    \label{fig:Resolution_difference}
+    \vspace{0.5cm}
+\end{figure}
+
+In the context of Chipiron, the target is to achieve a final resolution of 2 mm, so the goal at the end of the internship is to present results for contrast enhancement at this resolution.
+
+To implement this preprocessing, I developed an initial script that takes as input samples of size 192 × 320 × 320 and applies configurable downsampling along each dimension. 
+The processed dataset is then saved in a separate directory.
+
+The Mamamia dataset presents a different challenge, as the samples do not all share the same dimensions.
+In this case, I reused the same script but without fixed per-axis configuration. 
+Instead, the output shape can be directly specified, allowing flexible resizing for each sample.
+
+% Normalization
+\paragraph{Normalization}
+\mbox{}\\
+
+Normalization is an important step in the preprocessing pipeline. It is essential to apply the same normalization method to every sample so that all inputs are represented on a comparable scale. 
+This improves the stability of the training process and helps the deep learning model learn more effectively.
+
+In most cases, it is preferable to normalize the data to a range between 0 and 1. 
+This is particularly important because neural networks rely on activation functions whose behavior strongly depends on the scale of the input values. 
+For instance, the sigmoid activation function produces outputs between 0 and 1. 
+If very large input values are used, such as 100 and 200 within an intensity range of 0--255, both outputs will be extremely close to 1. 
+Consequently, the network will struggle to distinguish between these inputs. 
+On the other hand, when the data are normalized within the interval $[0,1]$, the sigmoid function generates more distinct outputs, enabling the model to better capture variations in the data.
+
+The most commonly used normalization method is the min--max normalization:
+\[
+x_{\mathrm{norm}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}}
+\]
+
+However, this approach can become problematic in the presence of extreme outlier values. 
+For example, if a sample contains a value of 1000 while most values lie between 0 and 100, the majority of the normalized values will be compressed close to 0. 
+As a result, the contrast between typical values is significantly reduced.
+
+To overcome this limitation, I used percentile-based normalization:
+\[
+x_{\mathrm{norm}} = \frac{x - P_1(x)}{P_{99}(x) - P_1(x)}
+\]
+
+where $P_1(x)$ and $P_{99}(x)$ denote the 1st and 99th percentiles of the data distribution, respectively.
+
+The main advantage of this method is that it reduces the influence of extreme values by ignoring the lowest 1\% and highest 1\% of the data during normalization. 
+This allows the majority of the dataset to be normalized more effectively while preventing outliers from dominating the scaling process.
+
+% undersampling
+\paragraph{Downsampling vs Undersampling}
+\mbox{}\\
+
+As explained earlier, in order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition. 
+The two datasets used in this work contain clean data; therefore, all samples must be artificially degraded to simulate data acquired from a low-field MRI system with accelerated acquisition.
+
+Two main methods can be used for this purpose:
+
+% Imgspace
+The first method consists of downsampling. 
+Downsampling is the process of reducing the number of data points in each sample of a dataset. 
+It is commonly used to reduce storage requirements, computational cost, or transmission load. 
+However, it is also used as a degradation strategy to simulate low-field MRI data. 
+This is achieved by increasing the downsampling factor and adding Gaussian noise.
+
+In our case, after reshaping, the data have dimensions $64 \times 80 \times 80$, and a downsampling factor of 2 is applied, effectively reducing the spatial resolution by a factor of two.
+
+However, in order to preserve the original sample size, a resizing operation is applied within the degradation function. 
+This allows the downsampling effect to be simulated while keeping the input shape unchanged. 
+In addition, Gaussian noise is added to each voxel. The noise is modeled as a zero-mean Gaussian distribution with a standard deviation of 0.01.
+This value was selected empirically by visual comparison with real low-field MRI images, and $\sigma = 0.01$ was found to produce realistic noise levels.
+
+% k-space
+The second method is undersampling. 
+Undersampling is performed in the frequency domain (k-space) rather than in the spatial domain: it removes k-space samples by applying a sampling mask.
+k-space is a representation of the MRI acquisition signal. 
+The RF coil captures the signal during relaxation, and gradients encode position into phase and frequency, which maps the signal to trajectories in k-space.
+The image is reconstructed using an inverse Fourier transform, which brings the data back to the spatial domain.
+At the center of k-space are low spatial frequencies that encode global intensity and contrast; at the edges are high spatial frequencies that encode fine details and boundaries.
+When applying an undersampling mask, we typically preserve the center of k-space as much as possible because it contains the most important information for reconstruction.
+% Why undersampling
+The undersampling approach is particularly relevant for accelerating MRI acquisition, since it better reflects what is produced by a low-field MRI scanner. 
+In this work, I used three types of masks: Cartesian, radial, and 3D radial.
+
+\mbox{}\\
+% How we created the mask
+We can create these three masks by first generating the corresponding trajectories. 
+A trajectory describes how the MRI system samples k-space during acquisition; we then use the sampled locations as a binary mask.
+
+For each trajectory type, the configuration can be divided into three main parts: the acquisition parameters, the readout parameters, and the trajectory parameters.
+
+\paragraph{Acquisition}
+\mbox{}\\
+
+The acquisition configuration is common to all trajectory types (\texttt{decay\_cartesian}, \texttt{stack\_of\_radial}, and \texttt{stack\_of\_radial\_3D}). 
+It is defined by three main parameters:
+
+\begin{itemize}
+    \item Field of View (FOV)
+    \item Resolution
+    \item Number of shots
+\end{itemize}
+
+The FOV depends on both the image resolution and the input volume size. These quantities are related by
+
+\[
+\mathrm{Resolution} = \frac{\mathrm{FOV}}{\mathrm{Input\ Shape}}.
+\]
+
+Therefore,
+
+\[
+\mathrm{FOV} = \mathrm{Resolution} \times \mathrm{Input\ Shape}.
+\]
+
+
+For example, in our case the input volume size is $(64, 80, 80)$ voxels and the spatial resolution is $(3.3, 4.0, 4.0)$ mm. 
+The resulting FOV is therefore approximately
+
+\[
+(64 \times 3.3,\; 80 \times 4.0,\; 80 \times 4.0)
+=
+(211,\; 320,\; 320)\ \mathrm{mm}.
+\]
+
+
+Another important acquisition parameter is the number of shots. 
+A sample corresponds to a single measurement point in k-space. 
+A shot is a collection of samples acquired consecutively during a readout.
+
+In our configuration, each shot contains 80 samples. 
+To fully sample the k-space, 5120 shots are required. 
+Therefore, the total number of acquired k-space samples is
+
+\[
+5120 \times 80 = 409\,600.
+\]
+
+For the low-field MRI system considered here, the acquisition time of a single shot is approximately 30 ms. 
+Consequently, a fully sampled acquisition requires
+
+\[
+5120 \times 30 \text{ ms}
+=
+153.6 \text{ s}
+=
+2 \text{ min } 33.6 \text{ s}.
+\]
+To capture the dynamics of the contrast agent, multiple acquisitions must be performed over time. 
+A fully sampled acquisition lasting 2 min 33.6 s is therefore too long, since the contrast agent distribution evolves continuously and important temporal information may be lost during the acquisition. 
+By applying an undersampling factor of 4, the number of acquired shots is reduced from 5120 to 1280, resulting in a shorter acquisition time of 38.4 s.
+
+\[
+1280 \times 30 \text{ ms}
+=
+38.4 \text{ s}.
+\]
+
+\paragraph{Readout}
+\mbox{}\\
+
+The readout configuration is also common to all trajectory types.
+
+A readout corresponds to the acquisition of a sequence of k-space samples during a single shot. 
+The main readout parameter is therefore the number of samples acquired per shot.
+
+In our experiments, each shot contains 80 samples, meaning that the readout length is fixed to 80 for all trajectory types.
+
+\paragraph{Trajectory}
+\mbox{}\\
+
+The trajectory configuration is the only part that differs between trajectory types.
+
+It defines how the k-space is sampled during each shot, that is the spatial locations of the acquired samples and the order in which they are collected.
+
+Different trajectory models can be used, such as:
+
+\begin{itemize}
+    \item \texttt{decay\_cartesian},
+    \item \texttt{stack\_of\_radial},
+    \item \texttt{stack\_of\_radial\_3D}.
+\end{itemize}
+
+Each trajectory has its own specific parameters that determine the sampling pattern in k-space while sharing the same acquisition and readout configurations described above.
+
+For the \texttt{decay\_cartesian} trajectory, several parameters control the sampling pattern in k-space.
+
+The parameter, \texttt{density\_decay}, controls how strongly the sampling density is concentrated toward the center of k-space. 
+A high value of \texttt{density\_decay} results in a higher concentration of shots near the center, whereas values closer to zero lead to a more uniform distribution across k-space.
+
+The parameter, \texttt{keep\_edges}, determines whether high-frequency components are preserved. 
+When set to \texttt{true}, more shots are sampled near the edges of k-space, allowing better preservation of high-frequency information. 
+When set to \texttt{false}, the sampling is concentrated toward the center, prioritizing low-frequency components and resulting in a more circular distribution.
+
+Finally, the \texttt{sampling\_method} defines how shots are selected according to the prescribed density.
+Two strategies are available: \texttt{random}, which performs stochastic sampling based on the density map, and \texttt{lloyd}, which generates a pseudo-random and more uniformly spaced distribution using an iterative optimization approach.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/decay_cartesian_mask.png}
+    \caption{Visualization of a 2D slice of the Cartesian sampling mask}
+    \label{fig:decay_cartesian_mask}
+    \vspace{0.5cm}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/decay_cartesian_trajectories.png}
+    \caption{Visualization of 3D Cartesian trajectories}
+    \label{fig:decay_cartesian_trajectories}
+    \vspace{0.5cm}
+\end{figure}
+
+
+
+For the \texttt{stack\_of\_radial} trajectory, several parameters control the sampling pattern in k-space.
+
+The parameter \texttt{nb\_spokes} defines the number of radial spokes acquired per slice. 
+It is computed from the total number of shots divided by the number of slices (or stacks). 
+In our case, this corresponds to
+
+\[
+\frac{1280}{64} = 20 \ \text{spokes per slice}.
+\]
+
+The parameters \texttt{spoke\_tilt} and \texttt{stack\_tilt} control the angular distribution of the radial spokes. 
+They define how successive spokes are rotated within each slice and across slices. 
+These angles can follow different strategies, such as uniform spacing or a golden-angle scheme, which helps improve k-space coverage and is particularly beneficial for dynamic imaging.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/stack_of_radial_mask.png}
+    \caption{Representation of a slice of a radial mask}
+    \label{fig:stack_of_radial_mask}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/stack_of_radial_trajectories.png}
+    \caption{Visualization of a 3D stack of radial trajectories}
+    \label{fig:stack_of_radial_trajectories}
+    \vspace{0.5cm}
+\end{figure}
+
+Finally, the \texttt{stack\_of\_radial\_3D} trajectory does not introduce additional tunable parameters, as it shares the same configuration as the \texttt{stack\_of\_radial} setup.
+%check what is really changing
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/phyllotaxis_radial_mask.png}
+    \caption{Representation of a slice of a 3D radial mask}
+    \label{fig:phyllotaxis_radial_mask}
+    \vspace{0.5cm}
+\end{figure}
+
+The parameters associated with the \texttt{stack\_of\_radial} and \texttt{decay\_cartesian} trajectories will be systematically explored in order to assess their influence and identify the optimal configuration for each acquisition time.
+One of the objectives of this internship is also to investigate which trajectory configuration best enhances dynamic contrast.
+
+% Talk about the noise
+\paragraph{Noise in k-space}
+Once the trajectory configurations are defined, the undersampling mask can be generated. 
+However, an additional aspect must be considered: the signal-to-noise ratio (SNR).
+
+Since a low-field MRI system is used, the acquired signal is inherently weaker, resulting in a reduced SNR and consequently a noisier image. 
+To realistically simulate this low-SNR condition, Gaussian noise is introduced during the data generation process.
+
+In the case of undersampled acquisitions, the noise is added directly in k-space, where the measurements are defined. 
+Only the k-space samples retained by the undersampling mask are affected by noise. 
+A zero-mean Gaussian distribution with a standard deviation of 200 is applied independently to both the real and imaginary components, as the data are complex-valued in the frequency domain. 
+This value was empirically chosen based on multiple experiments to visually match the noise level observed in real low-field MRI acquisitions.
+
+Furthermore, the noise is not uniform across k-space. 
+Due to the sampling density variations induced by the mask, certain regions contain more samples than others. 
+For instance, in the \texttt{decay\_cartesian} trajectory, the \texttt{density\_decay} parameter leads to a higher concentration of samples in the center of k-space. 
+In these regions, the effective noise level should be lower due to increased redundancy of information.
+
+To account for this effect, the noise amplitude is scaled by the inverse square root of the local sampling density. 
+This ensures that regions with higher sampling density exhibit a reduced noise variance, making the simulated k-space more consistent with realistic low-field MRI acquisition physics.
+
+We can see some representation of the images with the undersampling and the noise added depending on the mask we used.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/decay_cartesian_example.png}
+    \caption{Undersampled \texttt{decay\_cartesian} images with and without noise}
+    \label{fig:decay_cartesian_example}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/stack_of_radial_example.png}
+    \caption{Undersampled \texttt{stack\_of\_radial} images with and without noise}
+    \label{fig:stack_of_radial_example}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/stack_of_radial3D_example.png}
+    \caption{Undersampled \texttt{stack\_of\_radial\_3D} images with and without noise}
+    \label{fig:stack_of_radial3D_example}
+    \vspace{0.5cm}
+\end{figure}
+
+
+\subsubsection{Training pipeline}
+
+
+Now that the preprocessing stage has been completed and realistic low-field MRI data have been generated, including accelerated acquisitions
+obtained through undersampling techniques, the next step is to establish an appropriate training pipeline for the deep learning models.
+
+
+\paragraph{Using 2 inputs}
+First of all it's important to be aware that the deep learning models are going to be designed to take two input volumes: a high-quality pre-contrast image
+and a noisy accelerated post-contrast image. Indeed, in dynamic contrast MRI acquisition, both acquisitions are required to assess the evolution
+of the contrast agent over time and help determine whether a tumor is benign or malignant. Since the pre-contrast acquisition is performed only once,
+it can be acquired with high image quality without strict time constraints. In contrast, multiple post-contrast acquisitions are required after the injection of the contrast agent.
+To reduce the overall examination time, these acquisitions can be accelerated using undersampling techniques like we explained above.
+The idea behind this approach is that, apart from the contrast enhancement, the anatomical structures remain largely unchanged between acquisitions.
+Therefore, the high-quality pre-contrast volume provides valuable structural information that can assist the reconstruction of the global accelerated post-contrast images.
+By adding both volumes to the network, the model is encouraged to focus on the contrast-related changes rather than relearning anatomical
+information already available in the pre-contrast image. This allows the reconstruction process to better preserve and recover the clinically
+relevant contrast enhancement while benefiting from the high-quality structural reference.
+
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/training_pipeline.png}
+    \caption{Training pipeline representation}
+    \label{fig:Training_pipeline_representation}
+    \vspace{0.5cm}
+\end{figure}
+
+
+\paragraph{organization of my training pipeline}
+\paragraph{preprocessing script}
+
+
+First of all, before launching the training pipeline, a preprocessing script can be used to reduce the image resolution and ensure that all samples have
+a consistent size. The processed data are saved in a separate folder, allowing the training pipeline to directly use these lower-resolution samples.
+This reduces computational cost and speeds up the training process as explain above.
+
+
+During preprocessing, two segmentation masks are also saved with the new dataset. The first mask is designed to keep only
+the relevant region of each sample. In many acquisitions, large areas surrounding the object of interest contain only black pixels,
+which do not carry any useful information. Keeping these empty regions could negatively influence the model during the training, as it may learn to denoise
+or reconstruct irrelevant background areas instead of focusing on meaningful structures.
+
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/mask_ground_truth.png}
+    \caption{Mask Ground truth}
+    \label{fig:mask_ground_truth}
+    \vspace{0.5cm}
+\end{figure}
+
+
+The second mask is only available in the Mamamia dataset and is not provided in the FastMRI Breast dataset. This segmentation mask specifically
+identifies regions containing contrast enhancement, allowing us to know where the contrast agent is expected to appear within the breast tissue.
+
+
+This mask is particularly useful otherwise we can't study the contrast dynamics, as it enables the analysis to focus exclusively on the enhanced regions rather
+than the entire breast. Additionally, it can be used into the training process to guide the model's attention toward contrast
+areas, which are often the most clinically relevant features, instead of treating all regions of the sample equally.
+
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/segmentation_contrast_mask.png}
+    \caption{segmentation contrast mask}
+    \label{fig:segmentation_contrast_mask}
+    \vspace{0.5cm}
+\end{figure}
+
+
+\paragraph{Data-preparation}
+After running the preprocessing script, a dedicated class which is named LoadingFastMRIBreastDataset3D is used to ensure that the dataset is properly organized before being fed into the model.
+
+
+First, the class loads the data from the directory containing the .h5 files. It then separates the different acquisitions for each patient, as each
+sample contains between 3 and 6 acquisitions. For every subject, the first acquisition is considered as the pre-contrast image. As for the post-contrast images,
+either all available acquisitions can be included in the training set, or a single one can be randomly selected, depending on the chosen strategy.
+At the beginning I will choose to select one randomly.
+
+
+A corresponding ground truth is also defined, which corresponds to the same post-contrast acquisition without any acceleration applied.
+This allows a direct comparison between accelerated and fully sampled data so our model can learn and adjust base on the ground-truth.
+We will go more in details in the training part.
+
+
+Next, each volume is normalized using a percentile-based normalization method, as described previously.
+Finally, only the post-contrast volumes are subjected to an undersampling operation in order to simulate the effects of accelerated low-field MRI acquisitions,
+while the pre-contrast and ground truth images remain fully sampled.
+
+
+Moreover, the dataset also provides two segmentation masks for each sample, as previously introduced. A final important piece of information is the acquisition timestamps.
+These timestamps are available for all acquisitions in the dataset and indicate the exact acquisition time of each MRI scan.
+
+
+The times-tamps of each acquisitions represent how long it took the MRI to get the acquisition. It is very important for us because by having the time-stamps you can easily
+separate the acquisitions in the testing phase, so we can see the dynamic of the contrast over time.
+
+
+At the end, this class can return the post-contrast images, the accelerated pre-contrast images, the ground truth, the two segmentation masks, and the timestamps.
+Depending on the configuration, it is possible to choose which elements are returned.
+
+
+However, the three main outputs will always be returned: the post-contrast images, the accelerated pre-contrast images, and the corresponding ground
+truth. In the case of the FastMRI breast dataset, the segmentation masks for the contrast is not available, so the pipeline is designed to handle this situation and
+avoid requiring them.
+
+
+For datasets where both segmentation masks are available, they can optionally be used, as they may improve performance.
+Nevertheless, the model can also be trained without them, which makes it possible to compare results with and without the use of segmentation information.
+
+\paragraph{training}
+
+
+The training pipeline is important because it directly affects how the model learns. In deep learning, the dataset is typically split into a
+training set and a validation set. The training set is used to optimize the model, while the validation set is used during training to monitor
+performance and tune hyperparameters. Unlike the validation set, the test set is only used at the end to evaluate the model on unseen data.
+
+
+\paragraph{Risk of training}
+We need both a training dataset and a validation dataset to ensure that the model does not overfit. Overfitting occurs when a model performs very
+well on the data it was trained on but poorly on new, unseen data. Therefore, using separate datasets is essential to assess the model's ability
+to generalize.
+
+
+During training, several important parameters in deep learning must also be carefully considered and understood.
+
+
+\paragraph{Batchsize}
+
+
+The first important parameter is the batch size, which represents the number of samples processed simultaneously during training. In general,
+larger batch sizes can speed up training because more samples are handled in parallel. For example, training with a batch size of 8 is logicaly
+faster than with a batch size of 4.
+
+
+However, larger batch sizes also require more GPU memory, especially when dealing with large volumetric data containing many voxels. In my case,
+I chose a batch size of 4 because it provided a good balance between training speed and the available GPU memory.
+
+
+When the model will be trained on full image resolution at the end of my internship, I will likely need to reduce the batch size
+to 1 due to the large size of each sample.
+
+
+\paragraph{Loss}
+The loss function measures the error between the outputs generated by the model and the ground truth target images. It plays a crucial role during
+training, as the objective is to minimize this error over time.
+
+
+Two of the most commonly used loss functions are the Mean Squared Error (MSE) and the Mean Absolute Error (MAE). The MSE computes the average squared
+difference between the predicted outputs and the ground truth, whereas the MAE computes the average absolute difference. The main difference between
+them is that the MSE is more sensitive to outliers because larger errors are penalized more heavily.
+
+
+It is also possible to combine these two loss functions. In my case, I chose the MSE because I did not expect a significant number of outliers in the data.
+
+
+\paragraph{The gradient descent}
+Gradient descent is an important optimization method used to minimize the cost function in our case the loss by progressively adjusting the model parameters which are
+mainly the weights and biases.
+
+
+It is based on computing the partial derivatives of the loss with respect to these parameters such as weights and biases. Another key element is the learning rate (lr),
+which controls the size of each update step during optimization. If the learning rate is too high, the algorithm may fail to converge to the minimum, so
+it must be carefully tuned. I chose a lr of 0.0001 whichs slow down a bit the training but allows finding quite well the convergence of the cost function.
+
+
+\paragraph{backpropagation}
+
+
+Backpropagation works together with gradient descent. It computes the gradient of the loss function layer by layer, starting from the output layer and moving
+backward through the network. Once all gradients are computed, gradient descent uses them to update the weights and biases.
+
+
+In other words, backpropagation calculates how each parameter contributes to the error, and gradient descent applies these values to adjust the model
+parameters.
+
+
+\paragraph{epoch}
+
+
+An epoch represents each time all the samples from our dataset have gone through the model. At the end of each epoch, the average training loss and validation loss are computed.
+The goal is to check the model's learning progress by observing how these losses evolve over time by displaying it on wandb software as introduce earlier. where training and
+validation loss curves are plotted across epochs.
+
+
+\paragraph{Patience}
+
+
+Finally, another important parameter during training is the patience. Patience refers to the number of consecutive epochs during which we allow the
+validation loss to not improve before stopping the training.
+
+
+During training, we compute two losses: the training loss and the validation loss. The training loss is used to update the model parameters through
+backpropagation and gradient descent. In contrast, the validation loss is not used for updates; it is only used to evaluate how well the model generalizes
+and to detect overfitting.
+
+
+Patience is applied only to the validation loss. It helps detect overfitting during training. For example, with a patience of 10, if the validation loss
+does not improve for 10 consecutive epochs while the training loss continues to decrease, it indicates that the model is starting to overfit the training
+data.
+
+
+In that case, continuing the training is not useful, since the model is no longer improving its ability to generalize to unseen data.
+
+
+\paragraph{main}
+
+
+The main script controls the entire training pipeline. It manages the LoadingFastMRIBreastDataset3D class as well as all the training steps described above. It's also
+saves the model on Weights \& Biases (wandb) and evaluates it using different metrics that will be explained later. To start the training, I run this main script,
+which centralizes everything. It also allows me to choose different configurations for both the model and the training pipeline.
+
+
+I created several YAML configuration files to easily change settings. Depending on the chosen configuration, I can test different options such as downsampling,
+undersampling, or the use of segmentation masks. There is also a default configuration, which is the simplest setup. This allows anyone to run the pipeline directly
+or modify the YAML files to experiment with different settings. This configuration with the yaml setup is very useful because it allows me to test different configs
+easily so I can see which config is giving the best result.
+
+
+\paragraph{seed}
+
+
+In my pipeline, controlling the seed and ensuring reproducibility was very important. A reproducible pipeline is the fact of running twice the same pipeline
+with same config and you got almost the same result.
+
+
+However, perfect reproducibility is not guaranteed, especially on GPUs, because computations are highly parallel and not always fully deterministic.
+Despite this, we can get as close as possible by fixing the random seed for the random data which are generated. The seed sets the initial state of
+the random number generator, which controls the sequence of random values produced during training. Indeed in the training pipeline random values are used
+specifically to generate the undersampling and downsampling noise for the Gaussian distribution.
+
+
+However, we need to be careful. If we fix the seed, then the same random noise pattern will be generated each time the pipeline is run. As a result, every
+sample in the training dataset will receive the same noise realization across different runs, which can reduce variability and may not always reflect the true
+randomness of the noise from low-field MRI images.
+
+
+That's why in the LoadingFastMRIBreastDataset3D class, I ensured that the preprocessing assigns different seeds to the training samples at each epoch.
+This way, every epoch uses a different noise pattern for all samples, and the noise also changes from one epoch to another. This introduces a form of
+data augmentation, which helps reduce overfitting by increasing variability in the training data.
+
+
+For the validation set, I only ensure that the noise is fixed across epochs but different between samples. No data augmentation is applied during validation,
+since its role is strictly to evaluate the model in a consistent and stable way.
+
+
+By doing this, I control the random generation in my pipeline and improve the reproducibility of my experiments. This makes it easier to reliably compare results when testing the model.
+
+
+\subsubsection{Architecture models}
+
+
+\paragraph{artificial neural network}
+Now that the entire training pipeline was operational, I was able to experiment with different deep learning models and compare their performances in order to determine which one was the most suitable for our problem.
+
+
+First, deep learning models rely on artificial neural networks to learn complex tasks from data. Most neural networks consist of an input layer, multiple hidden layers, and an output layer, whose structure depends on the desired prediction.
+Each hidden layer is composed of numerous parameters, called weights, which are numerical values that define the strength of the connections between neurons.
+
+
+During training, the network learns by adjusting these weights through a process involving forward propagation and backward propagation, as explained earlier.
+Forward propagation computes the model's predictions, while backward propagation updates the weights based on the prediction errors to improve the network's performance over time.
+
+
+\paragraph{Convolution neural network (CNN)}
+
+
+A Convolutional Neural Network (CNN) is a specialized type of deep learning architecture designed for tasks involving image analysis and recognition, which makes it particularly well suited to our problem.
+CNNs are highly effective at identifying patterns and extracting relevant features from images, such as edges, textures, and shapes.
+They are composed of several layers called also channels, that apply multiple learnable filters to the input image.
+These filters, which can have dimensions such as (3*3*3) or (5*5*5) in the case of three-dimensional images, the coefficiet in the filter are optimized during training to detect different types of features within the images.
+As the input passes through the network, each filter generates a feature map that highlights the presence and spatial location of specific patterns.
+By combining information extracted at different layers, CNNs progressively learn complex and abstract representations of the input image.
+
+
+\paragraph{activation function}
+
+
+In CNN we also need some activation function to bring some non-linearity and allow to solve some more complex problem.
+Most of the time the activation function is applied at the end of each convolution.
+It determines if the information is translate to the next layer or not in network.
+For example a famous activation function is the Relu function, where all the negative number turn to 0.
+Or the sigmoid where the negative number are between 0 and 0.5 and positive number are between 0.5 and 1.
+In our case the activation function are applied on each feature map of the network.    
+
+
+\paragraph{batchNormalization vs InstanceNormalization}
+
+
+Training deep neural network is complicated by the fact that the distribution of each layer's input changes during training as the parameters of the prvious layers change.
+Therefore this slows down the training by requiring lower learning rate and careful parameter initialization and make it hard to train models with saturing nonlinearities.
+We call this problem as internal covariate shift, and we solved that by normalizing the pre activation layers.
+The goal is to make normalization part of the models architecture. For that there are 2 differents approachs:
+
+
+\begin{itemize}
+    \item Batch Normalization (BN) : It normalizes each feature map by calculating the average and the variance by using all the example in the batch.
+    It has 2 learnable parameter sush as gamma for the scaling und beta for the shifting.
+    The Beta can replace the bias that we have in the feature map. % Formula ?
+    \[
+    \hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}
+    \]
+
+
+    \[
+    y_i = \gamma \hat{x}_i + \beta
+    \]
+
+
+    Knowing that $\mu_B$ represents the mean of the batch and $\sigma_B^2$ the variance of the batch, $\epsilon$ is a small constant added to avoid division by zero.
+    Finally, $\gamma$ and $\beta$ are learnable parameters of the model.
+
+
+    \item Instance Normalization (IN) : It normalized each feature by calulating the average and the variance separately for every feature map across its spatial dimensions;
+    It also has 2 learnable parameter like BN % Formula ?
+    \[
+    \hat{x}_{h,w,d} = \frac{x_{h,w,d} - \mu_I}{\sqrt{\sigma_I^2 + \epsilon}}
+    \]
+    \[
+    y_{h,w,d} = \gamma \hat{x}_{h,w,d} + \beta
+    \]
+    The only change is $\mu_I$ represents the mean of the sample and $\sigma_I^2$ the variance of the sample not the batch
+
+
+\end{itemize}
+
+
+Batch Normalization significantly improve training stbility by reducing internal covariate shift and accelerated convergence.
+It stabilizes learning by making the model's activations more consistent across different batches and ensures faster convergence, allowing the use of larger learning rates.
+In the other way Instance Normalization, it doesn’t directly improve training speed or stability, but it helps to preserve individual image characteristics.
+
+
+\paragraph{Maxpooling}
+
+
+Maxpooling is an operation typically used in CNN because it reduces the spatial by sliding the 3D window and taking the maximum value in each region.
+It helps the downsampling and reduces the computation while returning important features.
+
+
+
+
+Most deep learning models rely on core components such as convolutional layers, activation functions, batch normalization, and max pooling, which are essential for building stable neural networks, particularly in medical imaging applications.
+However, the main differences lie in the network architecture, which can vary considerably depending on the specific problem.
+In this work, I experimented with several architectures, which will be presented in the following section.
+
+
+\paragraph{NoNew-Net}
+The first Architecture I investigated was the nonewnet \cite{NoNewNet}, it's based on a U-Net Architecture.
+U-Net architectures are widely used in deep learning and have served as the foundation for numerous successful models in medical image analysis, particularly for segmentation tasks.
+In our application, U-Net architectures have also demonstrated strong performance for image denoising while remaining relatively simple to implement.
+For these reasons, NoNew-Net was selected as a baseline model for our experiments.
+
+
+NoNew-Net is organized into several blocks which corresponds for each to a different resolution levels.
+It folloms the classical encoder-decoder structure of a U-net with the Skip connection.
+At each stage of the encoder, the spatial dimensions of the feature maps are reduced by a factor of two with Maxpooling, while the number of feature channels is typically doubled to extract features with high level information.
+in the decoder, the feature maps are progressively upsampled, increasing their spatial dimensions by a factor of two at each stage, while the number of feature channels is reduced accordingly.
+Finally, Skip connections are used to transfer information from the encoder to the corresponding decoder levels, allowing the network to preserve fine spatial details during the reconstruction process.
+
+
+For each architecture, a configuration file in YAML format was used like training pipeline introduced earlier.
+The NoNew-Net architecture uses a kernel size of 3, corresponding to a 3D convolutional filter of size 3 × 3 × 3.
+The base number of feature channels is set to 30 and is progressively increased throughout the encoder, typically doubling at each block.
+The number of blocks was set to 4, as a result,the block at the bottom of the U-net that we call the bottleneck layer contains 480 feature channels.
+The activation function used is Leaky ReLU. Unlike standard ReLU, it introduces a small negative slope (0.2), meaning that negative values are not entirely set to zero but are instead scaled down.
+Finally, an important design aspect of the model concerns the number of input and output channels, which depends most of the time on the specific problem being addressed.
+In our case, the model takes two input channels corresponding to pre-contrast and post-contrast acquisitions.
+These two inputs are concatenated along the channel dimension to form a single tensor with two channels.
+This is why the model is configured to start with 2 input channels.
+
+
+\[
+X = \mathrm{Concat}(X_1, X_2)
+\]
+
+
+\[
+X_1, X_2 \in \mathbb{R}^{B \times 1 \times D \times H \times W}
+\]
+
+
+\[
+X \in \mathbb{R}^{B \times 2 \times D \times H \times W}.
+\]
+
+
+As for the output we only want one channel because the ground truth has one channel and we need the same dimension to calculate the cost function (loss).
+
+
+\paragraph{NoNew-Netv2}
+The main difference between NoNewnet and NoNewnetv2 is in the decoder, more specifically in the upsampling strategy.
+In the original NoNew-Net, the feature maps are upsampled using an interpolation function. 
+This operation doesn't involve any learnable parameters, it simply increases the spatial resolution by applying a mathematical interpolation.
+After this step, a normal convolution like in the encoder is applied to learn how to combine and refine the features in the decoder.
+
+However, the interpolation layer is replaced by a 3D transposed convolution (ConvTranspose3D).
+Unlike interpolation, a transposed convolution contains learnable parameters that are optimized during training.
+As a result, it not only upsamples the feature maps but also learns an upsampling operation.
+
+The advantage of Interpolation is the fact that is computationally cheaper and it doesn't introduce additional parameters, making it faster and more memory-efficient.
+In contrast, transposed convolution increases the number of trainable parameters and the computational cost.
+It also provides greater flexibility by learning a better upsampling adapted to our specific task, which can improve the reconstruction of samples.
+
+% architecture example
+\paragraph{ResU-Net}
+
+
+The second architecture I investigated was a residual version of the U-Net.
+Instead of directly predicting the post-contrast image, the network predicts the residual which is the difference between the pre-contrast and post-contrast acquisitions.
+
+
+The intuition behind this approach is that the anatomical structures are already present in the pre-contrast image, while the contrast agent only modifies a limited number of regions.
+Consequently, learning the residual is an easier task than reconstructing the entire post-contrast image from scratch.
+The network only has to estimate the contrast enhancement rather than the complete image.
+
+
+To implement this idea, I started from the original NoNew-Net architecture and introduced a residual connection.
+The output of the network represents the predicted enhancement, which is then added to the pre-contrast image to obtain the final reconstructed post-contrast image.
+Since MRI intensities are non-negative, an activation function is applied after the residual addition to ensure that the reconstructed intensities remain positive.
+
+
+In addition to the residual connection, I incorporated Squeeze-and-Excitation (SE) blocks into the ResU-Net architecture.
+These blocks are particularly beneficial in deep convolutional networks with a large number of feature channels.
+In a standard convolutional neural network, all feature channels are treated equally by subsequent convolution layers.
+However, not all channels contribute equally to the reconstruction task.
+SE blocks introduce a lightweight channel-attention mechanism that learns an importance coefficient for each feature channel.
+As a result, informative channels are emphasized while less relevant ones are reduced.
+
+
+The training configuration of the ResU-Net is identical to that of the original NoNew-Net, except for the number of feature channels.
+While NoNew-Net uses 30 feature channels, the ResU-Net was configured with 64 feature channels to increase its representational capacity.
+% architecture example
+
+
+\paragraph{Dense-Unet}
+
+The Dense U-Net architecture is very similar to the standard U-Net. 
+It has the same encoder-decoder structure.
+The main difference is that it uses Dense Blocks instead of the usual double convolution blocks.
+
+In a Dense Block, each layer receives the outputs of all the previous layers as its input because in a standard network, each layer only receives the output of the previous layer.
+This allows the network to reuse features that have already been learned.
+
+In our implementation, we use a growth rate of 16. This means that each layer produces 16 new feature channels.
+As a result, the number of channels increases gradually inside each Dense Block. 
+However, unlike a standard U-Net, the number of channels does not simply double when moving from one block to the next.
+
+The main advantage of Dense Blocks is that they reuse features from previous layers.
+This improves the flow of information through the network and reduces the number of trainable parameters, since each layer only needs to learn a small number of new features.
+
+However, because all the feature maps are concatenated together, Dense Blocks can require a lot of memory than others networks.
+For this reason, it is important to choose an appropriate growth rate that provides a good balance between performance and memory consumption.
+
+The training configuration of the Dense-Unet is identical to the original NoNew-Net, except with the growth-rate which is not present in th NoNew-Net.
+
+
+\paragraph{UnetAttGate}
+Attention Gate U-Net \cite{AttentionUnet} is used in segmentation tasks because it improves the model’s ability to focus on relevant regions of the image while reducing the influence of irrelevant background information.
+It works by assigning higher weights to important features and lower weights to less useful ones.
+To achieve this, attention gates are added at the skip connections in the decoder.
+These gates help filter the information coming from the encoder before it is combined with the decoder features.
+
+Each attention gate takes two inputs. 
+The first input is the feature map from the skip connection, which contains strong spatial information.
+The second input comes from a deeper layer in the decoder, which contains more feature representations.
+
+These two inputs are added together to compute attention coefficients. 
+The network learns to give higher values to aligned and relevant features, and lower values to irrelevant ones.
+
+A ReLU activation is applied during this process, followed by a sigmoid function to normalize the attention weights between 0 and 1.
+The resulting attention map is then resized to match the spatial dimensions of the decoder feature map.
+It is multiplied element-wise with the skip connection features.
+This allows the network to keep important pixels while suppressing less relevant ones.
+
+We can say that the attention gate tries to increase the quality of the feature sent to the decoder. 
+However, it can add more complexity and more computational cost.
+
+the configs are the same as the NoNew-Net
+
+\paragraph{UnetAttBlock}
+The Attention U-Net is different from the Attention Gate U-Net. 
+It does not use attention gates in the skip connections of the decoder. 
+Instead, it applies a Multi-Head Attention (MHA) block at the bottleneck of the network.
+The bottleneck is the deepest part of the U-Net. 
+It has the highest number of channels and contains rich feature representations.
+
+The goal of the MHA is to capture global dependencies in the bottleneck feature map.
+It allows each position to interact with all the others.
+
+The difference between CNN and Multi-Head Attention is that CNN focuses on local information. Each pixel is processed using information from its neighborhood, which allows the network to capture local patterns.
+In contrast, Multi-Head Attention works globally. 
+Each position can interact with all other positions in the image. 
+This means that each pixel can take into account information from the entire feature map, not just its local surroundings.
+
+To make it work we need first to convert the bottleneck feature map into tokens.
+Each spatial position such as a voxel is represented by one token.
+
+The embedding of each token corresponds to the number of channels in the CNN at the bottleneck. 
+Since the bottleneck has many channels, each token is a high-dimensional feature vector.
+For example, in our case the bottleneck has 1024 channels so each embedding has a vector of size (1*1024)
+Once we have the tokens and their embedding dimension, we can apply MHA. 
+The output has the same shape as the input in terms of number of tokens and embedding size, but the values inside the embeddings are updated. 
+They now contain information that comes from all other tokens in the feature map.
+
+\paragraph{MHA attention block}
+MHA works using three learned matrices: Query, Key, and Value.
+First, each token is multiplied by these three matrices. This produces a Query vector, a Key vector, and a Value vector for every token.
+Then, for each token, we compute attention scores by taking the dot product between its Query and the Keys of all other tokens.
+This gives a measure of how much each token should pay attention to the others.
+These scores are then passed through a softmax function to normalize them into numbers between 0 and 1.
+Next, each token is updated by taking a weighted sum of the Value vectors. 
+This process is done in parallel for all tokens. 
+The learned parameters of the model are the projection matrices for Query, Key, and Value, which are optimized during training.
+
+This approach combines CNN and Multi-Head Attention to check if they work well together in the same network.
+The Multi-Head Attention improves the understanding of the feature maps by capturing global relationships. 
+However, it also makes the architecture more complex and increases memory usage.
+
+The config is the same as the NoNew-Net.
+
+\paragraph{DeepCascade}
+
+The DeepCascade network is more complicated than a standard U-Net and is specifically designed for the reconstruction of undersampled data. 
+Unlike conventional architectures that operate only in the image domain, DeepCascade alternates between the image space and the k-space, allowing the network to exploit complementary information from both domains.
+In addition to the undersampled k-space, the network also takes the undersampling mask as input. 
+This mask is used as the data consistency to enforce agreement with the acquired measurements, ensuring that only the unknown k-space coefficients are modified while the known k-space coefficients are preserved.
+
+The architecture is composed of a sequence of cascaded blocks. 
+There are two different types of blocks:
+
+\begin{itemize}
+    \item The first block, referred to as the image-space block called i, applies convolution operations in the image domain. 
+    Once the convolution is performed, an FFT is used to transform the data back into the k-space. 
+    A data consistency steps is then applied in the k-space, using the undersampling mask to ensure that only the missing information is updated. 
+    After this step, the output is passed to the next block.
+    \item The second block is called k like k-space, we apply convolution in the k-space directly.
+    We don't have to apply an FFT before the DC blocks because we are already in the k-space.
+    Then we applied the DC blocks to again change the information that we don't know in the k-space.
+\end{itemize}
+
+We repeat these two types of blocks four times. 
+In principle, increasing the number of cascades (around 10 iterations) would improve performance, but this significantly increases GPU memory consumption and computational cost.
+
+This architecture is working well in the classical setting of undersampled reconstruction, where the only degradation comes from missing k-space samples. 
+In that case, the data consistency term is very effective, since it enforces agreement with the acquired measurements while allowing the network to estimate the missing coefficients.
+
+However, in our specific paradigm, the situation is more complex. 
+The acquired k-space data is not only undersampled but also very noisy because of the SNR explained earlier. 
+As a consequence, a strict data consistency constraint becomes less appropriate, since it forces the reconstruction to remain close to noisy measurements. 
+To reduce this limitation, the data consistency term should ideally be made trainable or adaptive within the network, allowing it to balance fidelity to the measurements and noise suppression. 
+In the extreme case, this term could converge towards zero, effectively reducing the architecture to a standard CNN-based reconstruction model.
+
+A second limitation concerns the use of convolutional neural networks in the k-space domain. 
+The relationship between image space and k-space via the Fourier transform is linear but CNNs are designed to learn non-linear mappings. 
+Moreover, CNNs exploit local spatial correlations, assuming that nearby pixels carry related information. 
+This assumption holds in image space but does not translate to k-space, where neighboring coefficients do not correspond to neighboring anatomical structures. 
+As a result, modifying a single k-space coefficient can influence the entire reconstructed image after the inverse Fourier transform, which makes the notion of locality in CNN less meaningful.
+
+% Talhed about the phase ?
+To conclude, this architecture was well suited for classical undersampled reconstruction problems. 
+However, in the context of this internship, where the data follows a different and more realistic noise-corrupted paradigm, the DeepCascade model appears less effective than simpler architectures such as a standard U-Net. 
+This observation will be further evaluated in the testing section.
+
+\subsubsection{Testing and Measurements}
+
+The objective of the evaluation is to assess the performance of the different models in order to identify the most suitable architecture and draw meaningful conclusions.
+
+As explained previously, the project has two main objectives:
+\begin{itemize}
+    \item Reconstruct high-quality images from noisy and undersampled MRI acquisitions over time.
+    \item Enhance the image contrast throughout the temporal sequence.
+\end{itemize}
+
+To evaluate these objectives, both qualitative and quantitative analyses are performed. 
+Qualitative evaluation consists of visually inspecting each reconstructed images to ensure that anatomical structures are accurately preserved for the sample and the contrast. 
+Quantitative evaluation allows an objective comparison between the different architectures in terms of image reconstruction quality and contrast enhancement.
+
+For each experiment, three evaluation metrics are used:
+
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Square Error):} This metric measures the voxel-wise difference between the reconstructed image and the reference image. 
+    An RMSE value close to 0 indicates a high similarity between the two images, whereas larger values correspond to greater reconstruction errors.
+    
+    \item \textbf{PSNR (Peak Signal-to-Noise Ratio):} PSNR is derived from the RMSE and expresses the reconstruction quality on a logarithmic scale. 
+    Unlike RMSE, higher PSNR values indicate better reconstruction quality. 
+    Values around 40~dB or higher generally correspond to very similar images.
+    
+    \item \textbf{SSIM (Structural Similarity Index Measure):} Unlike RMSE and PSNR, SSIM evaluates the structural similarity between two images by comparing luminance, contrast, and structural information rather than individual voxels. 
+    A value close to 1 indicates a high structural similarity, while values closer to 0 indicate poor agreement.
+\end{itemize}
+
+\paragraph{Full-Sample Qualitative Evaluation}
+
+The first evaluation consists of a qualitative analysis of each sample coming out of the network. 
+Indeed, one of the most effective ways to assess the performance of a neural network is to visually compare its output with the corresponding ground truth.
+
+For each test, four images are displayed:
+\begin{itemize}
+    \item The \textbf{post-contrast input}, which is a fully sampled acquisition without undersampling or additional noise. 
+    Although it does not contain contrast enhancement, it provides a high-quality reference of the anatomical structures.
+    \item The \textbf{pre-contrast input}, which has been undersampled and corrupted with noise to simulate the acquisition of a low-field MRI scanner.
+    \item The \textbf{model output}, corresponding to the image reconstructed by the neural network.
+    \item The \textbf{ground truth}, which serves as the reference image. 
+    The objective is for the reconstructed image to be as close as possible to this reference.
+\end{itemize}
+
+The first step of the evaluation is a visual inspection to determine whether the network successfully reconstructs the missing information and produces an image that resembles the ground truth while improving upon the input image.
+
+To complement the visual analysis, the three metrics introduced in the previous section (RMSE, PSNR, and SSIM) are computed between the model output and the ground truth. 
+They are also computed between the input images (post-contrast and pre-contrast) and the ground truth. 
+This comparison is essential to verify that the network effectively improves the image quality. 
+If the reconstructed image does not achieve better metric values than the input images, it indicates that the network has failed to learn the desired mapping and may even degrade the image quality.
+
+The second row of the figure displays the absolute difference between each image and the ground truth. 
+These error maps highlight the regions where the reconstruction differs the most from the reference image, allowing us to identify the anatomical structures that remain difficult for the network to reconstruct. 
+A color bar is used to facilitate the interpretation of the error magnitude.
+
+Finally, the third row presents the signed difference between each image and the ground truth. 
+Unlike the previous row, the absolute value is not applied, making it possible to distinguish overestimation from underestimation. 
+Red regions indicate voxel intensities that are higher than the ground truth, blue regions correspond to lower intensities, and white regions represent negligible differences, indicating an accurate reconstruction.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Full sample qualitative evaluation.png}
+    \caption{Full sample qualitative evaluation}
+    \label{fig:Full sample qualitative evaluation}
+    \vspace{0.5cm}
+\end{figure}
+
+In this example, the output images are visually very close to the ground truth, both in appearance and in terms of the metrics compared to the input. 
+This test shows that, for this sample, the network is able to reconstruct the volume very accurately.
+
+%explanation of result
+
+\paragraph{Contrast Qualitative Evaluation}
+
+To evaluate the contrast enhancement, RMSE, PSNR, and SSIM are not suitable because the contrast agent is confined to a relatively small segmented region. 
+These metrics are very efficient to compare the entire sample but they do not accurately reflect the quality of the contrast reconstruction.
+
+Instead, the temporal evolution of the contrast intensity is analyzed. 
+For each sample, the mean intensity only ine the segmented contrast region is computed for every acquisition. 
+The resulting intensity curves are then plotted for both the model output and the ground truth.
+
+The objective is for the reconstructed intensity curve to closely follow the ground-truth curve. 
+A good match indicates that the network not only enhances the contrast but also correctly reproduces its temporal dynamics. 
+This is particularly important because the model should not generate a constant level of contrast enhancement across all acquisitions. 
+Instead, it must preserve the physiological evolution of the contrast agent over time, including both the wash-in and wash-out phases.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Dynamic contrast intensity.png}
+    \caption{Full sample qualitative evaluation}
+    \label{fig:Full sample qualitative evaluation}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Full sample contrast dynamic.png}
+    \caption{Full sample contrast dynamic}
+    \label{fig:Full sample contrast dynamic}
+    \vspace{0.5cm}
+\end{figure}
+
+
+In this example, three curves are shown. 
+The red curve represents the mean intensity of each segmentation for each network input acquisition of one patient.
+The blue curve represents the mean intensity of the network output after contrast reconstruction, while the black curve corresponds to the original contrast mean intensity.
+
+The second plot illustrates the evolution of the contrast for each sample.
+The first raw shows the input of the networks with the post-contrast acquisition and all the pre-contrast acquisitions.
+The second raw shows the output of the networks with post-contrast that has been enhanced.
+The last raw shows the ground truth for each acquisition.
+Finally, this visualization, the red regions correspond to the segmented areas for each acquisition where we calculate the mean intensity of the three curves.
+
+For this single sample, the model appears to reproduce the contrast enhancement very well, as the predicted intensity contrast closely matches the ground truth.
+
+\paragraph{Full-Sample Quantitative Evaluation}
+To compare the results of the different networks, the evaluation was done model by model instead of sample by sample. 
+For each model, boxplots were used to show the distribution of the test outputs across three different metrics (PSNR, RMSE, SSIM). 
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Boxplot quantitative result.png}
+    \caption{Boxplot quantitative result}
+    \label{fig:Boxplot quantitative result (PSNR)}
+    \vspace{0.5cm}
+\end{figure}
+
+In orange we can see the PSNR average of the ouput values for each network and in green we can see the PSNR median of the ouput values for each network.
+Under each model name, there are 2 others metrics for each models which are flops and the params.
+
+\begin{itemize}
+    \item The \textbf{floating point operations (FLOPs)} measure the computational complexity of a deep learning model by estimating the number of floating-point operations required to perform a forward pass. 
+    A higher number of FLOPs indicates a higher computational cost.
+    
+    \item The \textbf{number of parameters (Params)} represents the total number of trainable weights and biases in the model. 
+    Models with more parameters generally have a greater capacity to learn complex patterns, but they also require more memory and may be more prone to overfitting.
+\end{itemize}
+
+It's important to take in consideration this 2 metrics to be able to justify wich network is better than the others.
+For example, a network with a good PSNR result but it's using a lot of flops and param can be less interesting than a network with less good PSNR result but lower flops and parameters.
+
+In our case, we observe that all models based on the NoNewNet architecture produce very similar results. 
+This behavior is expected, as the NoNew-Net paper suggests that adding refinement or enhancement blocks has a limited impact on performance.
+
+In contrast, the DeepCascade model appears to struggle to achieve competitive results, likely due to limitations with its DC block.
+
+However, we cannot determine which network performs best based on a single seed. 
+Since the training process is not fully reproducible, the performance metrics may vary from one seed to another. 
+Therefore, each model was trained using three different random seeds to evaluate the variability of its results. 
+A higher variability indicates that the model's performance is less consistent, making it more difficult to reliably assess it's true performance.
+
+% Adding a photo 
+Once we have done that we can say that our test measurement for the quantitative result are strongly trustworthy. 
+In the second part with more accurate input by doing this test we will be able to compare effectively our different networks.
+
+\paragraph{Contrast Quantitative Evaluation}
+
+Finaly, the objective of this evaluation is to specifically assess the quality of the contrast enhancement while providing an objective comparison between the different metworks. 
+To achieve this, one quantitative metric is used: the Relative Enhancement (RE) 
+
+Relative Enhancement (RE): This metric measures the relative increase in signal intensity between the pre-contrast segmentation and post-contrast segmentation. 
+It quantifies the degree of enhancement produced by the contrast agent for each acquisition. 
+By comparing the RE computed from the reconstructed to the ground truth, it is possible to evaluate how accurately the network reproduces the expected enhancement.
+
+\[
+x_{\mathrm{RE}} = \frac{x_{\mathrm{post}} - x_{\mathrm{pre}}}{x_{\mathrm{pre}}}
+\]
+
+
+This metrics is computed for every sample and for every network, as well as for the corresponding ground-truth samples.
+
+To compare the network, scatter plots are generated in which the metric values obtained from the reconstructed images are plotted against the ground-truth values. 
+A linear regression is then created for each model dependind on the result of all samples for the network. 
+The ideal reconstruction corresponds to the identity line ($y=x$), meaning that the reconstructed metric perfectly matches the ground truth.
+
+By comparing the regression lines of the different models with the identity line, it is possible to assess which model most accurately reproduces the true contrast enhancement.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/contrast quantitative evaluation.png}
+    \caption{contrast quantitative evaluation}
+    \label{fig:contrast quantitative evaluation}
+    \vspace{0.5cm}
+\end{figure}
+
+We can see on this plot the different linear regression calculated on each sample of the test dataset where each they represent one network.
+All the network are closed to the identity line ($y=x$) which means that the contrast enhancement is closed to the ground truth.
+The fact that all linear regression are below the identity line means that all networks have a tendency of underestimating the contrast.
+Similarly, to compare the performance of the networks for contrast enhancement, as done in the qualitative contrast evaluation, it is necessary to evaluate each model using at least three different random seeds.
+
+
+\subsubsection{Conclusion} 
+
+In this first phase, we developed a fully operational training pipeline with a robust data preprocessing workflow. 
+We also implemented several network architectures that can be trained and evaluated within the same framework. 
+Finally, we established a comprehensive evaluation strategy to compare the different architectures and identify the models that best reconstruct both the entire volume and the contrast enhancement.
+
+In the second phase, we will focus on developing a more accurate representation of the pre-contrast and post-contrast inputs for our fast-acquisition low-field MRI application.
+
+\subsection{2nd part: Transition to Realistic Acquisition Conditions} 
+
+For this second phase the idea is to focus on having a more realistic inputs values and fixing a Deep Learning network.
+In this case the resolution and the undersampling configs will not change from the phase one.
+
+\subsubsection{Modification of Training pipeline} 
+
+As explained in the methodology, the first phase of this work focused on developing the training pipeline, evaluating different neural network architectures, and comparing their reconstruction performance.
+The objective of the second phase is to make the reconstruction task more realistic by generating input data that better reflects the characteristics of low-field MRI acquisitions.
+
+In the initial pipeline, the network received two inputs: a pre-contrast image, which was fully sampled without noise, and a post-contrast image, which was undersampled and corrupted with noise to simulate a low-field MRI acquisition. 
+While this setup allowed the models to learn the reconstruction task, it did not accurately represent real acquisition conditions. 
+In practice, even a pre-contrast scan acquired on a low-field MRI system contains measurement noise.
+
+To better simulate this scenario, we propose a different acquisition strategy. 
+Instead of acquiring a single pre-contrast image, we consider a full 10-minute acquisition divided into ten shorter acquisitions. 
+These acquisitions are then averaged to produce the pre-contrast reference image. 
+Averaging multiple acquisitions increases the signal-to-noise ratio by exploiting all the available information while preserving the anatomical structures. 
+This averaged image is subsequently used as the pre-contrast input for reconstructing each individual post-contrast acquisition.
+
+However, in the available dataset, only one pre-contrast image and between three to five post-contrast acquisitions are available rather than ten acquisitions. 
+To reproduce the proposed acquisition strategy, a weighted average is computed by completing the missing acquisitions with the pre-contrast image. 
+This assumption is physiologically reasonable since, once the contrast agent has completely washed out, additional acquisitions would become equivalent to pre-contrast images.
+
+The resulting averaged pre-contrast image is then undersampled using the same sampling mask as the post-contrast acquisitions. 
+To account for the longer effective acquisition time, the noise level is reduced by a factor of $\sqrt{10}$. 
+This follows the well-known relationship between acquisition time and signal-to-noise ratio in MRI: averaging $N$ independent acquisitions increases the SNR by a factor of $\sqrt{N}$. 
+Consequently, using the equivalent of ten acquisitions produces a cleaner and more realistic pre-contrast image while remaining consistent with the physics of MRI acquisition.
+
+
+\subsubsection{Architecture models}
+For the architecture we have already work on a lot of different network the idea is to use the almost all the same networks and to test them with the new training pipeline.
+We will just remove one network which is DeepCascade, even in the first phase his performance where below the others this type of network is not the most usefull for our type of problem.
+
+\subsubsection{Testing and Measurements} 
+
+For Phase 2, the goal is to keep most of the evaluation tests used in Phase 1. 
+However, a few minor adjustments will be needed to account for the fact that noise has been added to the pre-contrast images.
+
+\paragraph{Contras ratio for Contrast Quantitative Evaluation}
+In our new paradigm, RE is no longer the most appropriate metric to compare models for contrast enhancement. 
+Indeed, evaluating reconstruction quality against the input can be misleading, as the post-contrast images are inherently noisy, which artificially increases the RE.
+
+That's why we are focusing on auther metrics which is Contrast ratio (CR).
+This metric evaluates the contrast between the segmented lesion and the surrounding background tissue. 
+It measures how distinguishable the lesion is from its environment. 
+A higher contrast ratio indicates better lesion visibility from the surrounding tissue.
+
+\paragraph{comparing model with the same computational}
+
+Moreover, when comparing different deep learning models, it is important to ensure that all networks are trained under the same GPU memory constraints. 
+By keeping the Video Random Acces Memory (VRAM) approximately identical across experiments, we ensure that models are evaluated under comparable effective capacity conditions.
+
+For example, comparing two models where one is trained with 16 GB of VRAM and the other with 48 GB would lead to an unfair comparison, as the latter can benefit from larger batch sizes and potentially more stable training dynamics.
+
+In this work, all models are therefore trained under a fixed VRAM constraint of 16 GB to ensure a fair comparison.
+
+\paragraph{variability accros 10 seeds}
+
+Moreover, when comparing different model architectures, it is important to evaluate their variability across multiple random seeds, as highlighted in the first phase of the study. 
+Initially, each model was tested using three different seeds in order to assess this variability.
+
+However, to improve the reliability of the evaluation, it is preferable to increase the number of seeds beyond three. 
+Running experiments over ten seeds would provide a more robust estimation of model stability and allow us to better distinguish between stable and unstable architectures.
+
+Indeed, high variability across seeds increases the uncertainty of the reported performance, making it difficult to accurately assess the true behavior of a model.
+
+% photo 
+
+% Explanation
+
+
+\paragraph{Final model comparison conclusions}
+We can say that for now almost all network are presenting some good result as we can see with their metrics which are very good.
+A lot of network are having similar result which is normal because they all have a similar base which is the NoNewNet architecture.
+It has been explain in the NoNewNet paper that no matter what addition you will add on a NoNewNet it should not increase that much.
+However, as presented in this architecture the DeepCascade network are not showing good result mostly because of the DC blocks.
+
+\subsubsection{Over way of improvement} 
+
+\paragraph{Training with all acquisition}
+% Data augmentation
+\paragraph{Data-augmentation}
+% Focal loss
+\paragraph{Focal loss optimization}
+
+
+\subsubsection{Conclusion} 
+
+\subsection{3rd part: Acquisition Trajectory and Model Optimization} 
+\subsubsection{Conception} 
+\subsubsection{Problem-Solving Approach} 
+\subsubsection{Validation} 
+
+
+
+\subsection{Difficulties Encountered}
+
+\section{Conclusion and Final Assessment}
+\subsection{Project Status}
+\subsection{Future Work and Continuation}
+\subsection{Contribution to the Company}
+\subsection{Quality Assessment of the Work}
+
+\section{Appendices}
+\subsection{CV Before the Internship}
+\subsection{CV After the Internship (Final Year Engineering)}
+\subsection{Career Prospects}
+
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
