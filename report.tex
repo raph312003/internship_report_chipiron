@@ -1254,8 +1254,20 @@ Finally, the third row presents the signed difference between each image and the
 Unlike the previous row, the absolute value is not applied, making it possible to distinguish overestimation from underestimation. 
 Red regions indicate voxel intensities that are higher than the ground truth, blue regions correspond to lower intensities, and white regions represent negligible differences, indicating an accurate reconstruction.
 
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Full sample qualitative evaluation.png}
+    \caption{Full sample qualitative evaluation}
+    \label{fig:Full sample qualitative evaluation}
+    \vspace{0.5cm}
+\end{figure}
 
-%photo
+In this example, the output images are visually very close to the ground truth, both in appearance and in terms of the metrics compared to the input. 
+This test shows that, for this sample, the network is able to reconstruct the volume very accurately.
+
+%explanation of result
+
 \paragraph{Contrast Qualitative Evaluation}
 
 To evaluate the contrast enhancement, RMSE, PSNR, and SSIM are not suitable because the contrast agent is confined to a relatively small segmented region. 
@@ -1270,34 +1282,117 @@ A good match indicates that the network not only enhances the contrast but also 
 This is particularly important because the model should not generate a constant level of contrast enhancement across all acquisitions. 
 Instead, it must preserve the physiological evolution of the contrast agent over time, including both the wash-in and wash-out phases.
 
-%photo
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Dynamic contrast intensity.png}
+    \caption{Full sample qualitative evaluation}
+    \label{fig:Full sample qualitative evaluation}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Full sample contrast dynamic.png}
+    \caption{Full sample contrast dynamic}
+    \label{fig:Full sample contrast dynamic}
+    \vspace{0.5cm}
+\end{figure}
+
+
+In this example, three curves are shown. 
+The red curve represents the mean intensity of each segmentation for each network input acquisition of one patient.
+The blue curve represents the mean intensity of the network output after contrast reconstruction, while the black curve corresponds to the original contrast mean intensity.
+
+The second plot illustrates the evolution of the contrast for each sample.
+The first raw shows the input of the networks with the post-contrast acquisition and all the pre-contrast acquisitions.
+The second raw shows the output of the networks with post-contrast that has been enhanced.
+The last raw shows the ground truth for each acquisition.
+Finally, this visualization, the red regions correspond to the segmented areas for each acquisition where we calculate the mean intensity of the three curves.
+
+For this single sample, the model appears to reproduce the contrast enhancement very well, as the predicted intensity contrast closely matches the ground truth.
+
+\paragraph{Full-Sample Quantitative Evaluation}
+To compare the results of the different networks, the evaluation was done model by model instead of sample by sample. 
+For each model, boxplots were used to show the distribution of the test outputs across three different metrics (PSNR, RMSE, SSIM). 
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Boxplot quantitative result.png}
+    \caption{Boxplot quantitative result}
+    \label{fig:Boxplot quantitative result (PSNR)}
+    \vspace{0.5cm}
+\end{figure}
+
+In orange we can see the PSNR average of the ouput values for each network and in green we can see the PSNR median of the ouput values for each network.
+Under each model name, there are 2 others metrics for each models which are flops and the params.
+
+\begin{itemize}
+    \item The \textbf{floating point operations (FLOPs)} measure the computational complexity of a deep learning model by estimating the number of floating-point operations required to perform a forward pass. 
+    A higher number of FLOPs indicates a higher computational cost.
+    
+    \item The \textbf{number of parameters (Params)} represents the total number of trainable weights and biases in the model. 
+    Models with more parameters generally have a greater capacity to learn complex patterns, but they also require more memory and may be more prone to overfitting.
+\end{itemize}
+
+It's important to take in consideration this 2 metrics to be able to justify wich networck is better than the others.
+For example, a networck with a good PSNR result but it's using a lot of flops and param can be less interesting than a networck with less good PSNR result but lower flops and parameters.
+
+However, we cannot determine which network performs best based on a single seed. 
+Since the training process is not fully reproducible, the performance metrics may vary from one seed to another. 
+Therefore, each model was trained using three different random seeds to evaluate the variability of its results. 
+A higher variability indicates that the model's performance is less consistent, making it more difficult to reliably assess it's true performance.
+
+% Adding a photo 
+Once we have done that we can say that our test measurement for the quantitative result are strongly trustworthy. 
+In the second part with more accurate input by doing this test we will be able to compare effectively our different networks.
 
 \paragraph{Contrast Quantitative Evaluation}
 
 Finaly, the objective of this evaluation is to specifically assess the quality of the contrast enhancement while providing an objective comparison between the different metworks. 
-To achieve this, two quantitative metrics are used: the Relative Enhancement (RE) and the Contrast Ratio (CR).
+To achieve this, one quantitative metric is used: the Relative Enhancement (RE) 
 
-\begin{itemize}
-    \item \textbf{Relative Enhancement (RE):} This metric measures the relative increase in signal intensity between the pre-contrast segmentation and post-contrast segmentation. 
-    It quantifies the degree of enhancement produced by the contrast agent for each acquisition. 
-    By comparing the RE computed from the reconstructed to the ground truth, it is possible to evaluate how accurately the network reproduces the expected enhancement.
-    
-    \item \textbf{Contrast Ratio (CR):} This metric evaluates the contrast between the segmented lesion and the surrounding background tissue. 
-    It measures how distinguishable the lesion is from its environment. 
-    A higher contrast ratio indicates better lesion visibility from the surrounding tissue.
-    %formula
-\end{itemize}
+Relative Enhancement (RE): This metric measures the relative increase in signal intensity between the pre-contrast segmentation and post-contrast segmentation. 
+It quantifies the degree of enhancement produced by the contrast agent for each acquisition. 
+By comparing the RE computed from the reconstructed to the ground truth, it is possible to evaluate how accurately the network reproduces the expected enhancement.
 
-Both metrics are computed for every sample and for every network, as well as for the corresponding ground-truth samples.
+\[
+x_{\mathrm{RE}} = \frac{x_{\mathrm{post}} - x_{\mathrm{pre}}}{x_{\mathrm{pre}}}
+\]
+
+
+This metrics is computed for every sample and for every network, as well as for the corresponding ground-truth samples.
 
 To compare the network, scatter plots are generated in which the metric values obtained from the reconstructed images are plotted against the ground-truth values. 
 A linear regression is then created for each model dependind on the result of all samples for the network. 
 The ideal reconstruction corresponds to the identity line ($y=x$), meaning that the reconstructed metric perfectly matches the ground truth.
 
 By comparing the regression lines of the different models with the identity line, it is possible to assess which model most accurately reproduces the true contrast enhancement.
-Two separate plots are produced: one for the Relative Enhancement (RE) and one for the Contrast Ratio (CR).
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/contrast quantitative evaluation.png}
+    \caption{contrast quantitative evaluation}
+    \label{fig:contrast quantitative evaluation}
+    \vspace{0.5cm}
+\end{figure}
+
+We can see on this plot the different linear regression calculated on each sample of the test dataset where each they represent one networck.
+All the networck are closed to the identity line ($y=x$) which means that the contrast enhancement is closed to the ground truth.
+The fact that all linear regression are below the identity line means that all networks have a tendency of underestimating the contrast.
+Similarly, to compare the performance of the networks for contrast enhancement, as done in the qualitative contrast evaluation, it is necessary to evaluate each model using at least three different random seeds.
+
 
 \subsubsection{Conclusion} 
+
+In this first phase, we developed a fully operational training pipeline with a robust data preprocessing workflow. 
+We also implemented several network architectures that can be trained and evaluated within the same framework. 
+Finally, we established a comprehensive evaluation strategy to compare the different architectures and identify the models that best reconstruct both the entire volume and the contrast enhancement.
+
+In the second phase, we will focus on developing a more accurate representation of the pre-contrast and post-contrast inputs for our fast-acquisition low-field MRI application.
 
 \subsection{2nd part: Transition to Realistic Acquisition Conditions} 
 \subsubsection{Modification of Training pipeline} 
@@ -1323,9 +1418,41 @@ The resulting averaged pre-contrast image is then undersampled using the same sa
 To account for the longer effective acquisition time, the noise level is reduced by a factor of $\sqrt{10}$. 
 This follows the well-known relationship between acquisition time and signal-to-noise ratio in MRI: averaging $N$ independent acquisitions increases the SNR by a factor of $\sqrt{N}$. 
 Consequently, using the equivalent of ten acquisitions produces a cleaner and more realistic pre-contrast image while remaining consistent with the physics of MRI acquisition.
+
+% staying with the same resolution
  
 \subsubsection{Testing and Measurements} 
 % RE not usefull CR more usefull
+
+\paragraph{comparing model with the same computational}
+
+\paragraph{variability accros 10 seeds}
+Moreover if we want to compare the results of different models architecture it's important to check the model variability over different seed.
+In this case the idea was to used 3 differents seeds for each model and to check the variability over the seed.
+Higher is the variability higher is the risk of Knowing the real result of the models because it can change a lot from one seed to another.
+
+and the Contrast Ratio (CR).
+
+This metric evaluates the contrast between the segmented lesion and the surrounding background tissue. 
+It measures how distinguishable the lesion is from its environment. 
+A higher contrast ratio indicates better lesion visibility from the surrounding tissue.
+
+Two separate plots are produced: one for the Relative Enhancement (RE) and one for the Contrast Ratio (CR).
+
+We can say that for now almost all networck are presenting some good result as we can see with their metrics which are very good.
+A lot of networck are having similar result which is normal because they all have a similar base which is the NoNewNet architecture.
+It has been explain in the NoNewNet paper that no matter what addition you will add on a NoNewNet it should not increase that much.
+However, as presented in this architecture the DeepCascade networck are not showing good result mostly because of the DC blocks.
+
+\subsubsection{Over way of improvement} 
+
+\paragraph{Training with all acquisition}
+% Data augmentation
+\paragraph{Data-augmentation}
+
+% Focal loss
+\paragraph{Focal loss optimization}
+
 
 \subsubsection{Conclusion} 
 
