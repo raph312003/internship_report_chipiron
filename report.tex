@@ -196,22 +196,6 @@ Apart from working on deep learning models, I also need to evaluate which trajec
 
 \section{Description of the Work Performed}
 \subsection{Methodology}
-% How I am working
-% At the beginning of my internship, I had a Notion page listing all the objectives as well as a timeline to track progress and get an idea of how quickly I was expected to advance.
-% I worked mostly on-site, with one or two days of remote work.
-
-% I was part of the AI team at Chipiron and supervised by two mentors. 
-% We held weekly check-ins to review my progress. During these meetings, I presented the results of the tests I had carried out during the week. 
-% They provided feedback on my results and also suggested additional experiments for me to run. 
-% I also attended regular meetings with both the software team and the AI team. 
-% What tool I am using
-% To accomplish my internship mission, I used several tools that were essential for my work organization and execution.
-
-% First of all, I was provided with a work computer. 
-% I mainly used Slack to communicate with everyone in the company. 
-% It was very useful, as it could be connected to my Google account, especially Google Calendar so I could have access to my planning and to video calls. 
-% Moreover, whenever I had a question, I could ask my supervisor directly on Slack, and I also used it to schedule and organize my weekly tasks.
-% Datasets
 It was essential to structure the project by progressing step by step. 
 The idea was to begin with a simple problem and gradually introduce additional challenges, ultimately leading to the original research problem.
 
@@ -1337,8 +1321,13 @@ Under each model name, there are 2 others metrics for each models which are flop
     Models with more parameters generally have a greater capacity to learn complex patterns, but they also require more memory and may be more prone to overfitting.
 \end{itemize}
 
-It's important to take in consideration this 2 metrics to be able to justify wich networck is better than the others.
-For example, a networck with a good PSNR result but it's using a lot of flops and param can be less interesting than a networck with less good PSNR result but lower flops and parameters.
+It's important to take in consideration this 2 metrics to be able to justify wich network is better than the others.
+For example, a network with a good PSNR result but it's using a lot of flops and param can be less interesting than a network with less good PSNR result but lower flops and parameters.
+
+In our case, we observe that all models based on the NoNewNet architecture produce very similar results. 
+This behavior is expected, as the NoNew-Net paper suggests that adding refinement or enhancement blocks has a limited impact on performance.
+
+In contrast, the DeepCascade model appears to struggle to achieve competitive results, likely due to limitations with its DC block.
 
 However, we cannot determine which network performs best based on a single seed. 
 Since the training process is not fully reproducible, the performance metrics may vary from one seed to another. 
@@ -1380,8 +1369,8 @@ By comparing the regression lines of the different models with the identity line
     \vspace{0.5cm}
 \end{figure}
 
-We can see on this plot the different linear regression calculated on each sample of the test dataset where each they represent one networck.
-All the networck are closed to the identity line ($y=x$) which means that the contrast enhancement is closed to the ground truth.
+We can see on this plot the different linear regression calculated on each sample of the test dataset where each they represent one network.
+All the network are closed to the identity line ($y=x$) which means that the contrast enhancement is closed to the ground truth.
 The fact that all linear regression are below the identity line means that all networks have a tendency of underestimating the contrast.
 Similarly, to compare the performance of the networks for contrast enhancement, as done in the qualitative contrast evaluation, it is necessary to evaluate each model using at least three different random seeds.
 
@@ -1395,6 +1384,10 @@ Finally, we established a comprehensive evaluation strategy to compare the diffe
 In the second phase, we will focus on developing a more accurate representation of the pre-contrast and post-contrast inputs for our fast-acquisition low-field MRI application.
 
 \subsection{2nd part: Transition to Realistic Acquisition Conditions} 
+
+For this second phase the idea is to focus on having a more realistic inputs values and fixing a Deep Learning network.
+In this case the resolution and the undersampling configs will not change from the phase one.
+
 \subsubsection{Modification of Training pipeline} 
 
 As explained in the methodology, the first phase of this work focused on developing the training pipeline, evaluating different neural network architectures, and comparing their reconstruction performance.
@@ -1419,30 +1412,50 @@ To account for the longer effective acquisition time, the noise level is reduced
 This follows the well-known relationship between acquisition time and signal-to-noise ratio in MRI: averaging $N$ independent acquisitions increases the SNR by a factor of $\sqrt{N}$. 
 Consequently, using the equivalent of ten acquisitions produces a cleaner and more realistic pre-contrast image while remaining consistent with the physics of MRI acquisition.
 
-% staying with the same resolution
- 
+
+\subsubsection{Architecture models}
+For the architecture we have already work on a lot of different network the idea is to use the almost all the same networks and to test them with the new training pipeline.
+We will just remove one network which is DeepCascade, even in the first phase his performance where below the others this type of network is not the most usefull for our type of problem.
+
 \subsubsection{Testing and Measurements} 
-% RE not usefull CR more usefull
 
-\paragraph{comparing model with the same computational}
+For the phase 2 the goal is to keep the most og the same Evaluation than in the first phase.
+However, some stuff would need to be change depending on the fact that we add nois to the pre-contast.
 
-\paragraph{variability accros 10 seeds}
-Moreover if we want to compare the results of different models architecture it's important to check the model variability over different seed.
-In this case the idea was to used 3 differents seeds for each model and to check the variability over the seed.
-Higher is the variability higher is the risk of Knowing the real result of the models because it can change a lot from one seed to another.
+\paragraph{Contras ratio for Contrast Quantitative Evaluation}
+In our new paradigm, RE is no longer the most appropriate metric to compare models for contrast enhancement. 
+Indeed, evaluating reconstruction quality against the input can be misleading, as the post-contrast images are inherently noisy, which artificially increases the RE.
 
-and the Contrast Ratio (CR).
-
+That's why we are focusing on auther metrics which is Contrast ratio (CR).
 This metric evaluates the contrast between the segmented lesion and the surrounding background tissue. 
 It measures how distinguishable the lesion is from its environment. 
 A higher contrast ratio indicates better lesion visibility from the surrounding tissue.
 
-Two separate plots are produced: one for the Relative Enhancement (RE) and one for the Contrast Ratio (CR).
+\paragraph{comparing model with the same computational}
 
-We can say that for now almost all networck are presenting some good result as we can see with their metrics which are very good.
-A lot of networck are having similar result which is normal because they all have a similar base which is the NoNewNet architecture.
+Moreover, when comparing different deep learning models, it is important to ensure that all networks are trained under the same GPU memory constraints. 
+By keeping the Video Random Acces Memory (VRAM) approximately identical across experiments, we ensure that models are evaluated under comparable effective capacity conditions.
+
+For example, comparing two models where one is trained with 16 GB of VRAM and the other with 48 GB would lead to an unfair comparison, as the latter can benefit from larger batch sizes and potentially more stable training dynamics.
+
+In this work, all models are therefore trained under a fixed VRAM constraint of 16 GB to ensure a fair comparison.
+
+\paragraph{variability accros 10 seeds}
+
+Moreover, when comparing different model architectures, it is important to evaluate their variability across multiple random seeds, as highlighted in the first phase of the study. 
+Initially, each model was tested using three different seeds in order to assess this variability.
+
+However, to improve the reliability of the evaluation, it is preferable to increase the number of seeds beyond three. 
+Running experiments over ten seeds would provide a more robust estimation of model stability and allow us to better distinguish between stable and unstable architectures.
+
+Indeed, high variability across seeds increases the uncertainty of the reported performance, making it difficult to accurately assess the true behavior of a model.
+
+
+\paragraph{Final model comparison conclusions}
+We can say that for now almost all network are presenting some good result as we can see with their metrics which are very good.
+A lot of network are having similar result which is normal because they all have a similar base which is the NoNewNet architecture.
 It has been explain in the NoNewNet paper that no matter what addition you will add on a NoNewNet it should not increase that much.
-However, as presented in this architecture the DeepCascade networck are not showing good result mostly because of the DC blocks.
+However, as presented in this architecture the DeepCascade network are not showing good result mostly because of the DC blocks.
 
 \subsubsection{Over way of improvement} 
 
