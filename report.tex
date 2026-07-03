@@ -195,23 +195,19 @@ Apart from working on deep learning models, I also need to evaluate which trajec
 \section{Corporate Social Responsibility (CSR) Policy}
 
 \section{Description of the Work Performed}
-\subsection{Methodology}
+\subsection{Project Development Strategy}
 It was essential to structure the project by progressing step by step. 
 The idea was to begin with a simple problem and gradually introduce additional challenges, ultimately leading to the original research problem.
 
-The projects was divided into three main parts.
+That's why we divided the projects into three main parts.
 
-The first part consisted of developing a robust and flexible pipeline that could easily be adapted to test different models.
+The first phase aimed to determine whether deep learning models could reconstruct an enhanced post-contrast image by exploiting both pre-contrast and post-contrast information.
+To achieve this, a robust and flexible pipeline was developed, making it easy to evaluate and compare different network architectures.
 
-The initial task was to use the clean pre-contrast image as input to reconstruct the post-contrast image. 
-This simplified setting allowed us to focus on the model architecture without introducing unnecessary complexity.
-The goal was then to implement and compare several relatively simple neural network architectures. 
-At the same time, we established a reliable evaluation framework to ensure that the obtained results were meaningful and reproducible.
-
-Once this first part was completed, we moved on to the 2nd part which focused on a more challenging and realistic setting that better reflected the actual problem. 
+Once this first part was completed and we are sure the model can enhanced the post-contrast acquisition by using pre-contrast acquisition, we moved on to the 2nd part which focused on a more challenging and realistic setting that better reflected the actual problem. 
 
 Instead of using a clean pre-contrast image,this time both pre-contrast and post-contrast images contained noise, making the reconstruction task significantly more difficult.
-This allowed us to compare the different models under more realistic conditions for fast low-field MRI acquisition and to evaluate the performance of the previously implemented network architectures.
+This allowed us to compare different deep learning network under more realistic conditions for fast low-field MRI acquisition and to evaluate the performance of the previously implemented network architectures.
 
 Finally, after evaluating the different models in these more realistic conditions and exploring the limits of their performance, the focus shifted toward optimizing the overall pipeline and its configuration. 
 This included refining the preprocessing steps, training procedures, and trajectories config parameters to further improve the reconstruction quality.
@@ -219,6 +215,35 @@ This included refining the preprocessing steps, training procedures, and traject
 Doing all that would allow us to answer the main research question: which acquisition trajectory and which model provide the fastest acquisition while achieving the best contrast reconstruction and the most efficient sampling strategy?
 
 \subsection{1st part: Initial Model Development and Evaluation Framework} 
+
+\subsubsection{Methodology}
+
+The goal of this first phase is to answer the hypothesis of whether it is possible to enhance post-contrast images with Deep Learning models by using a fully sampled pre-contrast acquisition together with a noisy post-contrast acquisition as both inputs.
+
+\paragraph{Using 2 inputs}
+In dynamic contrast MRI acquisition, pre-contrast and post-contrast acquisitions are required to assess the evolution of the contrast agent over time and help determine whether a tumor is benign or malignant. 
+Since the pre-contrast acquisition is performed only once, it can be acquired with high image quality without strict time constraints. 
+In contrast, multiple post-contrast acquisitions are required after the injection of the contrast agent.
+To reduce the overall examination time, these acquisitions can be accelerated using undersampling techniques like we explained above.
+The idea behind this approach is that, apart from the contrast enhancement, the anatomical structures remain largely unchanged between acquisitions.
+Therefore, the high-quality pre-contrast volume provides valuable structural information that can assist the reconstruction of the global accelerated post-contrast images.
+By adding both volumes to the network, the model is encouraged to focus on the contrast-related changes rather than relearning anatomical
+information already available in the pre-contrast image. This allows the reconstruction process to better preserve and recover the clinically
+relevant contrast enhancement while benefiting from the high-quality structural reference.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/training_pipeline.png}
+    \caption{Training pipeline representation}
+    \label{fig:Training_pipeline_representation}
+    \vspace{0.5cm}
+\end{figure}
+
+In the first phase to validate this approach, it was first necessary to build a robust training pipeline, including both data preprocessing and model training. 
+Once this pipeline was established, we implemented and compared several relatively simple neural network architectures. 
+Finally, we developed a reliable evaluation framework to ensure that the obtained results were meaningful, reproducible, and ultimately confirm our first hypothesis.
+
 %\subsubsection{Conception} 
 \subsubsection{Datasets}
 \mbox{}\\
@@ -619,30 +644,6 @@ We can see some representation of the images with the undersampling and the nois
 Now that the preprocessing stage has been completed and realistic low-field MRI data have been generated, including accelerated acquisitions
 obtained through undersampling techniques, the next step is to establish an appropriate training pipeline for the deep learning models.
 
-
-\paragraph{Using 2 inputs}
-First of all it's important to be aware that the deep learning models are going to be designed to take two input volumes: a high-quality pre-contrast image
-and a noisy accelerated post-contrast image. Indeed, in dynamic contrast MRI acquisition, both acquisitions are required to assess the evolution
-of the contrast agent over time and help determine whether a tumor is benign or malignant. Since the pre-contrast acquisition is performed only once,
-it can be acquired with high image quality without strict time constraints. In contrast, multiple post-contrast acquisitions are required after the injection of the contrast agent.
-To reduce the overall examination time, these acquisitions can be accelerated using undersampling techniques like we explained above.
-The idea behind this approach is that, apart from the contrast enhancement, the anatomical structures remain largely unchanged between acquisitions.
-Therefore, the high-quality pre-contrast volume provides valuable structural information that can assist the reconstruction of the global accelerated post-contrast images.
-By adding both volumes to the network, the model is encouraged to focus on the contrast-related changes rather than relearning anatomical
-information already available in the pre-contrast image. This allows the reconstruction process to better preserve and recover the clinically
-relevant contrast enhancement while benefiting from the high-quality structural reference.
-
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/training_pipeline.png}
-    \caption{Training pipeline representation}
-    \label{fig:Training_pipeline_representation}
-    \vspace{0.5cm}
-\end{figure}
-
-
 \paragraph{organization of my training pipeline}
 \paragraph{preprocessing script}
 
@@ -870,7 +871,7 @@ By doing this, I control the random generation in my pipeline and improve the re
 
 
 \paragraph{artificial neural network}
-Now that the entire training pipeline was operational, I was able to experiment with different deep learning models and compare their performances in order to determine which one was the most suitable for our problem.
+Now that the entire training pipeline was operational, I was able to experiment a first deep learning network and see if the performance is enough suitable to validate our first hypothesis.
 
 
 First, deep learning models rely on artificial neural networks to learn complex tasks from data. Most neural networks consist of an input layer, multiple hidden layers, and an output layer, whose structure depends on the desired prediction.
@@ -955,16 +956,13 @@ In the other way Instance Normalization, it doesn’t directly improve training 
 Maxpooling is an operation typically used in CNN because it reduces the spatial by sliding the 3D window and taking the maximum value in each region.
 It helps the downsampling and reduces the computation while returning important features.
 
-
-
-
 Most deep learning models rely on core components such as convolutional layers, activation functions, batch normalization, and max pooling, which are essential for building stable neural networks, particularly in medical imaging applications.
 However, the main differences lie in the network architecture, which can vary considerably depending on the specific problem.
 In this work, I experimented with several architectures, which will be presented in the following section.
 
 
 \paragraph{NoNew-Net}
-The first Architecture I investigated was the nonewnet \cite{NoNewNet}, it's based on a U-Net Architecture.
+The first Architecture I decided to investigat to validate the first hypothesis was the nonewnet \cite{NoNewNet}, it's based on a U-Net Architecture.
 U-Net architectures are widely used in deep learning and have served as the foundation for numerous successful models in medical image analysis, particularly for segmentation tasks.
 In our application, U-Net architectures have also demonstrated strong performance for image denoising while remaining relatively simple to implement.
 For these reasons, NoNew-Net was selected as a baseline model for our experiments.
@@ -1005,6 +1003,171 @@ X \in \mathbb{R}^{B \times 2 \times D \times H \times W}.
 
 As for the output we only want one channel because the ground truth has one channel and we need the same dimension to calculate the cost function (loss).
 
+\subsubsection{Testing and Measurements}
+
+The objective of the evaluation is to assess the performance of one model to validate our first hypothesis.
+
+As explained previously, if we want to validate ou first hyperparameters there are two main objectives:
+\begin{itemize}
+    \item Reconstruct high-quality images from noisy and undersampled MRI acquisitions over time.
+    \item Enhance the image contrast throughout the temporal sequence.
+\end{itemize}
+
+To evaluate these objectives, qualitative Evaluation are the best option. 
+Qualitative evaluation consists of visually inspecting each reconstructed images to ensure that anatomical structures are accurately preserved for the sample and the contrast. 
+
+For each experiment, three evaluation metrics are used:
+
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Square Error):} This metric measures the voxel-wise difference between the reconstructed image and the reference image. 
+    An RMSE value close to 0 indicates a high similarity between the two images, whereas larger values correspond to greater reconstruction errors.
+    
+    \item \textbf{PSNR (Peak Signal-to-Noise Ratio):} PSNR is derived from the RMSE and expresses the reconstruction quality on a logarithmic scale. 
+    Unlike RMSE, higher PSNR values indicate better reconstruction quality. 
+    Values around 40~dB or higher generally correspond to very similar images.
+    
+    \item \textbf{SSIM (Structural Similarity Index Measure):} Unlike RMSE and PSNR, SSIM evaluates the structural similarity between two images by comparing luminance, contrast, and structural information rather than individual voxels. 
+    A value close to 1 indicates a high structural similarity, while values closer to 0 indicate poor agreement.
+\end{itemize}
+
+\paragraph{Full-Sample Qualitative Evaluation}
+
+The first evaluation consists of a qualitative analysis of each sample coming out of the network. 
+Indeed, one of the most effective ways to assess the performance of a neural network is to visually compare its output with the corresponding ground truth.
+
+For each test, four images are displayed:
+\begin{itemize}
+    \item The \textbf{post-contrast input}, which is a fully sampled acquisition without undersampling or additional noise. 
+    Although it does not contain contrast enhancement, it provides a high-quality reference of the anatomical structures.
+    \item The \textbf{pre-contrast input}, which has been undersampled and corrupted with noise to simulate the acquisition of a low-field MRI scanner.
+    \item The \textbf{model output}, corresponding to the image reconstructed by the neural network.
+    \item The \textbf{ground truth}, which serves as the reference image. 
+    The objective is for the reconstructed image to be as close as possible to this reference.
+\end{itemize}
+
+The first step of the evaluation is a visual inspection to determine whether the network successfully reconstructs the missing information and produces an image that resembles the ground truth while improving upon the input image.
+
+To complement the visual analysis, the three metrics introduced in the previous section (RMSE, PSNR, and SSIM) are computed between the model output and the ground truth. 
+They are also computed between the input images (post-contrast and pre-contrast) and the ground truth. 
+This comparison is essential to verify that the network effectively improves the image quality. 
+If the reconstructed image does not achieve better metric values than the input images, it indicates that the network has failed to learn the desired mapping and may even degrade the image quality.
+
+The second row of the figure displays the absolute difference between each image and the ground truth. 
+These error maps highlight the regions where the reconstruction differs the most from the reference image, allowing us to identify the anatomical structures that remain difficult for the network to reconstruct. 
+A color bar is used to facilitate the interpretation of the error magnitude.
+
+Finally, the third row presents the signed difference between each image and the ground truth. 
+Unlike the previous row, the absolute value is not applied, making it possible to distinguish overestimation from underestimation. 
+Red regions indicate voxel intensities that are higher than the ground truth, blue regions correspond to lower intensities, and white regions represent negligible differences, indicating an accurate reconstruction.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Full sample qualitative evaluation.png}
+    \caption{Full sample qualitative evaluation}
+    \label{fig:Full sample qualitative evaluation}
+    \vspace{0.5cm}
+\end{figure}
+
+In this example, the output images are visually very close to the ground truth, both in appearance and in terms of the metrics compared to the input. 
+This test shows that, for this sample, the network is able to reconstruct the volume very accurately.
+
+%explanation of result
+
+\paragraph{Contrast Qualitative Evaluation}
+
+To evaluate the contrast enhancement, RMSE, PSNR, and SSIM are not suitable because the contrast agent is confined to a relatively small segmented region. 
+These metrics are very efficient to compare the entire sample but they do not accurately reflect the quality of the contrast reconstruction.
+
+Instead, the temporal evolution of the contrast intensity is analyzed. 
+For each sample, the mean intensity only ine the segmented contrast region is computed for every acquisition. 
+The resulting intensity curves are then plotted for both the model output and the ground truth.
+
+The objective is for the reconstructed intensity curve to closely follow the ground-truth curve. 
+A good match indicates that the network not only enhances the contrast but also correctly reproduces its temporal dynamics. 
+This is particularly important because the model should not generate a constant level of contrast enhancement across all acquisitions. 
+Instead, it must preserve the physiological evolution of the contrast agent over time, including both the wash-in and wash-out phases.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Dynamic contrast intensity.png}
+    \caption{Full sample qualitative evaluation}
+    \label{fig:Full sample qualitative evaluation}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Full sample contrast dynamic.png}
+    \caption{Full sample contrast dynamic}
+    \label{fig:Full sample contrast dynamic}
+    \vspace{0.5cm}
+\end{figure}
+
+
+In this example, three curves are shown. 
+The red curve represents the mean intensity of each segmentation for each network input acquisition of one patient.
+The blue curve represents the mean intensity of the network output after contrast reconstruction, while the black curve corresponds to the original contrast mean intensity.
+
+The second plot illustrates the evolution of the contrast for each sample.
+The first raw shows the input of the networks with the post-contrast acquisition and all the pre-contrast acquisitions.
+The second raw shows the output of the networks with post-contrast that has been enhanced.
+The last raw shows the ground truth for each acquisition.
+Finally, this visualization, the red regions correspond to the segmented areas for each acquisition where we calculate the mean intensity of the three curves.
+
+For this single sample, the model appears to reproduce the contrast enhancement very well, as the predicted intensity contrast closely matches the ground truth.
+
+\subsubsection{Conclusion} 
+
+In this first phase, we developed a fully operational training pipeline with a robust data preprocessing workflow. 
+We also implemented one network architectures that can be trained and evaluated within the same framework. 
+Finally, we established a comprehensive evaluation strategy to make sure that a simple model networck is able to reconstruct both the entire volume and the contrast enhancement.
+
+In the second phase, we will focus on testing different Deep Learning network with a more accurate representation of the pre-contrast and post-contrast inputs for our fast-acquisition low-field MRI application.
+
+
+\subsection{2nd part: Transition to Realistic Acquisition Conditions} 
+
+\subsection{Methodology} 
+
+The first phase of this work focused on developing a robust training pipeline and a reliable evaluation framework to demonstrate that deep learning models were capable of enhancing post-contrast images by exploiting both pre-contrast and post-contrast information.
+The objective of the second phase is to compare different Deep Learning network on a more realistic reconstruction task by generating input data that better reflects the characteristics of low-field MRI acquisitions.
+
+In the initial pipeline, the network received two inputs: a pre-contrast image, which was fully sampled without noise, and a post-contrast image, which was undersampled and corrupted with noise to simulate a low-field MRI acquisition. 
+While this setup allowed the models to learn the reconstruction task, it did not accurately represent real acquisition conditions. 
+In practice, even a pre-contrast scan acquired on a low-field MRI system contains measurement noise.
+
+To better reproduce these conditions, noise was therefore introduced into the pre-contrast acquisition as well. 
+This modification significantly increased the difficulty of the reconstruction problem.
+
+Once this new acquisition paradigm had been established, the study was extended beyond the initial NoNew-Net architecture. 
+Several deep learning models were implemented and compared using a quantitative evaluation framework in order to identify the architecture best suited to this reconstruction task.
+
+The main objective of this second phase was therefore to identify the deep learning architecture that provides the best trade-off between reconstruction quality and robustness under strong realistic low-field MRI acquisition conditions.
+
+\subsubsection{Modification of Training pipeline} 
+
+As explain in the Methodology, we need to add some noise on the pre-contrast so to better simulate this scenario, we propose a different acquisition strategy. 
+Instead of acquiring a single pre-contrast image, we consider a full 10-minute acquisition divided into ten shorter acquisitions. 
+These acquisitions are then averaged to produce the pre-contrast reference image. 
+Averaging multiple acquisitions increases the signal-to-noise ratio by exploiting all the available information while preserving the anatomical structures. 
+This averaged image is subsequently used as the pre-contrast input for reconstructing each individual post-contrast acquisition.
+
+However, in the available dataset, only one pre-contrast image and between three to five post-contrast acquisitions are available rather than ten acquisitions. 
+To reproduce the proposed acquisition strategy, a weighted average is computed by completing the missing acquisitions with the pre-contrast image. 
+This assumption is physiologically reasonable since, once the contrast agent has completely washed out, additional acquisitions would become equivalent to pre-contrast images.
+
+The resulting averaged pre-contrast image is then undersampled using the same sampling mask as the post-contrast acquisitions. 
+To account for the longer effective acquisition time, the noise level is reduced by a factor of $\sqrt{10}$. 
+This follows the well-known relationship between acquisition time and signal-to-noise ratio in MRI: averaging $N$ independent acquisitions increases the SNR by a factor of $\sqrt{N}$. 
+Consequently, using the equivalent of ten acquisitions produces a cleaner and more realistic pre-contrast image while remaining consistent with the physics of MRI acquisition.
+
+\subsubsection{Architecture models}
+
+In the first phase, NoNewNet architecture demonstrated that it was possible to successfully enhance post-contrast images by using two input acquisitions.
+In the second phase with a full sample acquisition for the pre-contrast the objective was to investigate alternative neural network architectures and determine which one is the most effective for our new reconstruction task.
 
 \paragraph{NoNew-Netv2}
 The main difference between NoNewnet and NoNewnetv2 is in the decoder, more specifically in the upsampling strategy.
@@ -1180,122 +1343,29 @@ To conclude, this architecture was well suited for classical undersampled recons
 However, in the context of this internship, where the data follows a different and more realistic noise-corrupted paradigm, the DeepCascade model appears less effective than simpler architectures such as a standard U-Net. 
 This observation will be further evaluated in the testing section.
 
-\subsubsection{Testing and Measurements}
+\subsubsection{Testing and Measurements} 
 
-The objective of the evaluation is to assess the performance of the different models in order to identify the most suitable architecture and draw meaningful conclusions.
-
-As explained previously, the project has two main objectives:
-\begin{itemize}
-    \item Reconstruct high-quality images from noisy and undersampled MRI acquisitions over time.
-    \item Enhance the image contrast throughout the temporal sequence.
-\end{itemize}
-
-To evaluate these objectives, both qualitative and quantitative analyses are performed. 
-Qualitative evaluation consists of visually inspecting each reconstructed images to ensure that anatomical structures are accurately preserved for the sample and the contrast. 
+In the first phase, the network was evaluated qualitatively by visually inspecting the reconstructed images.
+Although this was sufficient to demonstrate the feasibility of the approach it is not enough to do a fair comparison between different architectures.
+Consequently, a quantitative evaluation framework based on objective metrics was introduced in the second phase.
 Quantitative evaluation allows an objective comparison between the different architectures in terms of image reconstruction quality and contrast enhancement.
-
-For each experiment, three evaluation metrics are used:
-
-\begin{itemize}
-    \item \textbf{RMSE (Root Mean Square Error):} This metric measures the voxel-wise difference between the reconstructed image and the reference image. 
-    An RMSE value close to 0 indicates a high similarity between the two images, whereas larger values correspond to greater reconstruction errors.
-    
-    \item \textbf{PSNR (Peak Signal-to-Noise Ratio):} PSNR is derived from the RMSE and expresses the reconstruction quality on a logarithmic scale. 
-    Unlike RMSE, higher PSNR values indicate better reconstruction quality. 
-    Values around 40~dB or higher generally correspond to very similar images.
-    
-    \item \textbf{SSIM (Structural Similarity Index Measure):} Unlike RMSE and PSNR, SSIM evaluates the structural similarity between two images by comparing luminance, contrast, and structural information rather than individual voxels. 
-    A value close to 1 indicates a high structural similarity, while values closer to 0 indicate poor agreement.
-\end{itemize}
 
 \paragraph{Full-Sample Qualitative Evaluation}
 
-The first evaluation consists of a qualitative analysis of each sample coming out of the network. 
-Indeed, one of the most effective ways to assess the performance of a neural network is to visually compare its output with the corresponding ground truth.
-
-For each test, four images are displayed:
-\begin{itemize}
-    \item The \textbf{post-contrast input}, which is a fully sampled acquisition without undersampling or additional noise. 
-    Although it does not contain contrast enhancement, it provides a high-quality reference of the anatomical structures.
-    \item The \textbf{pre-contrast input}, which has been undersampled and corrupted with noise to simulate the acquisition of a low-field MRI scanner.
-    \item The \textbf{model output}, corresponding to the image reconstructed by the neural network.
-    \item The \textbf{ground truth}, which serves as the reference image. 
-    The objective is for the reconstructed image to be as close as possible to this reference.
-\end{itemize}
-
-The first step of the evaluation is a visual inspection to determine whether the network successfully reconstructs the missing information and produces an image that resembles the ground truth while improving upon the input image.
-
-To complement the visual analysis, the three metrics introduced in the previous section (RMSE, PSNR, and SSIM) are computed between the model output and the ground truth. 
-They are also computed between the input images (post-contrast and pre-contrast) and the ground truth. 
-This comparison is essential to verify that the network effectively improves the image quality. 
-If the reconstructed image does not achieve better metric values than the input images, it indicates that the network has failed to learn the desired mapping and may even degrade the image quality.
-
-The second row of the figure displays the absolute difference between each image and the ground truth. 
-These error maps highlight the regions where the reconstruction differs the most from the reference image, allowing us to identify the anatomical structures that remain difficult for the network to reconstruct. 
-A color bar is used to facilitate the interpretation of the error magnitude.
-
-Finally, the third row presents the signed difference between each image and the ground truth. 
-Unlike the previous row, the absolute value is not applied, making it possible to distinguish overestimation from underestimation. 
-Red regions indicate voxel intensities that are higher than the ground truth, blue regions correspond to lower intensities, and white regions represent negligible differences, indicating an accurate reconstruction.
+As explain in the first phase, the idea is to take one sample in the testing Dataset and see visually the difference with the input and output.
 
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Full sample qualitative evaluation.png}
-    \caption{Full sample qualitative evaluation}
-    \label{fig:Full sample qualitative evaluation}
+    \includegraphics[width=0.75\textwidth]{image/Noisy full sample qualitative evaluation.png}
+    \caption{Noisy full sample qualitative evaluation}
+    \label{fig:Noisy full sample qualitative evaluation}
     \vspace{0.5cm}
 \end{figure}
 
-In this example, the output images are visually very close to the ground truth, both in appearance and in terms of the metrics compared to the input. 
-This test shows that, for this sample, the network is able to reconstruct the volume very accurately.
+We can see the difference between the first phase is the fact that the pre-contrast acquisition is noisy.
+% With one network we can see that the reconstruction is doing 
 
-%explanation of result
-
-\paragraph{Contrast Qualitative Evaluation}
-
-To evaluate the contrast enhancement, RMSE, PSNR, and SSIM are not suitable because the contrast agent is confined to a relatively small segmented region. 
-These metrics are very efficient to compare the entire sample but they do not accurately reflect the quality of the contrast reconstruction.
-
-Instead, the temporal evolution of the contrast intensity is analyzed. 
-For each sample, the mean intensity only ine the segmented contrast region is computed for every acquisition. 
-The resulting intensity curves are then plotted for both the model output and the ground truth.
-
-The objective is for the reconstructed intensity curve to closely follow the ground-truth curve. 
-A good match indicates that the network not only enhances the contrast but also correctly reproduces its temporal dynamics. 
-This is particularly important because the model should not generate a constant level of contrast enhancement across all acquisitions. 
-Instead, it must preserve the physiological evolution of the contrast agent over time, including both the wash-in and wash-out phases.
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Dynamic contrast intensity.png}
-    \caption{Full sample qualitative evaluation}
-    \label{fig:Full sample qualitative evaluation}
-    \vspace{0.5cm}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Full sample contrast dynamic.png}
-    \caption{Full sample contrast dynamic}
-    \label{fig:Full sample contrast dynamic}
-    \vspace{0.5cm}
-\end{figure}
-
-
-In this example, three curves are shown. 
-The red curve represents the mean intensity of each segmentation for each network input acquisition of one patient.
-The blue curve represents the mean intensity of the network output after contrast reconstruction, while the black curve corresponds to the original contrast mean intensity.
-
-The second plot illustrates the evolution of the contrast for each sample.
-The first raw shows the input of the networks with the post-contrast acquisition and all the pre-contrast acquisitions.
-The second raw shows the output of the networks with post-contrast that has been enhanced.
-The last raw shows the ground truth for each acquisition.
-Finally, this visualization, the red regions correspond to the segmented areas for each acquisition where we calculate the mean intensity of the three curves.
-
-For this single sample, the model appears to reproduce the contrast enhancement very well, as the predicted intensity contrast closely matches the ground truth.
 
 \paragraph{Full-Sample Quantitative Evaluation}
 To compare the results of the different networks, the evaluation was done model by model instead of sample by sample. 
@@ -1334,9 +1404,34 @@ Since the training process is not fully reproducible, the performance metrics ma
 Therefore, each model was trained using three different random seeds to evaluate the variability of its results. 
 A higher variability indicates that the model's performance is less consistent, making it more difficult to reliably assess it's true performance.
 
-% Adding a photo 
-Once we have done that we can say that our test measurement for the quantitative result are strongly trustworthy. 
-In the second part with more accurate input by doing this test we will be able to compare effectively our different networks.
+\paragraph{variability accros 10 seeds}
+
+As explain above for comparing different model architectures, it is important to evaluate their variability across multiple random seeds, as highlighted in the first phase of the study. 
+Initially, each model was tested using three different seeds in order to assess this variability.
+
+However, to improve the reliability of the evaluation, it is preferable to increase the number of seeds beyond three. 
+Running experiments over ten seeds would provide a more robust estimation of model stability and allow us to better distinguish between stable and unstable architectures.
+
+Indeed, high variability across seeds increases the uncertainty of the reported performance, making it difficult to accurately assess the true behavior of a model.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Model variability.png}
+    \caption{Model variability}
+    \label{fig:Model variability}
+    \vspace{0.5cm}
+\end{figure}
+
+This figure illustrates the variability of the network performance across 10 different random seeds using the PSNR metric. 
+A similar analysis should also be performed for the RMSE and SSIM metrics.
+Each boxplot represents the distribution of all the average PSNR obtained for a given seed. 
+The red band inside each boxplot corresponds to the 95\% confidence interval of the true mean PSNR.
+This confidence interval is computed from the standard deviation across the 10 seeds. 
+A shorter red band indicates a more precise estimate of the true mean, meaning there is less uncertainty about the network's average performance.
+
+First of all we can see that the networks are all giving an average PSNR of around 34 dB.
+
 
 \paragraph{Contrast Quantitative Evaluation}
 
@@ -1374,62 +1469,14 @@ All the network are closed to the identity line ($y=x$) which means that the con
 The fact that all linear regression are below the identity line means that all networks have a tendency of underestimating the contrast.
 Similarly, to compare the performance of the networks for contrast enhancement, as done in the qualitative contrast evaluation, it is necessary to evaluate each model using at least three different random seeds.
 
+%\paragraph{Contrast ratio for Contrast Quantitative Evaluation}
+%In our new paradigm, RE is no longer the most appropriate metric to compare models for contrast enhancement. 
+%Indeed, evaluating reconstruction quality against the input can be misleading, as the post-contrast images are inherently noisy, which artificially increases the RE.
 
-\subsubsection{Conclusion} 
-
-In this first phase, we developed a fully operational training pipeline with a robust data preprocessing workflow. 
-We also implemented several network architectures that can be trained and evaluated within the same framework. 
-Finally, we established a comprehensive evaluation strategy to compare the different architectures and identify the models that best reconstruct both the entire volume and the contrast enhancement.
-
-In the second phase, we will focus on developing a more accurate representation of the pre-contrast and post-contrast inputs for our fast-acquisition low-field MRI application.
-
-\subsection{2nd part: Transition to Realistic Acquisition Conditions} 
-
-For this second phase the idea is to focus on having a more realistic inputs values and fixing a Deep Learning network.
-In this case the resolution and the undersampling configs will not change from the phase one.
-
-\subsubsection{Modification of Training pipeline} 
-
-As explained in the methodology, the first phase of this work focused on developing the training pipeline, evaluating different neural network architectures, and comparing their reconstruction performance.
-The objective of the second phase is to make the reconstruction task more realistic by generating input data that better reflects the characteristics of low-field MRI acquisitions.
-
-In the initial pipeline, the network received two inputs: a pre-contrast image, which was fully sampled without noise, and a post-contrast image, which was undersampled and corrupted with noise to simulate a low-field MRI acquisition. 
-While this setup allowed the models to learn the reconstruction task, it did not accurately represent real acquisition conditions. 
-In practice, even a pre-contrast scan acquired on a low-field MRI system contains measurement noise.
-
-To better simulate this scenario, we propose a different acquisition strategy. 
-Instead of acquiring a single pre-contrast image, we consider a full 10-minute acquisition divided into ten shorter acquisitions. 
-These acquisitions are then averaged to produce the pre-contrast reference image. 
-Averaging multiple acquisitions increases the signal-to-noise ratio by exploiting all the available information while preserving the anatomical structures. 
-This averaged image is subsequently used as the pre-contrast input for reconstructing each individual post-contrast acquisition.
-
-However, in the available dataset, only one pre-contrast image and between three to five post-contrast acquisitions are available rather than ten acquisitions. 
-To reproduce the proposed acquisition strategy, a weighted average is computed by completing the missing acquisitions with the pre-contrast image. 
-This assumption is physiologically reasonable since, once the contrast agent has completely washed out, additional acquisitions would become equivalent to pre-contrast images.
-
-The resulting averaged pre-contrast image is then undersampled using the same sampling mask as the post-contrast acquisitions. 
-To account for the longer effective acquisition time, the noise level is reduced by a factor of $\sqrt{10}$. 
-This follows the well-known relationship between acquisition time and signal-to-noise ratio in MRI: averaging $N$ independent acquisitions increases the SNR by a factor of $\sqrt{N}$. 
-Consequently, using the equivalent of ten acquisitions produces a cleaner and more realistic pre-contrast image while remaining consistent with the physics of MRI acquisition.
-
-
-\subsubsection{Architecture models}
-For the architecture we have already work on a lot of different network the idea is to use the almost all the same networks and to test them with the new training pipeline.
-We will just remove one network which is DeepCascade, even in the first phase his performance where below the others this type of network is not the most usefull for our type of problem.
-
-\subsubsection{Testing and Measurements} 
-
-For Phase 2, the goal is to keep most of the evaluation tests used in Phase 1. 
-However, a few minor adjustments will be needed to account for the fact that noise has been added to the pre-contrast images.
-
-\paragraph{Contras ratio for Contrast Quantitative Evaluation}
-In our new paradigm, RE is no longer the most appropriate metric to compare models for contrast enhancement. 
-Indeed, evaluating reconstruction quality against the input can be misleading, as the post-contrast images are inherently noisy, which artificially increases the RE.
-
-That's why we are focusing on auther metrics which is Contrast ratio (CR).
-This metric evaluates the contrast between the segmented lesion and the surrounding background tissue. 
-It measures how distinguishable the lesion is from its environment. 
-A higher contrast ratio indicates better lesion visibility from the surrounding tissue.
+%That's why we are focusing on auther metrics which is Contrast ratio (CR).
+%This metric evaluates the contrast between the segmented lesion and the surrounding background tissue. 
+%It measures how distinguishable the lesion is from its environment. 
+%A higher contrast ratio indicates better lesion visibility from the surrounding tissue.
 
 \paragraph{comparing model with the same computational}
 
@@ -1440,19 +1487,7 @@ For example, comparing two models where one is trained with 16 GB of VRAM and th
 
 In this work, all models are therefore trained under a fixed VRAM constraint of 16 GB to ensure a fair comparison.
 
-\paragraph{variability accros 10 seeds}
 
-Moreover, when comparing different model architectures, it is important to evaluate their variability across multiple random seeds, as highlighted in the first phase of the study. 
-Initially, each model was tested using three different seeds in order to assess this variability.
-
-However, to improve the reliability of the evaluation, it is preferable to increase the number of seeds beyond three. 
-Running experiments over ten seeds would provide a more robust estimation of model stability and allow us to better distinguish between stable and unstable architectures.
-
-Indeed, high variability across seeds increases the uncertainty of the reported performance, making it difficult to accurately assess the true behavior of a model.
-
-% photo 
-
-% Explanation
 
 
 \paragraph{Final model comparison conclusions}
@@ -1471,6 +1506,7 @@ However, as presented in this architecture the DeepCascade network are not showi
 
 
 \subsubsection{Conclusion} 
+% Validation of the 2nd phase 
 
 \subsection{3rd part: Acquisition Trajectory and Model Optimization} 
 \subsubsection{Conception} 
