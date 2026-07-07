@@ -98,13 +98,12 @@ This idea is not new: since the early days of MRI, engineers have attempted to b
 However, none of these efforts have yet achieved large-scale clinical adoption due to multiple technical and physical constraints.
 
 In fact, MRI at low magnetic field strengths remains challenging. 
-The lower field strength reduces the signal-to-noise ratio, leading to noisier images. 
-In addition, as low-field MRI systems are still relatively new, their hardware is less mature and optimized than that of conventional high-field scanners, which can further degrade image quality.
-Consequently, the signal-to-noise ratio (SNR) is reduced. 
-Since SNR is a major determinant of image quality, a lower SNR requires a trade-off between acquisition time and spatial resolution: image quality can be improved either by increasing the acquisition time or by reducing the spatial resolution.
+The lower field strength alone reduces the signal levels, leading to lower signal-to-noise (SNR) ratio.
+The hardware is also less mature and optimized than that of conventional high-field scanners, leading to increased noise and artifacts but also affecting robustness.
+Since SNR is a major determinant of image quality, it needs to be improved by repeating acquisitions, leading to longer exams or alternatively to reduced image resolution as a trade-off to save time.
 
 Moreover, magnetic field strength is by no means the only driver of image quality. 
-Images produced on 1.5~T scanners have improved tremendously since the 1990s, largely thanks to major advances in hardware such as stronger and more sensitive receiver coils, improved gradient systems, and the advent of parallel imaging alongside software improvements which kess vital than hardware.
+Images produced on 1.5~T scanners have improved tremendously since the 1990s, largely thanks to major advances in hardware such as stronger and more sensitive receiver coils, improved gradient systems, and the advent of parallel imaging alongside software improvements, which are no less vital than hardware.
 Finally, the use of AI in commercial MRI systems is very recent, even though it has been explored in academic research since the early days of deep learning.
 The limited use of AI mainly comes from the difficulty of ensuring that it does not remove or invent structures in the images.
 It is not easy to guarantee that the output is reliable and faithful to the original data. 
@@ -127,7 +126,7 @@ Low-field MRI is instead aimed at increasing accessibility and providing suffici
 For this reason, it is more relevant to look at companies developing low-field MRI systems, although there are currently only a few of them on the market.
 The main pioneer in this field is Hyperfine, an American company that received FDA clearance in 2021 for its portable MRI device called \textit{Swoop}.
 The system operates at 64~mT and was designed mainly for rapid brain imaging and stroke assessment.
-Thanks to advanced AI-based reconstruction methods, the image quality has improved significantly compare to traditional low-field reconstruction approaches.
+Thanks to advanced AI-based reconstruction methods, the image quality has improved significantly compared to traditional low-field reconstruction approaches.
 
 Despite these impressive improvements, Hyperfine is still searching for a strong product-market fit. 
 One difficulty is that many patients using their MRI are elderly or have limited mobility. 
@@ -188,9 +187,9 @@ The more aggressive the lesion is, the faster the acquisition must be in order t
 Consequently, MRI acquisitions need to be accelerated. 
 However, accelerating the acquisition process generally leads to a degradation in image quality.
 More precisely, accelerating the acquisition means acquiring fewer samples in k-space, which is the frequency domain where the MRI signal is encoded.
-By accelerating the acquisition it will as explain earlier increase the SNR.
+By accelerating the acquisition, as explained earlier, the SNR decreases.
 Therefore, the objective of this internship is to evaluate different Deep Learning models capable of enhancing image quality after accelerated MRI acquisition, while preserving sufficient temporal and spatial information to accurately analyze the contrast enhancement dynamics over time.
-Apart from working on deep learning models, I also need to evaluate which trajectory configurations are optimal to achieve the fastest possible acquisition while preserving the best image quality and contrast enhancement.
+Apart from working on deep learning models, we also need to evaluate which trajectory configurations are optimal to achieve the fastest possible acquisition while preserving the best image quality and contrast enhancement.
 
 \section{Corporate Social Responsibility (CSR) Policy}
 
@@ -222,7 +221,7 @@ The goal of this first phase is to answer the hypothesis of whether it is possib
 
 \paragraph{Using 2 inputs}
 In dynamic contrast MRI acquisition, pre-contrast and post-contrast acquisitions are required to assess the evolution of the contrast agent over time and help determine whether a tumor is benign or malignant. 
-Since the pre-contrast acquisition is performed only once, it can be acquired with high image quality without strict time constraints. 
+Since the pre-contrast acquisition is performed only once, it can be acquired using longer sequences to improve image quality.
 In contrast, multiple post-contrast acquisitions are required after the injection of the contrast agent.
 To reduce the overall examination time, these acquisitions can be accelerated using undersampling techniques like we explained above.
 The idea behind this approach is that, apart from the contrast enhancement, the anatomical structures remain largely unchanged between acquisitions.
@@ -266,12 +265,11 @@ First of all, to run my experiments and models, I worked with two different data
 % GPU
 \paragraph{GPU}
 \mbox{}\\
-To train my models within reasonable time constraints, I relied on several GPUs with different computational capacities. 
-The first one, named \textit{Leviathan}, had 16~GB of memory. 
+To train my models within reasonable time, I relied on several GPUs with different computational capacities. 
+The first one, named \textit{Leviathan}, had 16~GB of GPU memory. 
 I mainly ran my code on this machine and used its disk storage to host the FastMRI Breast and Mamamia datasets. 
 I also had access to a second GPU, \textit{Cthulhu}, which was significantly more powerful with 49~GB of memory. 
 It was used for training larger and more computationally demanding models. 
-Without access to these resources, it would have been impossible to complete my internship work.
 
 Access to these machines was done remotely via SSH. 
 As a result, my entire development environment was hosted on the servers, and my personal computer was only used as an interface. 
@@ -331,8 +329,6 @@ This resizing inevitably changes the spatial resolution of the data, increasing 
 
 In the context of Chipiron, the target is to achieve a final resolution of 2 mm, so the goal at the end of the internship is to present results for contrast enhancement at this resolution.
 
-To implement this preprocessing, I developed an initial script that takes as input samples of size 192 × 320 × 320 and applies configurable downsampling along each dimension. 
-The processed dataset is then saved in a separate directory.
 
 The Mamamia dataset presents a different challenge, as the samples do not all share the same dimensions.
 In this case, I reused the same script but without fixed per-axis configuration. 
@@ -352,7 +348,7 @@ If very large input values are used, such as 100 and 200 within an intensity ran
 Consequently, the network will struggle to distinguish between these inputs. 
 On the other hand, when the data are normalized within the interval $[0,1]$, the sigmoid function generates more distinct outputs, enabling the model to better capture variations in the data.
 
-The most commonly used normalization method is the min--max normalization:
+The most commonly used normalization method is the min-max normalization:
 \[
 x_{\mathrm{norm}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}}
 \]
@@ -375,7 +371,7 @@ This allows the majority of the dataset to be normalized more effectively while 
 \paragraph{Downsampling vs Undersampling}
 \mbox{}\\
 
-As explained earlier, in order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition. 
+In order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition. 
 The two datasets used in this work contain clean data; therefore, all samples must be artificially degraded to simulate data acquired from a low-field MRI system with accelerated acquisition.
 
 Two main methods can be used for this purpose:
@@ -512,9 +508,7 @@ For the \texttt{decay\_cartesian} trajectory, several parameters control the sam
 The parameter, \texttt{density\_decay}, controls how strongly the sampling density is concentrated toward the center of k-space. 
 A high value of \texttt{density\_decay} results in a higher concentration of shots near the center, whereas values closer to zero lead to a more uniform distribution across k-space.
 
-The parameter, \texttt{keep\_edges}, determines whether high-frequency components are preserved. 
-When set to \texttt{true}, more shots are sampled near the edges of k-space, allowing better preservation of high-frequency information. 
-When set to \texttt{false}, the sampling is concentrated toward the center, prioritizing low-frequency components and resulting in a more circular distribution.
+The \texttt{keep\_edges} parameter determines whether to keep the k-space edges or not, as they carry high-frequency information but not densely enough to make a significant difference.
 
 Finally, the \texttt{sampling\_method} defines how shots are selected according to the prescribed density.
 Two strategies are available: \texttt{random}, which performs stochastic sampling based on the density map, and \texttt{lloyd}, which generates a pseudo-random and more uniformly spaced distribution using an iterative optimization approach.
@@ -749,7 +743,7 @@ During training, several important parameters in deep learning must also be care
 
 
 The first important parameter is the batch size, which represents the number of samples processed simultaneously during training. In general,
-larger batch sizes can speed up training because more samples are handled in parallel. For example, training with a batch size of 8 is logicaly
+larger batch sizes can speed up training because more samples are handled in parallel. For example, training with a batch size of 8 is logically
 faster than with a batch size of 4.
 
 
@@ -907,10 +901,10 @@ In our case the activation function are applied on each feature map of the netwo
 \paragraph{batchNormalization vs InstanceNormalization}
 
 
-Training deep neural network is complicated by the fact that the distribution of each layer's input changes during training as the parameters of the prvious layers change.
-Therefore this slows down the training by requiring lower learning rate and careful parameter initialization and make it hard to train models with saturing nonlinearities.
-We call this problem as internal covariate shift, and we solved that by normalizing the pre activation layers.
-The goal is to make normalization part of the models architecture. For that there are 2 differents approachs:
+Training deep neural networks is complicated by the fact that the distribution of each layer's input changes during training as the parameters of the previous layers change.
+This slows down training by requiring lower learning rates and careful parameter initialization, and it makes it hard to train models with saturating nonlinearities.
+This phenomenon is known as internal covariate shift and can be mitigated by normalizing the pre-activation layers.
+The goal is to make normalization part of the model's architecture; two different approaches are commonly used:
 
 
 \begin{itemize}
@@ -1037,9 +1031,9 @@ Indeed, one of the most effective ways to assess the performance of a neural net
 
 For each test, four images are displayed:
 \begin{itemize}
-    \item The \textbf{post-contrast input}, which is a fully sampled acquisition without undersampling or additional noise. 
-    Although it does not contain contrast enhancement, it provides a high-quality reference of the anatomical structures.
-    \item The \textbf{pre-contrast input}, which has been undersampled and corrupted with noise to simulate the acquisition of a low-field MRI scanner.
+    \item The \textbf{pre-contrast input}, which is a fully sampled acquisition without undersampling or additional noise.
+    It provides a high-quality reference of the anatomical structures.
+    \item The \textbf{post-contrast input}, which has been undersampled and corrupted with noise to simulate the acquisition of a low-field MRI scanner.
     \item The \textbf{model output}, corresponding to the image reconstructed by the neural network.
     \item The \textbf{ground truth}, which serves as the reference image. 
     The objective is for the reconstructed image to be as close as possible to this reference.
@@ -1063,9 +1057,9 @@ Red regions indicate voxel intensities that are higher than the ground truth, bl
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Full sample qualitative evaluation.png}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Full sample qualitative evaluation.png}}
     \caption{Full sample qualitative evaluation}
-    \label{fig:Full sample qualitative evaluation}
+    \label{fig:full_sample_qualitative_evaluation}
     \vspace{0.5cm}
 \end{figure}
 
@@ -1091,18 +1085,18 @@ Instead, it must preserve the physiological evolution of the contrast agent over
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Dynamic contrast intensity.png}
-    \caption{Full sample qualitative evaluation}
-    \label{fig:Full sample qualitative evaluation}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Dynamic contrast intensity.png}}
+    \caption{Dynamic contrast intensity}
+    \label{fig:dynamic_contrast_intensity}
     \vspace{0.5cm}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Full sample contrast dynamic.png}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Full sample contrast dynamic.png}}
     \caption{Full sample contrast dynamic}
-    \label{fig:Full sample contrast dynamic}
+    \label{fig:full_sample_contrast_dynamic}
     \vspace{0.5cm}
 \end{figure}
 
@@ -1357,7 +1351,7 @@ As explain in the first phase, the idea is to take one sample in the testing Dat
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Noisy full sample qualitative evaluation.png}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Noisy full sample qualitative evaluation.png}}
     \caption{Noisy full sample qualitative evaluation}
     \label{fig:Noisy full sample qualitative evaluation}
     \vspace{0.5cm}
@@ -1374,7 +1368,7 @@ For each model, boxplots were used to show the distribution of the test outputs 
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Boxplot quantitative result.png}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Boxplot quantitative result.png}}
     \caption{Boxplot quantitative result}
     \label{fig:Boxplot quantitative result (PSNR)}
     \vspace{0.5cm}
@@ -1417,7 +1411,7 @@ Indeed, high variability across seeds increases the uncertainty of the reported 
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Model variability.png}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Model variability.png}}
     \caption{Model variability}
     \label{fig:Model variability}
     \vspace{0.5cm}
@@ -1458,7 +1452,7 @@ By comparing the regression lines of the different models with the identity line
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/contrast quantitative evaluation.png}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/contrast quantitative evaluation.png}}
     \caption{contrast quantitative evaluation}
     \label{fig:contrast quantitative evaluation}
     \vspace{0.5cm}
