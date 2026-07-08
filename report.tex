@@ -32,7 +32,7 @@ Since its creation in 2020, the start-up has been working to overcome current li
 
 \subsubsection{Epidemiology and Clinical Context}
 Breast cancer is the most commonly diagnosed cancer among women worldwide \cite{iarc2025}. 
-based on current trends, one in 20 women will develop breast cancer in their lifetime, and among them, 30\% will die from the disease. 
+Based on current trends, one in 20 women will develop breast cancer in their lifetime, and among them, 30\% will die from the disease. 
 These numbers vary significantly between regions: in the United States, the incidence is higher with 1 in 10 women developing breast cancer but with a mortality rate of approximately 16\%. 
 More concerning is the rapid increase in incidence among young women, with an annual growth of 2.1\% from 1990 to 2018 in Europe, for reasons that remain unclear to this day.
 The good news is that early detection makes a major difference. 
@@ -299,7 +299,7 @@ Once this first part was completed and we were sure that the model could enhance
 
 Instead of using a full pre-contrast imaging, this time we take a full acquisition with both pre-contrast and post-contrast information, making the reconstruction task significantly more difficult.
 In a clinical setting, rather than acquiring a long pre-contrast scan followed by several short post-contrast acquisitions, a single full acquisition containing both pre-contrast and post-contrast information is performed.
-We take one full acquisition with pre-contrast and post-contrast and we used the full acquisition as input for our network to enhance the different acquisisition over the time.
+We take one full acquisition with pre-contrast and post-contrast and we used the full acquisition as input for our network to enhance the different acquisition over the time.
 This allowed us to compare different deep learning network under more realistic conditions for fast low-field MRI acquisition and to evaluate the performance of the previously implemented network architectures.
 
 Finally, after evaluating the different models in these more realistic conditions and exploring the limits of their performance, the focus shifted toward optimizing the overall pipeline and its configuration. 
@@ -404,11 +404,8 @@ The computational resources used during the internship were the following:
 I extensively used GitHub throughout the internship, starting with a personal repository to safely experiment, back up my work, and learn best practices in version control such as branching, merge requests, code reviews, rebasing, issue tracking, and the use of Copilot. 
 Once I became comfortable with these tools, I progressively contributed directly to the company’s repositories by submitting merge requests, particularly to integrate my models and training pipelines into the production codebase.
 
-I use a software which is called Weights \& Biases (wandb) to track my model training and to store both training results and model weights.
-
-The main goal is to keep a complete history of each training run by logging metrics such as the training loss and validation loss. 
-This allows me to visualize how both losses evolve over time and to ensure that the model is not overfitting. 
-Moreover, I plot the results on the test dataset using wandb, including different metrics and the various states of the samples.
+The model training was tracked online using the Weight \& Biases software. 
+It provides a code framework and interface to store and display customized content, such as the trained model weights, the evolution of metrics over the training, or even some input and output volumes for a quick visual comparison.
 
 The most important use of wandb in my workflow is the storage of model weights. 
 This is particularly useful because the trained models can be saved directly on the platform and later retrieved via the API for evaluation or testing. 
@@ -494,7 +491,7 @@ Two main methods can be used for this purpose:
     At the center of k-space are low spatial frequencies that encode global intensity and contrast; at the edges are high spatial frequencies that encode fine details and boundaries.
 
     Undersampling masks are being used to fasten the acquisition by not taking all the information in the k-space.
-    It is basicaly a binary sampling pattern applied to k-space, where a value of 1 indicates that a k-space location is acquired and a value of 0 indicates that it is omitted.
+    It is basically a binary sampling pattern applied to k-space, where a value of 1 indicates that a k-space location is acquired and a value of 0 indicates that it is omitted.
     It typically preserve the center of k-space as much as possible because it contains the most important information for reconstruction.
 \end{itemize}
 
@@ -690,7 +687,7 @@ In the case of undersampled acquisitions, the noise is added directly in k-space
 A zero-mean Gaussian distribution with a standard deviation of 200 is applied independently to both the real and imaginary components, as the data are complex-valued in the frequency domain. 
 This value was empirically chosen based on multiple experiments to visually match the noise level observed in real low-field MRI acquisitions.
 
-Furthermore, the noise can vary accros k-space. 
+Furthermore, the noise can vary accross k-space. 
 Due to the sampling density variations induced by the mask, certain regions contain more samples than others. 
 For instance, in the \texttt{decay\_cartesian} trajectory, the \texttt{density\_decay} parameter leads to a higher concentration of samples in the center of k-space. 
 In these regions, the effective noise level should be lower due to increased redundancy of information.
@@ -756,13 +753,13 @@ The complete training pipeline is organized into five main components:
 
 The following sections describe each component in detail and explained how they are combined into a complete training pipeline.
 
-\paragraph{organization of my training pipeline}
-\paragraph{preprocessing script}
+\paragraph{Organization of my training pipeline}
+\paragraph{Preprocessing script}
 
 
 First of all, before launching the training pipeline, a preprocessing script can be used to reduce the image resolution and ensure that all samples have
 a consistent size as explained earlier. The processed data are saved in a separate folder, allowing the training pipeline to directly use these lower-resolution samples.
-This reduces computational cost and speeds up the training process as explain above.
+This reduces computational cost and speeds up the training process as explained above.
 
 
 During preprocessing, two segmentation masks are also saved with the new dataset. The first mask is designed to keep only
@@ -828,8 +825,8 @@ Moreover, the dataset also provides two segmentation masks for each sample, as p
 These timestamps are available for all acquisitions in the dataset and indicate the exact acquisition time of each MRI scan.
 
 
-The times-tamps of each acquisitions represent how long it took the MRI to get the acquisition. It is very important for us because by having the time-stamps you can easily
-separate the acquisitions in the testing phase, so we can see the dynamic of the contrast over time.
+The timestamps of each acquisitions represent how long it took the MRI device to get the acquisition. 
+It is quite important for us because by having the timestamps you can easily separate the acquisitions in the testing phase, so we can see the dynamic of the contrast over time.
 
 
 At the end, this class can return the post-contrast images, the accelerated pre-contrast images, the ground truth, the two segmentation masks, and the timestamps.
@@ -853,13 +850,13 @@ The neural network is the core component of the training pipeline.
 It receives the pre-contrast and accelerated post-contrast acquisitions as inputs and aims to reconstruct the corresponding high-quality post-contrast image. 
 Its architecture defines how information is processed through the different layers, while its trainable parameters (weights and biases) are optimized during training.
 
-\paragraph{training script}
+\paragraph{Training script}
 
 The training script is important because it directly affects how the model learns. In deep learning, the dataset is typically split into a
 training set and a validation set. The training set is used to optimize the model, while the validation set is used during training to monitor
 performance and tune hyperparameters. Unlike the validation set, the test set is only used at the end to evaluate the model on unseen data.
 
-\paragraph{Risk of training}
+\paragraph{Training Risk}
 
 We need both a training dataset and a validation dataset to ensure that the model does not overfit. Overfitting occurs when a model performs very
 well on the data it was trained on but poorly on new, unseen data. Therefore, using separate datasets is essential to assess the model's ability
@@ -895,7 +892,7 @@ them is that the MSE is more sensitive to outliers because larger errors are pen
 It is also possible to combine these two loss functions. In my case, I chose the MSE because I did not expect a significant number of outliers in the data.
 
 
-\paragraph{The gradient descent}
+\paragraph{Gradient descent}
 Gradient descent is an important optimization method used to minimize the cost function in our case the loss by progressively adjusting the model parameters which are
 mainly the weights and biases.
 
@@ -905,7 +902,7 @@ which controls the size of each update step during optimization. If the learning
 it must be carefully tuned. I chose a lr of 0.0001 whichs slow down a bit the training but allows finding quite well the convergence of the cost function.
 
 
-\paragraph{backpropagation}
+\paragraph{Backpropagation}
 
 
 Backpropagation works together with gradient descent. It computes the gradient of the loss function layer by layer, starting from the output layer and moving
@@ -916,7 +913,7 @@ In other words, backpropagation calculates how each parameter contributes to the
 parameters.
 
 
-\paragraph{epoch}
+\paragraph{Epoch}
 
 
 An epoch represents each time all the samples from our dataset have gone through the model. At the end of each epoch, the average training loss and validation loss are computed.
@@ -946,7 +943,7 @@ This part describes how deep learning is performed using a neural network and a 
 All these different components are then integrated and managed through the main script, which controls the entire training pipeline.
 
 
-\paragraph{main}
+\paragraph{Main script}
 
 The main script controls the entire training pipeline. It manages the preprocessing script, the LoadingFastMRIBreastDataset3D class as well as all the training steps described above. 
 It's also saves the model on Weights \& Biases (wandb) and evaluates it using different metrics that will be explained later. To start the training, I run this main script,
@@ -1041,7 +1038,7 @@ It stabilizes learning by making the model's activations more consistent across 
 In the other way Instance Normalization, it doesn’t directly improve training speed or stability, but it helps to preserve individual image characteristics.
 
 
-\paragraph{Maxpooling}
+\paragraph{Max Pooling}
 
 
 Maxpooling is an operation typically used in CNN because it reduces the spatial by sliding the 3D window and taking the maximum value in each region.
@@ -1172,7 +1169,7 @@ To evaluate the contrast enhancement, RMSE, PSNR, and SSIM are not suitable beca
 These metrics are very efficient to compare the entire sample but they do not accurately reflect the quality of the contrast reconstruction.
 
 Instead, the temporal evolution of the contrast intensity is analyzed. 
-For each sample, the mean intensity only ine the segmented contrast region is computed for every acquisition. 
+For each sample, the mean intensity only in the segmented contrast region is computed for every acquisition. 
 The resulting intensity curves are then plotted for both the model output and the ground truth.
 
 The objective is for the reconstructed intensity curve to closely follow the ground-truth curve. 
@@ -1230,10 +1227,10 @@ In the second phase, we will focus on testing different Deep Learning network wi
 The first phase of this work focused on developing a robust training pipeline and a reliable evaluation framework to demonstrate that deep learning models were capable of enhancing post-contrast images by exploiting both pre-contrast and post-contrast information.
 The objective of the second phase is to compare different Deep Learning network on a more realistic reconstruction task by generating input data that better reflects the characteristics of low-field MRI acquisitions.
 
-In the initial pipeline, the network received two inputs: a pre-contrast image, which was fully sampled without noise, and a post-contrast image, which was undersampled and corrupted with noise to simulate a low-field MRI acquisition. 
+In the initial pipeline, the network received two inputs: a pre-contrast image, fully sampled without noise, and a post-contrast image, undersampled and corrupted with noise to simulate a low-field MRI acquisition. 
 While this setup allowed the models to learn the reconstruction task, it did not accurately represent real acquisition conditions. 
 In practice, even a pre-contrast scan acquired on a low-field MRI system contains measurement noise.
-Moreover, it's annoying for the patient to first undergoes a full pre-contrast MRI acquisition and after to do several short post-contrast acquisitions.
+Moreover, it is unconvenient for the patient to first undergo a full pre-contrast acquisition to later do multiple additional post-contrast acquisitions.
 
 To better reproduce these conditions, we generated a single long acquisition acquired from the pre-contrast to the post-contrast.
 Then we calculate the average that we will use as the input.
@@ -1553,7 +1550,7 @@ Since the training process is not fully reproducible, the performance metrics ma
 Therefore, each model was trained using 10 different random seeds to evaluate the variability of its results. 
 A higher variability indicates that the model's performance is less consistent, making it more difficult to reliably assess it's true performance.
 
-\paragraph{variability accros 10 seeds}
+\paragraph{Variability accross 10 seeds}
 
 As explain above for comparing different model architectures, it is important to evaluate their variability across multiple random seeds. 
 Indeed, high variability across seeds increases the uncertainty of the reported performance, making it difficult to accurately assess the true behavior of a model.
@@ -1710,9 +1707,9 @@ We observe slightly better results for the MHA block in terms of both relative e
 However, since the differences between the models are relatively small, we reach the same conclusion as in the full-sample analysis: the preferred model is the simplest one that achieves comparable performance. 
 In our case, this corresponds to the standard NoNewNet architecture.
 
-\subsubsection{Over way of improvement} 
+\subsubsection{Other improvements} 
 
-There are some way of improoving the result without changing the network.
+There are additional ways of improving the result without changing the network.
 
 \paragraph{Training with all acquisition}
 
@@ -1771,7 +1768,7 @@ the minimum time for the network to enhance the full sample and the contrast.
 Now that a realistic experimental setting has been established, better reflecting the conditions encountered in low-field MRI, and that a suitable deep learning network for contrast enhancement has been identified, the project can move to its final phase.
 The objective of this last phase is to determine how much the acquisition time can be reduced while still preserving sufficient image quality and contrast enhancement.
 
-To achieve clinically relevant results, all experiments are performed using the spatial resolution targeted by Chipiron which is 4 × 2 × 2 mm. 
+To achieve clinically relevant results, all experiments are performed using the spatial resolution of 4 × 2 × 2 mm targeted by Chipiron. 
 Since the acquisition time directly depends on the acquisition parameters, modifying the spatial resolution also affects the scan duration.
 
 The main objective is therefore to investigate the trade-off between acquisition speed and reconstruction quality. 
@@ -1781,7 +1778,7 @@ By comparing the enhancement performance obtained with each configuration, we ai
 \subsubsection{Conception}
 
 First of all we need to try different acquisition time for each trajectories.
-Each acquisisition has a resolution of 4 × 2 × 2 mm with a shape of 40 × 160 × 160.
+Each acquisition has a resolution of 4 × 2 × 2 mm with a shape of 40 × 160 × 160.
 The total number of shot if we want to acquire the full sample k-space is $6400$ ($40 \times 160$).
 Then when we reduce this factor from $1$ to $1/4$, it means that there are 4 times less shot so the acquisitions is 4 times faster.
 The goal is to test different undersampling factors and compare the results in order to determine the limit at which the network can still enhance both contrast and samples while maintaining acceptable performance.
