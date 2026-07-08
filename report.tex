@@ -7,17 +7,13 @@
 \usepackage{pdfpages}
 \usepackage{subcaption}
 \usepackage{hyperref}
+\usepackage{pdfpages}
 \begin{document}
+
+\includepdf[pages=1]{image/Rapport de stage de fin détudes Page de Garde - Promo 2026.pdf}
+
 \tableofcontents
 \newpage
-
-\section*{Introduction}
-\addcontentsline{toc}{section}{Introduction}
-
-\section{Requirements Specification and Preliminary Planning}
-\subsection{Requirements Specification}
-
-\subsection{Preliminary Planning of Tasks}
 
 \section{Project Presentation}
 \subsection{Company Context}
@@ -103,9 +99,9 @@ This idea is not new: since the early days of MRI, engineers have attempted to b
 However, none of these efforts have yet achieved large-scale clinical adoption due to multiple technical and physical constraints.
 
 In fact, MRI at low magnetic field strengths remains challenging. 
-The lower field strength reduces the signal-to-noise ratio (SNR), leading to noisier images.
-In addition, as low-field MRI systems are still relatively new, their hardware is less mature and optimized than that of conventional high-field scanners, which can further degrade image quality.
-Since SNR is a major determinant of image quality, a lower SNR requires a trade-off between acquisition time and spatial resolution: image quality can be improved either by increasing the acquisition time or by reducing the spatial resolution.
+The lower field strength alone reduces the signal levels, leading to lower signal-to-noise (SNR) ratio.
+The hardware is also less mature and optimized than that of conventional high-field scanners, leading to increased noise and artifacts but also affecting robustness.
+Since SNR is a major determinant of image quality, it needs to be improved by repeating acquisitions, leading to longer exams or alternatively to reduced image resolution as a trade-off to save time.
 
 Moreover, magnetic field strength is by no means the only driver of image quality. 
 Images produced on 1.5~T scanners have improved tremendously since the 1990s, largely thanks to major advances in hardware such as stronger and more sensitive receiver coils, improved gradient systems, and the advent of parallel imaging alongside software improvements, which are no less vital than hardware.
@@ -180,7 +176,19 @@ This approach would allow the technology to demonstrate its reliability and clin
 After establishing the performance and credibility of the MRI system, the objective would be to expand its adoption across larger healthcare institutions, including hospitals. 
 
 \subsection{Hosting Department or Service}
-% organigramme (Presentation of the different teams)
+At Chipiron there are different hosting departments the main ones are the hardware team and software team.
+My hosting department is the software team and in the software team I was part of the AI team. 
+The software team is composed of 4 peoples: Nina Gidel-Dissier, who is the AI Engineering Manager, Guillaum Daval-Frérot and Angelo Franciosini who are both my supervisors.
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Lucca - Employees Chart.png}
+    \caption{Employees Chart}
+    \label{fig:Employees Chart}
+    \vspace{0.5cm}
+\end{figure}
+
 \subsection{Purpose of the Mission for the Company}
 
 In MRI, contrast agents such as gadolinium are used to help determine whether a lesion is benign or malignant.
@@ -225,9 +233,24 @@ As illustrated in the graph, the goal of the neural network is to achieve the be
 Apart from working on deep learning models, I also need to evaluate which trajectory configurations are optimal to achieve the fastest possible acquisition while preserving the best image quality and contrast enhancement.
 
 \section{Corporate Social Responsibility (CSR) Policy}
+Corporate Social Responsibility (CSR) refers to the responsibility of organizations for their impacts on society and the environment. 
+According to ISO 26000, CSR is based on seven key principles: 
+accountability, transparency, ethical behaviour, respect for stakeholder interests, respect for the rule of law, respect for international norms of behaviour, and respect for human rights.
 
-\section{Description of the Work Performed}
-\subsection{Project Development Strategy}
+Chipiron is integrating CSR in it's development strategy.
+\paragraph{accountability}
+\paragraph{transparency}
+\paragraph{ethical behaviour}
+\paragraph{respect for stakeholder interests}
+\paragraph{respect for the rule of law}
+\paragraph{respect for international norms of behaviour}
+\paragraph{respect for human rights}
+
+
+\section{Requirements Specification and Preliminary Planning}
+
+\subsection{Requirements Specification}
+% \subsection{Project Development Strategy}
 It was essential to structure the project by progressing step by step. 
 The idea was to begin with a simple problem and gradually introduce additional challenges, ultimately leading to the original research problem.
 
@@ -249,6 +272,35 @@ Finally, after evaluating the different models in these more realistic condition
 This included refining the preprocessing steps, training procedures, and trajectories config parameters to further improve the reconstruction quality.
 
 Doing all that would allow us to answer the main research question: which acquisition trajectory and which model provide the fastest acquisition while achieving the best contrast reconstruction and the most efficient sampling strategy?
+
+\subsection{Preliminary Planning of Tasks}
+
+\paragraph{Months 1-2}
+
+\begin{itemize}
+    \item \textbf{Week 1-2:} Literature review (focus on "Reference-based MRI Reconstruction"). Setup Python environment.
+    \item \textbf{Week 3-4:} Data Curation. Build the data loader.
+    \item \textbf{Week 4-8:} Implement a standard reconstruction network (e.g., U-Net) with a functional training pipeline. 
+    Establishes baseline performance using relevant metrics (PSNR, SSIM, RMSE), for undersampling and noise.
+\end{itemize}
+
+\paragraph{Months 2-4}
+
+\begin{itemize}
+    \item \textbf{Week 8-12:} Refine the architecture (e.g., try different blocks, loss functions, or MRI specific architecures).
+    Run quantitative and qualitative checks on new solutions (did we hallucinate tumors? Did we preserve contrast wash-in curves?).
+    \item \textbf{Week 12-16:} Work on a more realistic dynamic transition (pipeline modification).
+    mid-term presentation.
+\end{itemize}
+
+\paragraph{Months 4-6}
+
+\begin{itemize}
+    \item \textbf{Week 16-20:} Joint optimization: Iterate between optimizing undersampling strategies and reconstruction pipelines.
+    \item \textbf{Week 20-24:} Writing the thesis/report and preparing the final internship presentation. Packaging the code for the team.
+\end{itemize}
+
+\section{Description of the Work Performed}
 
 \subsection{1st part: Initial Model Development and Evaluation Framework} 
 
@@ -308,7 +360,7 @@ First of all, to run my experiments and models, I worked with two different data
 % GPU
 \paragraph{Tools and framework}
 \mbox{}\\
-To train my models within reasonable time constraints, we relied on several GPUs with different computational capacities.
+To train my models within reasonable time constraints, we relied on several GPUs with different computational capacities. 
 The computational resources used during the internship were the following:
 \begin{itemize}
     \item \textit{Leviathan}: a server equipped with a 16~GB GPU, mainly used for running experiments and storing the FastMRI Breast and Mamamia datasets.
@@ -390,7 +442,7 @@ This allows the majority of the dataset to be normalized more effectively while 
 % undersampling
 \subsubsection{undersampling vs downsampling}
 \mbox{}\\
-As explained earlier, in order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition.
+As explained earlier, in order to accelerate the acquisition and to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition. 
 The two datasets used in this work contain fully sampled data; therefore, all samples must be artificially degraded to simulate data acquired from a low-field MRI system with accelerated acquisition.
 
 Two main methods can be used for this purpose:
@@ -1449,11 +1501,7 @@ Indeed, high variability across seeds increases the uncertainty of the reported 
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-<<<<<<< HEAD
-    \includegraphics[width=0.75\textwidth]{\detokenize{image/Model variability.png}}
-=======
     \includegraphics[width=0.75\textwidth]{image/Difference variability 10 seeds.png}
->>>>>>> 8b84df9 (Guillaume and Angelo comments + Finishing all the part description of the work Performed + litlle change on project presentation and conclusion)
     \caption{Model variability}
     \label{fig:Model variability}
     \vspace{0.5cm}
@@ -1516,15 +1564,9 @@ By comparing the regression lines of the different models with the identity line
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-<<<<<<< HEAD
-    \includegraphics[width=0.75\textwidth]{\detokenize{image/contrast quantitative evaluation.png}}
-    \caption{contrast quantitative evaluation}
-    \label{fig:contrast quantitative evaluation}
-=======
     \includegraphics[width=0.75\textwidth]{image/Quantitative relative enhancement.png}
     \caption{Quantitative relative enhancement}
     \label{fig:Quantitative relative enhancement}
->>>>>>> 8b84df9 (Guillaume and Angelo comments + Finishing all the part description of the work Performed + litlle change on project presentation and conclusion)
     \vspace{0.5cm}
 \end{figure}
 
