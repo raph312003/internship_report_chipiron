@@ -103,16 +103,9 @@ This idea is not new: since the early days of MRI, engineers have attempted to b
 However, none of these efforts have yet achieved large-scale clinical adoption due to multiple technical and physical constraints.
 
 In fact, MRI at low magnetic field strengths remains challenging. 
-<<<<<<< HEAD
-The lower field strength alone reduces the signal levels, leading to lower signal-to-noise (SNR) ratio.
-The hardware is also less mature and optimized than that of conventional high-field scanners, leading to increased noise and artifacts but also affecting robustness.
-Since SNR is a major determinant of image quality, it needs to be improved by repeating acquisitions, leading to longer exams or alternatively to reduced image resolution as a trade-off to save time.
-=======
-The lower field strength reduces the signal-to-noise ratio (SNR), leading to noisier images. 
+The lower field strength reduces the signal-to-noise ratio (SNR), leading to noisier images.
 In addition, as low-field MRI systems are still relatively new, their hardware is less mature and optimized than that of conventional high-field scanners, which can further degrade image quality.
-Consequently, the SNR is reduced. 
 Since SNR is a major determinant of image quality, a lower SNR requires a trade-off between acquisition time and spatial resolution: image quality can be improved either by increasing the acquisition time or by reducing the spatial resolution.
->>>>>>> 8b84df9 (Guillaume and Angelo comments + Finishing all the part description of the work Performed + litlle change on project presentation and conclusion)
 
 Moreover, magnetic field strength is by no means the only driver of image quality. 
 Images produced on 1.5~T scanners have improved tremendously since the 1990s, largely thanks to major advances in hardware such as stronger and more sensitive receiver coils, improved gradient systems, and the advent of parallel imaging alongside software improvements, which are no less vital than hardware.
@@ -216,15 +209,12 @@ However, accelerating the acquisition process generally leads to a degradation i
 More precisely, accelerating the acquisition means acquiring fewer samples in k-space, which is the frequency domain where the MRI signal is encoded.
 By accelerating the acquisition, as explained earlier, the SNR decreases.
 Therefore, the objective of this internship is to evaluate different Deep Learning models capable of enhancing image quality after accelerated MRI acquisition, while preserving sufficient temporal and spatial information to accurately analyze the contrast enhancement dynamics over time.
-<<<<<<< HEAD
-Apart from working on deep learning models, we also need to evaluate which trajectory configurations are optimal to achieve the fastest possible acquisition while preserving the best image quality and contrast enhancement.
-=======
 In MRI, accelerating an acquisition means reducing the amount of acquired k-space data, allowing the image to be reconstructed in a shorter acquisition time.
 
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Project summary.png}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Project summary.png}}
     \caption{Neural network helping on gaining acquisition time}
     \label{fig:Neural network helping on gaining acquisition time}
     \vspace{0.5cm}
@@ -233,7 +223,6 @@ In MRI, accelerating an acquisition means reducing the amount of acquired k-spac
 As illustrated in the graph, the goal of the neural network is to achieve the best possible trade-off between acquisition time and image quality, reducing scan time while preserving sufficient image quality.
 
 Apart from working on deep learning models, I also need to evaluate which trajectory configurations are optimal to achieve the fastest possible acquisition while preserving the best image quality and contrast enhancement.
->>>>>>> 8b84df9 (Guillaume and Angelo comments + Finishing all the part description of the work Performed + litlle change on project presentation and conclusion)
 
 \section{Corporate Social Responsibility (CSR) Policy}
 
@@ -319,20 +308,12 @@ First of all, to run my experiments and models, I worked with two different data
 % GPU
 \paragraph{Tools and framework}
 \mbox{}\\
-<<<<<<< HEAD
-To train my models within reasonable time, I relied on several GPUs with different computational capacities. 
-The first one, named \textit{Leviathan}, had 16~GB of GPU memory. 
-I mainly ran my code on this machine and used its disk storage to host the FastMRI Breast and Mamamia datasets. 
-I also had access to a second GPU, \textit{Cthulhu}, which was significantly more powerful with 49~GB of memory. 
-It was used for training larger and more computationally demanding models. 
-=======
-To train my models within reasonable time constraints, we relied on several GPUs with different computational capacities. 
+To train my models within reasonable time constraints, we relied on several GPUs with different computational capacities.
 The computational resources used during the internship were the following:
 \begin{itemize}
     \item \textit{Leviathan}: a server equipped with a 16~GB GPU, mainly used for running experiments and storing the FastMRI Breast and Mamamia datasets.
     \item \textit{Cthulhu}: a more powerful server with a 49~GB GPU, dedicated to training larger and more computationally demanding models.
 \end{itemize}
->>>>>>> 8b84df9 (Guillaume and Angelo comments + Finishing all the part description of the work Performed + litlle change on project presentation and conclusion)
 
 I extensively used GitHub throughout the internship, starting with a personal repository to safely experiment, back up my work, and learn best practices in version control such as branching, merge requests, code reviews, rebasing, issue tracking, and the use of Copilot. 
 Once I became comfortable with these tools, I progressively contributed directly to the company’s repositories by submitting merge requests, particularly to integrate my models and training pipelines into the production codebase.
@@ -409,14 +390,8 @@ This allows the majority of the dataset to be normalized more effectively while 
 % undersampling
 \subsubsection{undersampling vs downsampling}
 \mbox{}\\
-<<<<<<< HEAD
-
-In order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition. 
-The two datasets used in this work contain clean data; therefore, all samples must be artificially degraded to simulate data acquired from a low-field MRI system with accelerated acquisition.
-=======
-As explained earlier, in order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition. 
+As explained earlier, in order to accelerate the acquisition in order to capture wash-in and wash-out effects, the samples must be degraded, since this reflects the physical constraints of MRI acquisition.
 The two datasets used in this work contain fully sampled data; therefore, all samples must be artificially degraded to simulate data acquired from a low-field MRI system with accelerated acquisition.
->>>>>>> 8b84df9 (Guillaume and Angelo comments + Finishing all the part description of the work Performed + litlle change on project presentation and conclusion)
 
 Two main methods can be used for this purpose:
 
@@ -598,7 +573,7 @@ These angles can follow different strategies, such as uniform spacing or a golde
         \label{fig:stack_of_radial_trajectories}
     \end{subfigure}
     \caption{Visualization of the radial sampling pattern}
-    \label{fig:cartesian_sampling}
+    \label{fig:radial_sampling}
 \end{figure}
 
 Finally, the \texttt{phyllotaxis\_radial} trajectory does not introduce additional tunable parameters, as it shares the same configuration as the \texttt{stack\_of\_radial} setup.
