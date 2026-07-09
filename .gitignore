@@ -6,3 +6,6 @@
 *.synctex.gz
 *.bbl
 *.blg
+report.pdf
+*.out
+*.Identifier
