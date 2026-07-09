@@ -7,7 +7,10 @@
 \usepackage{pdfpages}
 \usepackage{subcaption}
 \usepackage{hyperref}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}   
 \begin{document}
+
 
 \includepdf[pages=1]{image/Page de garde Promo 2026.pdf}
 
@@ -1685,7 +1688,7 @@ A slope closer to 1 indicates that the regression is closer to the ground truth,
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/slop contrast ratio.png}
+    \includegraphics[width=0.75\textwidth]{image/Slope model variability for CR across 10 seeds.png}
     \caption{Slope contrast ratio}
     \label{fig:Slope contrast ratio}
     \vspace{0.5cm}
@@ -1696,7 +1699,7 @@ This plot shows the variability of the slope over 10 seeds for the contrast rati
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/slop relative enhancement.png}
+    \includegraphics[width=0.75\textwidth]{image/Slope model variability for RE across 10 seeds.png}
     \caption{Slope relative enhancement}
     \label{fig:slope relative enhancement}
     \vspace{0.5cm}
@@ -1711,7 +1714,7 @@ An error closer to 0 indicates that the dispersion error is weak, whereas a disp
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/error contrast ratio.png}
+    \includegraphics[width=0.75\textwidth]{image/Error variability for CR across 10 seeds.png}
     \caption{Contrast ratio dispersion error}
     \label{fig:error contrast ratio}
     \vspace{0.5cm}
@@ -1722,7 +1725,7 @@ This plot shows the dispersion error over 10 seeds for the CR. We can see that e
 \begin{figure}[H]
     \centering
     \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/error relative enhancement.png}
+    \includegraphics[width=0.75\textwidth]{image/Error variability for RE across 10 seeds.png}
     \caption{Relative enhancement dispersion error}
     \label{fig:error relative enhancement}
     \vspace{0.5cm}
