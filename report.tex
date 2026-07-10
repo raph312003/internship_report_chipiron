@@ -178,18 +178,9 @@ This approach would allow the technology to demonstrate its reliability and clin
 After establishing the performance and credibility of the MRI system, the objective would be to expand its adoption across larger healthcare institutions, including hospitals. 
 
 \subsection{Hosting Department or Service}
-Chipiron is organized into several departments, the main ones being the hardware team and the software team.
-Our hosting department was the software team, within which we were part of the AI team.
-The software team is composed of four people: Nina Gidel-Dissier, who is the AI Engineering Manager, and Guillaume Daval-Frérot and Angelo Franciosini, who were both our supervisors.
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Employees_Chart.png}
-    \caption{Employees Chart}
-    \label{fig:Employees Chart}
-    \vspace{0.5cm}
-\end{figure}
+Chipiron is organized into several departments, the main ones being the hardware team and the software team \ref{fig:Employees Chart}.
+Our hosting department was the software team, within whichI was part of the AI team.
+The software team is composed of four people: Nina Gidel-Dissier, who is the AI Engineering Manager, and Guillaume Daval-Frérot and Angelo Franciosini, who were both my supervisors.
 
 \subsection{Purpose of the Mission for the Company}
 
@@ -201,17 +192,8 @@ The objective is to observe how the signal intensity evolves over time after the
 A malignant lesion typically presents a rapid increase in signal intensity followed by a rapid decrease. 
 This behavior is referred to as the \textit{wash-in/wash-out} phenomenon and is associated with a high probability of malignancy \cite{washinwashout}.
 In contrast, a benign lesion generally shows a slower enhancement and tends to maintain a high signal intensity over a longer period of time, indicating a lower risk of malignancy.
-For example, in Figure~\ref{fig:dynamic_curve}, the lesion is likely benign because the signal intensity decreases slowly over time after the initial contrast enhancement.
+For example, in Figure \ref{fig:dynamic_curve}, the lesion is likely benign because the signal intensity decreases slowly over time after the initial contrast enhancement.
 % Show an example of benign lesion and malign lesion
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/example_curve.png}
-    \caption{Dynamic contrast enhancement curves illustrating benign and malignant lesion behaviors}
-    \label{fig:dynamic_curve}
-    \vspace{0.5cm}
-\end{figure}
 
 The more aggressive the lesion is, the faster the acquisition must be in order to correctly capture the wash-in and wash-out dynamics.
 Consequently, MRI acquisitions need to be accelerated. 
@@ -220,16 +202,7 @@ More precisely, accelerating the acquisition means acquiring fewer samples in k-
 By accelerating the acquisition, as explained earlier, the SNR decreases.
 Therefore, the objective of this internship is to perform a feasibility study to evaluate different deep learning models capable of enhancing image quality after accelerated MRI acquisition, while preserving sufficient temporal and spatial information to accurately analyze the contrast enhancement dynamics over time.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{\detokenize{image/Project summary.png}}
-    \caption{Neural network helping on gaining acquisition time}
-    \label{fig:Neural network helping on gaining acquisition time}
-    \vspace{0.5cm}
-\end{figure}
-
-As illustrated in Figure~\ref{fig:Neural network helping on gaining acquisition time}, the goal of the neural network is to achieve the best possible trade-off between acquisition time and image quality, reducing scan time while preserving sufficient image quality.
+As illustrated in Figure \ref{fig:Neural network helping on gaining acquisition time}, the goal of the neural network is to achieve the best possible trade-off between acquisition time and image quality, reducing scan time while preserving sufficient image quality.
 
 Apart from working on deep learning models, it is also important to evaluate which trajectory configurations are optimal to achieve the fastest possible acquisition while preserving the best image quality and contrast enhancement.
 
@@ -359,18 +332,9 @@ While undersampling techniques can be used to accelerate MRI acquisitions and re
 The challenge is to acquire images fast enough to accurately capture contrast dynamics, while preserving sufficient image quality for clinical interpretation.
 The idea behind this approach is that, apart from the contrast enhancement, the anatomical structures remain largely unchanged between acquisitions.
 Therefore, the high-quality pre-contrast volume provides valuable structural information that can assist the reconstruction of the global accelerated post-contrast images.
-By adding both volumes to the network, the model is encouraged to focus on the contrast-related changes rather than relearning anatomical
-information already available in the pre-contrast image. This allows the reconstruction process to better preserve and recover the clinically
-relevant contrast enhancement while benefiting from the high-quality structural reference.
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/training_pipeline.png}
-    \caption{Training pipeline representation}
-    \label{fig:Training_pipeline_representation}
-    \vspace{0.5cm}
-\end{figure}
+The figure \ref{fig:Training_pipeline_representation} illustrates the proposed training pipeline, where both pre-contrast and accelerated post-contrast volumes are used as inputs to the network.
+By adding both volumes to the network, the model is encouraged to focus on the contrast-related changes rather than relearning anatomical information already available in the pre-contrast image. 
+This allows the reconstruction process to better preserve and recover the clinically relevant contrast enhancement while benefiting from the high-quality structural reference.
 
 To validate this approach, it was first necessary to build a robust training pipeline, including both data preprocessing and model training.
 Once this pipeline was established, we implemented and compared several relatively simple neural network architectures. 
@@ -439,19 +403,9 @@ The in-plane resolution was reduced by a factor of 4, while the slice (through-p
 These reduction factors were chosen empirically with the main objective of decreasing computational cost rather than preserving strict physical consistency.
 The downsampling was performed using a simple subsampling strategy, where, for example, a factor of 2 consists of retaining one slice out of two, without introducing any noise.
 
-This resizing inevitably changes the spatial resolution of the data, increasing the voxel size from approximately 1.1 × 1.0 × 1.0 mm to 3.3 × 4.0 × 4.0 mm.
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Resolution_difference.png}
-    \caption{Resolution comparison}
-    \label{fig:Resolution_difference}
-    \vspace{0.5cm}
-\end{figure}
+This resizing inevitably changes the spatial resolution of the data, increasing the voxel size from approximately 1.1 × 1.0 × 1.0 mm to 3.3 × 4.0 × 4.0 mm as shown in figure \ref{fig:Resolution_difference}.
 
 In the context of Chipiron, the target is to achieve a final resolution of 4.0 × 2.0 × 2.0 mm, so the final tests will be performed at this resolution.
-
 
 The MAMA-MIA dataset introduces additional complexity due to variable input dimensions across samples, which required adapting the preprocessing pipeline to allow flexible resizing by directly specifying the desired output shape rather than relying on fixed per-axis configurations.
 
@@ -615,26 +569,7 @@ The \texttt{keep\_edges} parameter determines whether to keep the k-space edges 
 
 Finally, the \texttt{sampling\_method} defines how shots are selected according to the prescribed density.
 Three strategies are available: \texttt{random}, which performs stochastic sampling based on the density map; \texttt{lloyd}, which generates a pseudo-random distribution with improved spatial regularity through an iterative optimization approach; and \texttt{topk}, which uses the same spaced distribution as \texttt{lloyd} but selects only the points at the center.
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{image/decay_cartesian_mask.png}
-        \caption{2D slice of the Cartesian sampling mask}
-        \label{fig:decay_cartesian_mask}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{image/decay_cartesian_trajectories.png}
-        \caption{3D Cartesian trajectories}
-        \label{fig:decay_cartesian_trajectories}
-    \end{subfigure}
-    \caption{Visualization of the Cartesian sampling pattern}
-    \label{fig:cartesian_sampling}
-\end{figure}
-
+This figure \ref{fig:cartesian_sampling} illustrates the decay\_cartesian trajectories in 2D and 3D.
 
 For the \texttt{stack\_of\_radial} trajectory, several parameters control the sampling pattern in k-space.
 
@@ -649,39 +584,12 @@ In our case, this corresponds to
 The parameters \texttt{spoke\_tilt} and \texttt{stack\_tilt} control the angular distribution of the radial spokes. 
 They define how successive spokes are rotated within each slice and across slices. 
 These angles can follow different strategies, such as uniform spacing or a golden-angle scheme, which helps improve k-space coverage and is particularly beneficial for dynamic imaging.
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \centering
-        \includegraphics[width=0.75\textwidth]{image/stack_of_radial_mask.png}
-        \caption{2D slice of the radial sampling mask}
-        \label{fig:stack_of_radial_mask}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \centering
-        \includegraphics[width=0.75\textwidth]{image/stack_of_radial_trajectories.png}
-        \caption{3D Radial trajectories}
-        \label{fig:stack_of_radial_trajectories}
-    \end{subfigure}
-    \caption{Visualization of the radial sampling pattern}
-    \label{fig:radial_sampling}
-\end{figure}
+This figure \ref{fig:radial_sampling} illustrates the stack\_of\_radial trajectories in 2D and 3D.
 
 Finally, the \texttt{phyllotaxis\_radial} trajectory does not introduce additional tunable parameters, as it shares the same configuration as the \texttt{stack\_of\_radial} setup.
-%check what is really changing
+This figure \ref{fig:phyllotaxis_radial_mask} illustrates the phyllotaxis\_radial trajectories in 2D.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/phyllotaxis_radial_mask.png}
-    \caption{2D slice of the phyllotaxis-radial sampling mask}
-    \label{fig:phyllotaxis_radial_mask}
-    \vspace{0.5cm}
-\end{figure}
-
-The parameters associated with the \texttt{stack\_of\_radial} and \texttt{decay\_cartesian} trajectories will be systematically explored in the third phase in order to assess their influence and identify the optimal configuration for each acquisition time.
+The parameters associated mostly with the \texttt{decay\_cartesian} trajectories will be systematically explored in the third phase in order to assess their influence and identify the optimal configuration for each acquisition time.
 One of the objectives of this internship is also to investigate which trajectory configuration best enhances dynamic contrast.
 
 % Talk about the noise
@@ -714,36 +622,8 @@ This ensures that regions with higher sampling density exhibit a reduced noise v
 
 Figures~\ref{fig:decay_cartesian_example}, \ref{fig:stack_of_radial_example} and \ref{fig:phyllotaxis_example} show examples of the resulting images, with the undersampling and the noise added depending on the mask used.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/decay_cartesian_example.png}
-    \caption{Undersampled \texttt{decay\_cartesian} images with and without noise}
-    \label{fig:decay_cartesian_example}
-    \vspace{0.5cm}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/stack_of_radial_example.png}
-    \caption{Undersampled \texttt{stack\_of\_radial} images with and without noise}
-    \label{fig:stack_of_radial_example}
-    \vspace{0.5cm}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/phyllotaxis_radial_example.png}
-    \caption{Undersampled \texttt{phyllotaxis\_radial} images with and without noise}
-    \label{fig:phyllotaxis_example}
-    \vspace{0.5cm}
-\end{figure}
-
 
 \subsubsection{Training pipeline}
-
 
 Now that the preprocessing stage has been completed and realistic low-field MRI data have been generated, including accelerated acquisitions obtained through undersampling techniques, the next step is to establish the training pipeline for the deep learning models.
 
@@ -772,17 +652,7 @@ This reduces computational cost and speeds up the training process as explained 
 During preprocessing, two segmentation masks are also saved with the new dataset. The first mask is designed to keep only
 the relevant region of each sample. In many acquisitions, large areas surrounding the object of interest contain only black pixels,
 which do not carry any useful information. Keeping these empty regions could negatively influence the model during the training, as it may learn to denoise
-or reconstruct irrelevant background areas instead of focusing on meaningful structures.
-
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/mask_ground_truth.png}
-    \caption{Mask Ground truth}
-    \label{fig:mask_ground_truth}
-    \vspace{0.5cm}
-\end{figure}
+or reconstruct irrelevant background areas instead of focusing on meaningful structures \ref{fig:mask_ground_truth}.
 
 
 The second mask is only available in the MAMA-MIA dataset and is not provided in the FastMRI Breast dataset. This segmentation mask specifically
@@ -792,17 +662,7 @@ The segmentation masks were initially generated automatically using a segmentati
 
 This mask is essential for studying the contrast dynamics, as it enables the analysis to focus exclusively on the enhanced regions rather
 than the entire breast. Additionally, it can be used in the training process to guide the model's attention toward contrast
-areas, which are often the most clinically relevant features, instead of treating all regions of the sample equally.
-
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/segmentation_contrast_mask.png}
-    \caption{Segmentation contrast mask}
-    \label{fig:segmentation_contrast_mask}
-    \vspace{0.5cm}
-\end{figure}
+areas, which are often the most clinically relevant features, instead of treating all regions of the sample equally \ref{fig:segmentation_contrast_mask}.
 
 The preprocessing script ensures that all images have the same spatial resolution and that the two corresponding segmentation masks are loaded for each sample. 
 It is applied to both the training and the test datasets. 
@@ -1144,7 +1004,7 @@ For each experiment, three evaluation metrics are used:
 \paragraph{Full-Sample Evaluation}
 \mbox{}\\
 
-The first evaluation consists of a qualitative and quantitative analysis of each sample coming out of the network. 
+The first evaluation consists of a qualitative and quantitative analysis of each sample generated by the network, as shown in Figure \ref{fig:full_sample_qualitative_evaluation}.
 Indeed, one of the most effective ways to assess the performance of a neural network is to visually compare its output with the corresponding ground truth.
 
 For each test, four images are displayed:
@@ -1164,7 +1024,7 @@ They are also computed between the input images (post-contrast and pre-contrast)
 This comparison is essential to verify that the network effectively improves the image quality. 
 If the reconstructed image does not achieve better metric values than the input images, it indicates that the network has failed to learn the desired mapping and may even degrade the image quality.
 
-The second row of the figure displays the absolute difference between each image and the ground truth. 
+The second row of the Figure \ref{fig:full_sample_qualitative_evaluation} displays the absolute difference between each image and the ground truth. 
 These error maps highlight the regions where the reconstruction differs the most from the reference image, allowing us to identify the anatomical structures that remain difficult for the network to reconstruct. 
 A color bar is used to facilitate the interpretation of the error magnitude.
 
@@ -1172,16 +1032,7 @@ Finally, the third row presents the signed difference between each image and the
 Unlike the previous row, the absolute value is not applied, making it possible to distinguish overestimation from underestimation. 
 Red regions indicate voxel intensities that are higher than the ground truth, blue regions correspond to lower intensities, and white regions represent negligible differences, indicating an accurate reconstruction.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{\detokenize{image/Full sample qualitative evaluation.png}}
-    \caption{Full sample qualitative evaluation}
-    \label{fig:full_sample_qualitative_evaluation}
-    \vspace{0.5cm}
-\end{figure}
-
-In this example, the output images are visually very close to the ground truth, both in appearance and in terms of the metrics compared to the input. 
+In the Figure \ref{fig:full_sample_qualitative_evaluation}, the output images are visually very close to the ground truth, both in appearance and in terms of the metrics compared to the input. 
 This test shows that, for this sample, the network is able to reconstruct the volume very accurately.
 
 %explanation of result
@@ -1194,37 +1045,18 @@ These metrics are very efficient to compare the entire sample but they do not ac
 
 Instead, the temporal evolution of the contrast intensity is analyzed.
 For each sample, the mean intensity within the segmented contrast region only is computed for every acquisition.
-The resulting intensity curves are then plotted for both the model output and the ground truth.
+The resulting intensity curves are then plotted for both the model output and the ground truth as shown in Figure \ref{fig:dynamic_contrast_intensity}.
 
 The objective is for the reconstructed intensity curve to closely follow the ground-truth curve. 
 A good match indicates that the network not only enhances the contrast but also correctly reproduces its temporal dynamics. 
 This is particularly important because the model should not generate a constant level of contrast enhancement across all acquisitions. 
 Instead, it must preserve the physiological evolution of the contrast agent over time, including both the wash-in and wash-out phases.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{\detokenize{image/Dynamic contrast intensity.png}}
-    \caption{Dynamic contrast intensity}
-    \label{fig:dynamic_contrast_intensity}
-    \vspace{0.5cm}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{\detokenize{image/Full sample contrast dynamic.png}}
-    \caption{Full sample contrast dynamic}
-    \label{fig:full_sample_contrast_dynamic}
-    \vspace{0.5cm}
-\end{figure}
-
-
-In this example, three curves are shown. 
+In Figure \ref{fig:dynamic_contrast_intensity}, three curves are displayed.
 The red curve represents the mean intensity of each segmentation for each network input acquisition of one patient.
-The blue curve represents the mean intensity of the network output after contrast reconstruction, while the black curve corresponds to the original contrast mean intensity.
+The blue curve represents the mean intensity of the network output after contrast reconstruction, while the black curve corresponds to the original (ground truth) contrast mean intensity.
 
-The second plot illustrates the evolution of the contrast for each sample.
+The Figure \ref{fig:full_sample_contrast_dynamic} illustrates the visual evolution of the contrast for each sample.
 The first row shows the input of the network, with the pre-contrast acquisition and all the post-contrast acquisitions.
 The second row shows the output of the network, with the post-contrast acquisitions that have been enhanced.
 The last row shows the ground truth for each acquisition.
@@ -1260,17 +1092,8 @@ To better reproduce these conditions, we generated a single long acquisition spa
 We then compute its average, which is used as the network input.
 Because this averaged acquisition combines multiple shots, it has a higher SNR and is therefore less noisy than any individual acquisition.
 This mean long acquisition is then used as the network input to enhance each noisy fast acquisition independently throughout the dynamic sequence.
+Figure \ref{fig:Training pipeline full acquisition} illustrates the training pipeline, where the average full acquisition is used as the first input and different pre- and post-contrast acquisitions are provided as the second input to the network.
 This modification significantly increased the difficulty of the reconstruction problem.
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Training pipeline full acquisition.png}
-    \caption{Training pipeline full acquisition}
-    \label{fig:Training pipeline full acquisition}
-    \vspace{0.5cm}
-\end{figure}
-
 
 Once this new acquisition paradigm had been established, the study was extended beyond the initial NoNew-Net architecture. 
 Several deep learning models were implemented and compared using a quantitative evaluation framework in order to identify the architecture best suited to this reconstruction task.
@@ -1518,17 +1341,7 @@ By doing this, we control the random generation in our pipeline and improve the 
 \paragraph{Full-Sample Evaluation}
 \mbox{}\\
 
-As explained in the first phase, the idea is to take one sample from the test dataset and visually compare the input and the output.
-
-% replace before-contrast by full sample acquisition
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{\detokenize{image/Noisy full sample qualitative evaluation.png}}
-    \caption{Noisy full sample qualitative evaluation}
-    \label{fig:Noisy full sample qualitative evaluation}
-    \vspace{0.5cm}
-\end{figure}
+As explained in the first phase, the idea is to take one sample from the test dataset and visually compare the input and the output as shown in figure \ref{fig:Noisy full sample qualitative evaluation}.
 
 The difference with the first phase is that, instead of a pre-contrast acquisition, we now have a noisy full-sample acquisition that is used to enhance each individual acquisition.
 
@@ -1549,16 +1362,7 @@ In this work, all models are therefore trained under a fixed VRAM constraint of 
 
 For each model, boxplots were used to show the distribution of the test outputs across three different metrics (PSNR, RMSE, SSIM). 
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{\detokenize{image/Boxplot quantitative result.png}}
-    \caption{Boxplot quantitative result}
-    \label{fig:Boxplot quantitative result (PSNR)}
-    \vspace{0.5cm}
-\end{figure}
-
-In orange we can see the mean PSNR of the output values for each network, and in green the median PSNR of the output values for each network.
+In Figure \ref{fig:Boxplot quantitative result} we can see the mean PSNR of the output values for each network, and in green the median PSNR of the output values for each network.
 Under each model name, two additional metrics are reported: the FLOPs and the number of parameters.
 
 \begin{itemize}
@@ -1589,16 +1393,7 @@ A higher variability indicates that the model's performance is less consistent, 
 As explained above, when comparing different model architectures, it is important to evaluate their variability across multiple random seeds.
 Indeed, high variability across seeds increases the uncertainty of the reported performance, making it difficult to accurately assess the true behavior of a model.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Difference variability 10 seeds.png}
-    \caption{Model variability}
-    \label{fig:Model variability}
-    \vspace{0.5cm}
-\end{figure}
-
-This figure illustrates the variability of the network performance across 10 different random seeds using the PSNR, SSIM and RMSE metrics. 
+This Figure \ref{fig:Model variability} illustrates the variability of the network performance across 10 different random seeds using the PSNR, SSIM and RMSE metrics. 
 Each boxplot represents the distribution of all the average PSNR obtained for a given seed. 
 The red band inside each boxplot corresponds to the 95\% confidence interval of the true mean PSNR.
 This confidence interval is computed from the standard deviation across the 10 seeds. 
@@ -1653,94 +1448,49 @@ The ideal reconstruction corresponds to the identity line ($y=x$), meaning that 
 
 By comparing the regression lines of the different models with the identity line, it is possible to assess which model most accurately reproduces the true contrast enhancement.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Quantitative relative enhancement.png}
-    \caption{Quantitative relative enhancement}
-    \label{fig:Quantitative relative enhancement}
-    \vspace{0.5cm}
-\end{figure}
-
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Quantitative contrast ratio.png}
-    \caption{Quantitative contrast ratio}
-    \label{fig:Quantitative contrast ratio}
-    \vspace{0.5cm}
-\end{figure}
-
-These figures show, for the relative enhancement and the contrast ratio, the different linear regressions computed over all samples of the test dataset, each regression representing one network.
+These Figures \ref{fig:Quantitative relative enhancement} and \ref{fig:Quantitative contrast ratio} show, for the relative enhancement and the contrast ratio, the different linear regressions computed over all samples of the test dataset, each regression representing one network.
 All the networks are close to the identity line ($y=x$), which means that the contrast enhancement is close to the ground truth.
 The fact that all the linear regressions lie below the identity line means that all networks tend to underestimate the contrast.
-However, we observe that improving the contrast ratio is more challenging than improving the relative enhancement.
-This is expected because the relative enhancement depends only on the average contrast, whereas the contrast ratio depends on both the average contrast and the background intensity. 
-Therefore, the model must not only enhance the target contrast but also suppress or maintain a low background level, making the optimization of the contrast ratio more difficult.
+Although both metrics lead to similar conclusions regarding the ranking of the models, the contrast ratio shows smaller differences between models than the relative enhancement. 
+Since the contrast ratio also incorporates the background intensity, it is less sensitive to variations in the average signal intensity of the contrast region alone.
 
 However, to compare the performance of the networks for contrast enhancement, as done in the qualitative contrast evaluation, it is necessary to evaluate each model using 10 different random seeds.
-The goal was to evaluate the variability of the slope of each linear regression, and of the associated error, with respect to the ground truth.
+The goal was to evaluate the variability of the slope of each linear regression with respect to the ground truth, and the associated distribution for each linear regression.
+
 The ground truth has a slope of 1, since it corresponds to the line ($y=x$).
 For each seed, we computed the difference between the estimated slope and the ground truth slope.
 A slope closer to 1 indicates that the regression is closer to the ground truth, whereas a slope farther from 1 indicates a larger deviation.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Slope model variability for CR across 10 seeds.png}
-    \caption{Slope contrast ratio}
-    \label{fig:Slope contrast ratio}
-    \vspace{0.5cm}
-\end{figure}
+The first Figure \ref{fig:Slope contrast ratio} shows the variability of the slope over 10 seeds for the contrast ratio. 
+All networks exhibit a similar variability across seeds. 
+Although UNetAttBlock achieves the highest average slope, the 95\% confidence intervals slightly overlap with those of the other models
 
-This plot shows the variability of the slope over 10 seeds for the contrast ratio. We can see that the best slope value is 0.86 and that it corresponds to UnetAttBlock.
+This Figure \ref{fig:slope relative enhancement} shows the variability of the slope across 10 seeds for the RE. 
+The highest average slope value is obtained by DenseU-Net, with a value of 0.85. 
+Compared with the CR, the RE metric presents lower slope values and larger variability across seeds, suggesting a weaker agreement between the reconstructed enhancement and the ground truth.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Slope model variability for RE across 10 seeds.png}
-    \caption{Slope relative enhancement}
-    \label{fig:slope relative enhancement}
-    \vspace{0.5cm}
-\end{figure}
+To further evaluate the consistency of the linear relationship, the dispersion around the regression line was analyzed. 
+For each seed, the mean squared error (MSE) between the estimated CR or RE values and their corresponding linear regression was computed. 
+A lower MSE indicates that the data points are closer to the regression line, reflecting a more consistent linear relationship, while a higher MSE corresponds to larger deviations.
 
-This plot shows the variability of the slope over 10 seeds for the relative enhancement. We can see that the best slope value is 0.86 and that it also corresponds to UnetAttBlock.
+This Figure \ref{fig:error contrast ratio} shows the MSE dispersion over 10 seeds for the CR. 
+All models achieve low MSE values, around 0.01, indicating that the reconstructed CR values remain closely aligned with the regression line. 
+This suggests that all architectures provide stable CR estimations with limited dispersion.
 
-The next goal was to evaluate the variability of the error of each linear regression.
-For each seed, we computed the difference between the estimated CR or RE and the linear regression.
-An error closer to 0 indicates that the dispersion error is weak, whereas a dispersion error close to 1 indicates a larger deviation.
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Error variability for CR across 10 seeds.png}
-    \caption{Contrast ratio dispersion error}
-    \label{fig:error contrast ratio}
-    \vspace{0.5cm}
-\end{figure}
-
-This plot shows the dispersion error over 10 seeds for the CR. We can see that each model has a low dispersion error.
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Error variability for RE across 10 seeds.png}
-    \caption{Relative enhancement dispersion error}
-    \label{fig:error relative enhancement}
-    \vspace{0.5cm}
-\end{figure}
-
-This plot shows the dispersion error over 10 seeds for the RE. We can see that each model has a low dispersion error.
+This Figure \ref{fig:error relative enhancement} presents the MSE variability for RE metric. 
+Although all models maintain relatively low dispersion errors, the MSE values are consistently higher than for the CR. 
+This indicates that the relative enhancement estimation is less stable and that the reconstructed enhancement curves exhibit larger deviations from the expected linear relationship.
 
 
 \paragraph{Conclusion on model selection}
 \mbox{}\\
 
-For contrast enhancement, it appears that almost all networks achieve acceptable results.
-We observe slightly better results for the UnetAttBlock in terms of both relative enhancement (RE) and contrast ratio (CR). 
-However, since the differences between the models are relatively small, we reach the same conclusion as in the full-sample analysis: the preferred model is the simplest one that achieves comparable performance. 
-In our case, this corresponds to the standard NoNew-Net architecture.
+Overall, the CR metric appears less challenging, as almost all networks achieve satisfactory performance with limited variability across seeds. 
+In comparison, the RE metric leads to lower slope values and higher variability, making the differences between architectures more difficult to interpret and preventing a clear ranking of the models.
+
+Although UNetAttBlock and DenseU-Net show slightly better performance for both RE and CR, the observed differences remain relatively small and are not sufficient to demonstrate a clear advantage over the other architectures. 
+Therefore, following the same criterion as in the full-sample analysis, the preferred model is the simplest architecture achieving comparable performance. 
+In this case, the standard NoNew-Net architecture is selected.
 
 \subsubsection{Other improvements} 
 
@@ -1820,22 +1570,14 @@ Testing each configuration at each undersampling factor also allows us to determ
 
 To validate our results, we reuse the quantitative tests that we had already implemented for the network comparison, except that this time we compare trajectory configurations rather than networks.
 As before, we perform two types of quantitative test: the first checks the full-sample enhancement, and the second checks only the contrast enhancement.
+Due to time constraints, the model could not be trained on 10 different seeds for this experiment. 
+Therefore, the results presented in this section are based on a single seed. 
+However, based on the previous model comparison, where the variability across seeds was shown to be limited, this choice is not expected to significantly impact the overall conclusions.
 
 \paragraph{Full-sample enhancement quantitative test}
 \mbox{}\\
 
-As we did for the network comparison, we use boxplots and train on 10 different seeds to assess the variability of the training at the same time.
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/trajectories quantitative test.png}
-    \caption{Trajectories quantitative test}
-    \label{fig:trajectories quantitative test}
-    \vspace{0.5cm}
-\end{figure}
-
-In this plot, we observe the boxplots for the three different configurations, which are placed next to each other.
+On this Figure \ref{fig:trajectories quantitative test}, we observe the boxplots for the three different configurations, which are placed next to each other.
 On the y-axis, we report the evaluation metrics, while the x-axis represents the different acquisition times.
 The objective is to analyze how the distribution of results evolves with acquisition time for each trajectory configuration.
 
@@ -1845,65 +1587,32 @@ This is particularly interesting because, if both acquisitions give similar resu
 
 \paragraph{Contrast enhancement quantitative test}
 \mbox{}\\
-In the same way as for the full-sample contrast enhancement, we apply the same quantitative analysis used in the network comparison, based on slope and error distribution differences across different seeds for the RE and CR.
+In the same way as for the full-sample contrast enhancement, we apply the same quantitative analysis used in the network comparison, based on slope and MSE distribution differences across different seeds for the RE and CR.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/trajectories CR slope.png}
-    \caption{trajectories CR slope}
-    \label{fig:trajectories CR slope}
-    \vspace{0.5cm}
-\end{figure}
-
-In this graph, we show the distribution of the slope for each trajectory configuration across 10 different seeds.
+In this Figure \ref{fig:trajectories CR slope}, we show the distribution of the slope for each trajectory.
 Once again, the acquisition factors of $1/4$ and $1/8$ produce very similar results.
-However, for the two highest acceleration factors, the metric degrades significantly, indicating that the network is no longer able to effectively enhance the contrast.
+However, for the two highest acceleration factors, the metric degrades significantly, indicating that the network is no longer able to effectively enhance the contrast which is normal with an acquisition of 2.4s.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/trajectories CR error.png}
-    \caption{Trajectories CR error}
-    \label{fig:trajectories CR error}
-    \vspace{0.5cm}
-\end{figure}
+This Figure \ref{fig:trajectories CR error} shows the distribution of the MSE between the linear regression and the measured data.
+The MSE are centered around zero, indicating that there are relatively few outliers.
+This suggests that all architectures provide stable CR estimations with limited dispersion.
 
-This graph shows the distribution of the residual errors between the linear regression and the measured data.
-The residuals are centered around zero, indicating that there are relatively few outliers.
-Since the residual errors remain small, the estimated slopes can be considered reliable.
+This Figure \ref{fig:trajectories RE slope} is similar to the previous slope distribution.
+Unlike the CR results, the different sampling configurations show more distinct behaviors. 
+For each acquisition time, the Phyllotaxis\_radial configuration consistently achieves higher slope values compared with the two other trajectories. 
+These results suggest that, for the RE metric, the phyllotaxis\_radial configuration provides more robust performance for the RE, with the acquisition factors 1/4, 1/8, and even 1/16 leading to comparable results.
 
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/trajectories slope RE.png}
-    \caption{Trajectories RE slope}
-    \label{fig:trajectories RE slope}
-    \vspace{0.5cm}
-\end{figure}
-
-This graph is similar to the previous slope distribution.
-However, it compares the RE metric instead of the CR metric.
-As with the CR metric, the RE slopes for acceleration factors of $1/4$ and $1/8$ are very similar.
-
-\begin{figure}[H]
-    \centering
-    \vspace{0.5cm}
-    \includegraphics[width=0.75\textwidth]{image/Trajectories relative enhancement config.png}
-    \caption{Trajectories RE error}
-    \label{fig:trajectories RE error}
-    \vspace{0.5cm}
-\end{figure}
-
-Finally, this graph shows the residual error associated with the RE slopes. We observe that the error increases rapidly as the acquisition becomes more accelerated.
+Finally, this Figure \ref{fig:trajectories RE error} shows the residual error associated with the RE slopes. 
+This indicates that the relative enhancement estimation is less stable and that the reconstructed enhancement curves exhibit larger deviations from the expected linear relationship exactly like the network comparaison.
 
 \subsubsection{Conclusion}
 
 The goal of this final phase was to evaluate three different acquisition configurations and determine how much the acquisition time could be reduced, depending on the configuration, while maintaining sufficient image quality and contrast enhancement.
-The three configurations achieve very similar performance, although the \texttt{decay\_cartesian} configuration appears to provide slightly better results, especially for highly accelerated acquisitions.
+The three configurations achieve very similar performance, although the \texttt{phyllotaxis\_radial} configuration appears to provide slightly better results, especially for the RE.
 Moreover, since the $1/4$ and $1/8$ acquisition factors produce very similar results from a physical perspective for each configuration, an acceleration factor of $1/8$ could be selected. 
 This corresponds to an acquisition time of approximately 24 seconds, which should be sufficient to monitor the evolution of the contrast over time.
-To further validate this choice, a radiologist could assess the minimum image quality required to reliably detect a lesion.
+Further experiments with 10 different seeds would still be required to confirm the robustness and reliability of these results.
+Moreover, to go even further validate this choice, a radiologist could assess the minimum image quality required to reliably detect a lesion.
 For the purposes of this project, we can therefore conclude that an acquisition time of approximately 24 seconds is an appropriate compromise between acquisition speed and image quality.
 
 \subsection{Difficulties Encountered}
@@ -1921,6 +1630,14 @@ Nevertheless, these correlations were not strong enough to draw definitive concl
 As a possible extension of this work, the \textit{MAMA-MIA} dataset also includes a neural network trained for lesion segmentation. 
 Evaluating this segmentation model on the enhanced images from our network would be an interesting way to assess whether the image enhancement preserves clinically relevant information. 
 In particular, it would allow us to determine whether the segmentation network is still able to accurately identify the lesion after the enhancement process.
+
+Moreover, comparing different architectures and sampling configurations remains a challenging task. 
+Drawing reliable conclusions about which model or configuration performs best requires considering several factors beyond the final performance metrics, including computational cost, number of training seeds, and result reproducibility.
+
+For instance, in the final phase of this study, the results were obtained using only a single seed due to time constraints. 
+Since neural networks can exhibit variability depending on their architecture and during the training, the observed performance may slightly change with additional training repetitions. 
+Even when using 10 different seeds, it may still be difficult to establish definitive conclusions.
+This is why model selection should not rely only on performance metrics but should also consider robustness, reproducibility, and computational efficiency.
 
 \section{Conclusion and Final Assessment}
 
@@ -1942,7 +1659,7 @@ The objective was to determine how much the acquisition time could be reduced wh
 The results demonstrated that the acquisition time could be reduced by a factor of 4 to 8 while preserving image quality comparable to the original acquisition.
 For the 10~mT Chipiron low-field MRI system, this corresponds to acquisition times between 24~s and 48~s, which could enable the monitoring of contrast dynamics in malignant lesions.
 
-Overall, this work demonstrates that deep learning can significantly reduce MRI acquisition time while maintaining image quality and dynamic contrast enhancement.
+Overall, this work demonstrates that deep learning can significantly reduce MRI acquisition time while maintaining image quality and accurate dynamic contrast enhancement.
 
 \subsection{Future Work and Continuation}
 Future work will involve collaborating with a radiologist to determine how much the MRI acquisition can be accelerated while still allowing a reliable clinical diagnosis.
@@ -1966,11 +1683,307 @@ The results provide the company with an initial validation of this approach and 
 The next step will be to validate these findings in a hospital environment using real patient data. 
 Clinical studies will be conducted to assess whether the proposed method can successfully reconstruct accelerated acquisitions and preserve the contrast dynamics required for clinical analysis.
 
-% what will they do after
 \subsection{Quality Assessment of the Work}
 
 \section{Appendices}
+
 \subsection{CV Before the Internship}
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Employees_Chart.png}
+    \caption{Employees Chart}
+    \label{fig:Employees Chart}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/example_curve.png}
+    \caption{Dynamic contrast enhancement curves illustrating benign and malignant lesion behaviors}
+    \label{fig:dynamic_curve}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Project summary.png}}
+    \caption{Neural network helping on gaining acquisition time}
+    \label{fig:Neural network helping on gaining acquisition time}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/training_pipeline.png}
+    \caption{Training pipeline representation}
+    \label{fig:Training_pipeline_representation}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Resolution_difference.png}
+    \caption{Resolution comparison}
+    \label{fig:Resolution_difference}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/decay_cartesian_mask.png}
+        \caption{2D slice of the Cartesian sampling mask}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/decay_cartesian_trajectories.png}
+        \caption{3D Cartesian trajectories}
+    \end{subfigure}
+    \caption{Visualization of the Cartesian sampling pattern}
+    \label{fig:cartesian_sampling}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.75\textwidth]{image/stack_of_radial_mask.png}
+        \caption{2D slice of the radial sampling mask}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.75\textwidth]{image/stack_of_radial_trajectories.png}
+        \caption{3D Radial trajectories}
+    \end{subfigure}
+    \caption{Visualization of the radial sampling pattern}
+    \label{fig:radial_sampling}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/phyllotaxis_radial_mask.png}
+    \caption{2D slice of the phyllotaxis-radial sampling mask}
+    \label{fig:phyllotaxis_radial_mask}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/decay_cartesian_example.png}
+    \caption{Undersampled \texttt{decay\_cartesian} images with and without noise}
+    \label{fig:decay_cartesian_example}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/stack_of_radial_example.png}
+    \caption{Undersampled \texttt{stack\_of\_radial} images with and without noise}
+    \label{fig:stack_of_radial_example}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/phyllotaxis_radial_example.png}
+    \caption{Undersampled \texttt{phyllotaxis\_radial} images with and without noise}
+    \label{fig:phyllotaxis_example}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/mask_ground_truth.png}
+    \caption{Mask Ground truth}
+    \label{fig:mask_ground_truth}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/segmentation_contrast_mask.png}
+    \caption{Segmentation contrast mask}
+    \label{fig:segmentation_contrast_mask}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Full sample qualitative evaluation.png}}
+    \caption{Full sample qualitative evaluation}
+    \label{fig:full_sample_qualitative_evaluation}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Dynamic contrast intensity.png}}
+    \caption{Dynamic contrast intensity}
+    \label{fig:dynamic_contrast_intensity}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Full sample contrast dynamic.png}}
+    \caption{Full sample contrast dynamic}
+    \label{fig:full_sample_contrast_dynamic}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Training pipeline full acquisition.png}
+    \caption{Training pipeline full acquisition}
+    \label{fig:Training pipeline full acquisition}
+    \vspace{0.5cm}
+\end{figure}
+
+% replace before-contrast by full sample acquisition
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Noisy full sample qualitative evaluation.png}}
+    \caption{Noisy full sample qualitative evaluation}
+    \label{fig:Noisy full sample qualitative evaluation}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{\detokenize{image/Boxplot quantitative result.png}}
+    \caption{Boxplot quantitative result}
+    \label{fig:Boxplot quantitative result}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Difference variability 10 seeds.png}
+    \caption{Model variability across 10 seeds}
+    \label{fig:Model variability}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Quantitative relative enhancement.png}
+    \caption{Quantitative relative enhancement}
+    \label{fig:Quantitative relative enhancement}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Quantitative contrast ratio.png}
+    \caption{Quantitative contrast ratio}
+    \label{fig:Quantitative contrast ratio}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Slope model variability for CR across 10 seeds.png}
+    \caption{Slope contrast ratio}
+    \label{fig:Slope contrast ratio}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/Slope model variability for RE across 10 seeds.png}
+    \caption{Slope relative enhancement}
+    \label{fig:slope relative enhancement}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/MSE variability for CR across 10 seeds.png}
+    \caption{Contrast ratio dispersion error}
+    \label{fig:error contrast ratio}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/MSE variability for RE across 10 seeds.png}
+    \caption{Relative enhancement dispersion error}
+    \label{fig:error relative enhancement}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/trajectories quantitative test.png}
+    \caption{Trajectories quantitative test}
+    \label{fig:trajectories quantitative test}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/trajectories CR slope.png}
+    \caption{trajectories CR slope}
+    \label{fig:trajectories CR slope}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/MSE variability for CR.png}
+    \caption{Trajectories CR error}
+    \label{fig:trajectories CR error}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/trajectories RE slope.png}
+    \caption{Trajectories RE slope}
+    \label{fig:trajectories RE slope}
+    \vspace{0.5cm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \vspace{0.5cm}
+    \includegraphics[width=0.75\textwidth]{image/MSE variability for RE.png}
+    \caption{Trajectories RE error}
+    \label{fig:trajectories RE error}
+    \vspace{0.5cm}
+\end{figure}
+
 \includepdf[pages=-]{image/CV English 2025_2026.pdf}
 \subsection{CV After the Internship (Final Year Engineering)}
 \includepdf[pages=-]{image/CV Paris (may 2026).pdf}
